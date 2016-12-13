@@ -4,27 +4,27 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var ColorFamily = require('./db.js');
 
-app.use(express.static("client"));
+app.use(express.static('client'));
 
-app.use(bodyParser.urlencoded({ extended: false}))
+app.use(bodyParser.urlencoded({ extended: false}));
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, "client/index.html"));
+  res.sendFile(path.join(__dirname, 'client/index.html'));
 });
 
 app.get('/api/colors', function(req, res) {
   ColorFamily.find(function(err, colorFamilies) {
     res.send(colorFamilies);
-  })
-})
+  });
+});
 
 app.post('/api/colors', function(req, res) {
 
   var error = false;
 
-  var isOk  = /(^#[0-9A-F]{6}$)/i;
+  var isOk = /(^#[0-9A-F]{6}$)/i;
   //validate that form dawwwwg
 
   //loop through each key in req.body
@@ -48,12 +48,12 @@ app.post('/api/colors', function(req, res) {
       color4: req.body.color4,
       color5: req.body.color5,
     }).save()
-    .then(res.sendStatus(201))
+    .then(res.sendStatus(201));
   }
-})
+});
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+  console.log('Example app listening on port 3000!');
 });
 
 // Seed data for new database if you just cloned the repo.

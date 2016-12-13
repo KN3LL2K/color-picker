@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import ColorFamilyView from './ColorFamilyView.js';
-import ColorFamilyInfoView from './ColorFamilyInfoView.js';
-import CreateYourOwn from './CreateYourOwn.js';
-import FilterBar from './FilterBar.js';
+import ColorFamilyView from './ColorFamilyView.jsx';
+import ColorFamilyInfoView from './ColorFamilyInfoView.jsx';
+import CreateYourOwn from './CreateYourOwn.jsx';
+import FilterBar from './FilterBar.jsx';
 import {Button, Grid} from 'react-bootstrap';
 
 
@@ -51,19 +51,22 @@ class App extends React.Component {
     this.state.allFamilies.forEach(function (obj) {
       var include = false;
       for (var key in obj) {
-        if (key.slice(0,5) === 'color') {
+        if (key.slice(0, 5) === 'color') {
           var colorRgb = this.hexToRGB(obj[key], 16);
           if (color === 'red') {
-            if (colorRgb.red > (1.5 * colorRgb.blue) && colorRgb.red > (1.5 * colorRgb.green))
+            if (colorRgb.red > (1.5 * colorRgb.blue) && colorRgb.red > (1.5 * colorRgb.green)) {
               include = true;
+            }
           }
           if (color === 'blue') {
-            if (colorRgb.blue > (1.5 * colorRgb.red) && colorRgb.blue > (1.5 * colorRgb.green))
+            if (colorRgb.blue > (1.5 * colorRgb.red) && colorRgb.blue > (1.5 * colorRgb.green)) {
               include = true;
+            }
           }
           if (color === 'green') {
-            if (colorRgb.green > (1.5 * colorRgb.blue) && colorRgb.green > (1.5 * colorRgb.red))
+            if (colorRgb.green > (1.5 * colorRgb.blue) && colorRgb.green > (1.5 * colorRgb.red)) {
               include = true;
+            }
           }
           if (color === 'all') {
             include = true;
@@ -71,9 +74,9 @@ class App extends React.Component {
         }
       }
       if (include === true) {
-        filteredColorFamilies.push(obj)
+        filteredColorFamilies.push(obj);
       }
-    }.bind(this))
+    }.bind(this));
     this.setState({
       colorFamilies: filteredColorFamilies
     });
@@ -100,7 +103,7 @@ class App extends React.Component {
       sidebarClass: 'app-sidebar',
       appClass: 'app-main'
     });
-    console.log('toggle on')
+    console.log('toggle on');
   }
 
   toggleSidebarOff() {
@@ -108,7 +111,7 @@ class App extends React.Component {
       sidebarClass: 'app-sidebar-hidden',
       appClass: 'app-main-full'
     });
-    console.log('toggle off')
+    console.log('toggle off');
 
   }
 

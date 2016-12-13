@@ -1,6 +1,6 @@
 import React from 'react';
 import {Col} from 'react-bootstrap';
-import ColorFamily from './ColorFamily.js';
+import ColorFamily from './ColorFamily.jsx';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 class ColorFamilySingle extends React.Component {
@@ -39,7 +39,7 @@ class ColorFamilySingle extends React.Component {
       }
     };
     if (this.props.hover) {
-      styles.background.boxShadow = '-3px 0 10px'
+      styles.background.boxShadow = '-3px 0 10px';
     }
     return (
       <div>
@@ -53,7 +53,7 @@ class ColorFamilySingle extends React.Component {
         </Col>
       )}
       </div>
-    )
+    );
   }
 }
 
