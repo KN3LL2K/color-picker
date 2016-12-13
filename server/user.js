@@ -1,9 +1,7 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/colorPicker');
-
 userSchema = mongoose.Schema({
   //Hex color codes only!!
   username: String,
+  password: String,
   email: String,
   likes: [],
   saved: [],

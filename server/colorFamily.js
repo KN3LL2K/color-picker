@@ -1,6 +1,3 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/colorPicker');
-
 colorFamilySchema = mongoose.Schema({
   //Hex color codes only!!
   primary: String,
