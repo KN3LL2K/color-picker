@@ -1,3 +1,5 @@
+var mongoose = require('mongoose');
+
 userSchema = mongoose.Schema({
   //Hex color codes only!!
   username: String,
@@ -8,6 +10,10 @@ userSchema = mongoose.Schema({
 });
 
 var user = mongoose.model('User', userSchema);
+
+// user.methods.validPassword = function(cb) {
+//   return this.model('Animal').find({ type: this.type }, cb);
+// };
 
 module.exports = userSchema;
 
