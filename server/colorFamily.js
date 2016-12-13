@@ -1,3 +1,5 @@
+var mongoose = require('mongoose');
+
 colorFamilySchema = mongoose.Schema({
   //Hex color codes only!!
   primary: String,
