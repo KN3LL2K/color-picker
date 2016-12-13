@@ -1,7 +1,7 @@
 import React from 'react';
 import {Row, Col, Grid} from 'react-bootstrap';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import ColorFamilySingle from './ColorFamilySingle.js';
+import ColorFamilySingle from './ColorFamilySingle.jsx';
 
 
 class ColorFamily extends React.Component {
@@ -15,7 +15,7 @@ class ColorFamily extends React.Component {
   }
 
   toggleHover() {
-    this.setState({hover: !this.state.hover})
+    this.setState({hover: !this.state.hover});
   }
 
   getFamilyColors() {
@@ -36,17 +36,17 @@ class ColorFamily extends React.Component {
   render() {
     var styles = {
       rowStyle: {
-        padding: "10px",
+        padding: '10px',
         height: 'px'
       }
-    }
+    };
     return (
       <Row style={styles.rowStyle} onClick={this.onClickHandler} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} >
         {this.getFamilyColors().map(function(color, index) {
           return <ColorFamilySingle hover={this.state.hover} color={color} key={index} index={index}/>
         }.bind(this))}
       </Row>
-    )
+    );
   }
 
 }

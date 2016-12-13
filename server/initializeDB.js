@@ -17,6 +17,6 @@ var init = function() {
       color5: currentFamily[4]
     }).save();
   }
-}
+};
 
 init();

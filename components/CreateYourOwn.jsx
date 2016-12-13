@@ -1,5 +1,5 @@
 import React from 'react';
-import ColorInfoView from './ColorInfoView';
+import ColorInfoView from './ColorInfoView.jsx';
 import {Row, Col, Grid} from 'react-bootstrap';
 import $ from 'jquery';
 
@@ -15,22 +15,22 @@ class CreateYourOwn extends React.Component {
       color5: '',
     };
 
-    this.handleChange=this.handleChange.bind(this);
-    this.handleSubmit=this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  
+
   handleChange(key) {
     return function (e) {
       var state = {};
       state[key] = e.target.value;
       this.setState(state);
-    }.bind(this)
+    }.bind(this);
   }
 
   handleSubmit(event) {
 
-    console.log(event)
+    console.log(event);
 
     $.ajax({
       method: 'POST',
@@ -43,7 +43,7 @@ class CreateYourOwn extends React.Component {
       error: function (error) {
         console.log('error', error);
       }
-    })
+    });
   }
 
   render() {
@@ -84,12 +84,12 @@ class CreateYourOwn extends React.Component {
         </div>
 
       </form>
-    )
+    );
   }
 }
 
 module.exports = CreateYourOwn;
 
-        {/*{this.convertHexToRGB().map(function(color, index) {
-          return <ColorInfoView color={color} key={index} index={index}/>
-        })}*/}
+/*{this.convertHexToRGB().map(function(color, index) {
+  return <ColorInfoView color={color} key={index} index={index}/>
+})}*/

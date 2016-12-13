@@ -4,9 +4,9 @@ Many app developers lack the artistic savvy to create an aesthetically pleasing 
 
 ## Team
 
-  - __Product Owner__: Ethan Harry
-  - __Scrum Master__: Graham Perich
-  - __Development Team Members__: Ethan Harry, Graham Perich, Vinh Vu, Steve Graves
+  - __Product Owner__: Bruce Paul
+  - __Scrum Master__: Zack Winchell
+  - __Development Team Members__: Bruce Paul, Zack Winchell, Harry Bellenie
 
 ## Table of Contents
 

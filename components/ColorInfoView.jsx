@@ -11,7 +11,7 @@ class ColorInfoView extends React.Component {
       copied: false,
       toolTipText: '',
       type: ''
-    }
+    };
   }
   hexToRGB(hex) {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -22,7 +22,7 @@ class ColorInfoView extends React.Component {
     } : null;
   }
   onCopyHandler(copyVal) {
-    console.log(copyVal)
+    console.log(copyVal);
     var type = '';
     if (copyVal[0] === '#') {
       type = 'hex';
@@ -64,7 +64,7 @@ class ColorInfoView extends React.Component {
         position: 'relative',
         paddingBottom: '20px'
       }
-    }
+    };
     if (this.state.type === 'hex') {
       styles.toolTip.top = '-17px';
       styles.toolTip.left = '-20px';
@@ -94,7 +94,7 @@ class ColorInfoView extends React.Component {
           </CopyToClipboard>
         </Col>
       </Row>
-    )
+    );
   }
 
 
