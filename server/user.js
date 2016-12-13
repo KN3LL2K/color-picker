@@ -11,9 +11,9 @@ userSchema = mongoose.Schema({
 
 var user = mongoose.model('User', userSchema);
 
-user.methods.is = function(cb) {
-  return this.model('Animal').find({ type: this.type }, cb);
-};
+// user.methods.validPassword = function(cb) {
+//   return this.model('Animal').find({ type: this.type }, cb);
+// };
 
 module.exports = userSchema;
 
