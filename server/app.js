@@ -2,7 +2,9 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
-var ColorFamily = require('./db.js');
+
+var ColorFamily = require('./colorFamily.js');
+var User = require('./user.js');
 
 app.use(express.static('client'));
 
@@ -38,15 +40,13 @@ app.post('/api/colors', function(req, res) {
     }
   }
 
-
-
   if (!error) {
     new ColorFamily ({
-      color1: req.body.color1,
-      color2: req.body.color2,
-      color3: req.body.color3,
-      color4: req.body.color4,
-      color5: req.body.color5,
+      primary: req.body.color1,
+      secondary1: req.body.color2,
+      secondary2: req.body.color3,
+      tertiary1: req.body.color4,
+      tertiary2: req.body.color5,
     }).save()
     .then(res.sendStatus(201));
   }
@@ -73,3 +73,8 @@ app.listen(3000, function () {
 //     color5: currentFamily[4]
 //   }).save();
 // }
+
+
+// TODO
+// add api routes for user
+// user auth
