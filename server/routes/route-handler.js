@@ -1,5 +1,5 @@
 var util = require('../lib/util.js');
-
+var color = require('../lib/colorHelpers.js');
 var ColorFamily = require('../colorFamily.js');
 var User = require('../user.js');
 
@@ -10,6 +10,17 @@ module.exports = {
     ColorFamily.find(function(err, colorFamilies) {
       res.send(colorFamilies);
     });
+  },
+  createColorSwatch: function(req, res) {
+    var seed = req.body.seed;
+    var swatches = {
+      complementary: color.complementaryPalette(seed),
+      splitComplementary: color.splitCPalette(seed),
+      analagous: color.analagousPalette(seed),
+      triad: color.triadPalette(seed),
+      shades: color.shadesPalette(seed)
+    };
+    res.send(swatches);
   },
   saveColor: function(req, res) {
     var error = false;

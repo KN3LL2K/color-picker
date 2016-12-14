@@ -145,7 +145,7 @@ var shade1 = 0.3;
 var shade2 = 0.6;
 
 
-var complementaryPalette = function(pri) {
+module.exports.complementaryPalette = function(pri) {
   priHsl = hexToHsl(pri);
   var sec1, sec2, tert1, tert2;
   sec2 = calcComplementary(priHsl);
@@ -156,9 +156,9 @@ var complementaryPalette = function(pri) {
   return {primary: pri, secondary1: hslToHex(sec1), secondary2: hslToHex(sec2), tertiary1: hslToHex(tert1), tertiary2: hslToHex(tert2)};
 };
 
-console.log('complementary', complementaryPalette('#DA5252'));
+// console.log('complementary', complementaryPalette('#DA5252'));
 
-var analagousPalette = function(pri) {
+module.exports.analagousPalette = function(pri) {
   priHsl = hexToHsl(pri);
   var sec1, sec2, tert1, tert2;
   sec1 = calcAnalagous(priHsl, angle);
@@ -169,9 +169,9 @@ var analagousPalette = function(pri) {
   return {primary: pri, secondary1: hslToHex(sec1), secondary2: hslToHex(sec2), tertiary1: hslToHex(tert1), tertiary2: hslToHex(tert2)};
 };
 
-console.log('analagous', analagousPalette('#DA5252'));
+// console.log('analagous', analagousPalette('#DA5252'));
 
-var splitCPalette = function(pri) {
+module.exports.splitCPalette = function(pri) {
   priHsl = hexToHsl(pri);
   var sec1, sec2, tert1, tert2;
   var temp = calcComplementary(priHsl);
@@ -183,9 +183,9 @@ var splitCPalette = function(pri) {
   return {primary: pri, secondary1: hslToHex(sec1), secondary2: hslToHex(sec2), tertiary1: hslToHex(tert1), tertiary2: hslToHex(tert2)};
 };
 
-console.log('split complementary', splitCPalette('#DA5252'));
+// console.log('split complementary', splitCPalette('#DA5252'));
 
-var triadPalette = function(pri) {
+module.exports.triadPalette = function(pri) {
   priHsl = hexToHsl(pri);
   var sec1, sec2, tert1, tert2;
   var temp = calcComplementary(priHsl);
@@ -197,9 +197,9 @@ var triadPalette = function(pri) {
   return {primary: pri, secondary1: hslToHex(sec1), secondary2: hslToHex(sec2), tertiary1: hslToHex(tert1), tertiary2: hslToHex(tert2)};
 };
 
-console.log('triad', triadPalette('#DA5252'));
+// console.log('triad', triadPalette('#DA5252'));
 
-var shadesPalette = function(pri) {
+module.exports.shadesPalette = function(pri) {
   priHsl = hexToHsl(pri);
   var sec1, sec2, tert1, tert2;
   sec1 = calcShade(priHsl, tint1);
@@ -210,7 +210,7 @@ var shadesPalette = function(pri) {
   return {primary: pri, secondary1: hslToHex(sec1), secondary2: hslToHex(sec2), tertiary1: hslToHex(tert1), tertiary2: hslToHex(tert2)};
 };
 
-console.log('shades', shadesPalette('#DA5252'));
+// console.log('shades', shadesPalette('#DA5252'));
 
 
 
