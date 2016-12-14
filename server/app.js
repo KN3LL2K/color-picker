@@ -81,6 +81,10 @@ app.post('/api/colors', util.isAuth, route.saveColor);
 
 app.put('/api/colors', util.isAuth, route.updateColor);
 
+app.post('/api/colors/:colorId/like', util.isAuth, route.userLikeColor);
+
+app.post('/api/colors/:colorId/save', util.isAuth, route.userSaveColor);
+
 app.post('/api/colors/create', route.createColorSwatch);
 
 app.get('/api/users', route.getUsers);

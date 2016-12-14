@@ -2,8 +2,11 @@ var bcrypt = require('bcrypt-nodejs');
 
 var util = require('../lib/util.js');
 var color = require('../lib/colorHelpers.js');
+
 var ColorFamily = require('../colorFamily.js');
 var User = require('../user.js');
+var ColorLikes = require('../colorLikes.js');
+var ColorSaves = require('../colorSaves.js');
 
 module.exports = {
   checkAuth: function(req, res) {
@@ -11,6 +14,8 @@ module.exports = {
   },
   getColors: function(req, res) {
     ColorFamily.find(function(err, colorFamilies) {
+      // check if user is logged in
+        // iterate over colorFamilies and add isLiked property to ones that have been liked by user
       res.send(colorFamilies);
     });
   },
@@ -70,7 +75,7 @@ module.exports = {
       }
     });
   },
-  updateColor: function() {
+  updateColor: function(req, res) {
     var error = false;
 
     var isOk = /(^#[0-9A-F]{6}$)/i;
@@ -96,6 +101,86 @@ module.exports = {
         res.sendStatus(201);
       });
     }
+  },
+  userLikeColor: function(req, res) {
+    var colorId = req.params.colorId;
+    var userId = req.user._id;
+    ColorFamily.findOne({_id: colorId}, function (err, color) {
+      if (err) {
+        console.log(err);
+        return done(err);
+      }
+      if (color) {
+        ColorLikes.findOne({colorId: colorId, userId: userId}, function(err, isLiked) {
+          if (err) {
+            console.log(err);
+            return done(err);
+          }
+          if ( isLiked ) {
+            ColorLikes.findOneAndRemove({colorId: colorId, userId: userId}, function(err) {
+              if (err) {
+                console.log('err in removing colorLikes', err);
+                return handleError(err);
+              } else {
+                console.log('relationship removed');
+                res.json(color);
+              }
+            });
+          } else {
+            var newRelationship = new ColorLikes({colorId: colorId, userId: userId});
+            newRelationship.save(function (err) {
+              if (err) {
+                console.log('err in saving colorlike');
+                return handleError(err);
+              } else {
+                console.log('new colorlike');
+                res.json(color);
+              }
+            });
+          }
+        });
+      }
+    });
+  },
+  userSaveColor: function(req, res) {
+    var colorId = req.params.colorId;
+    var userId = req.user._id;
+    ColorFamily.findOne({_id: colorId}, function (err, color) {
+      if (err) {
+        console.log(err);
+        return done(err);
+      }
+      if (color) {
+        ColorSaves.findOne({colorId: colorId, userId: userId}, function(err, isSaved) {
+          if (err) {
+            console.log(err);
+            return done(err);
+          }
+          if ( isSaved ) {
+            ColorSaves.findOneAndRemove({colorId: colorId, userId: userId}, function(err) {
+              if (err) {
+                console.log('err in removing colorLikes', err);
+                return handleError(err);
+              } else {
+                console.log('relationship removed', color);
+                res.json(color);
+              }
+            });
+          } else {
+            var newRelationship = new ColorSaves({colorId: colorId, userId: userId});
+            newRelationship.save(function (err) {
+              if (err) {
+                console.log('err in saving colorsve');
+                return handleError(err);
+              } else {
+                console.log('new colorsave', color);
+                res.json(color);
+              }
+            });
+          }
+        });
+      }
+    });
   },
   getUsers: function(req, res) {
     User.find({}, function(err, users) {

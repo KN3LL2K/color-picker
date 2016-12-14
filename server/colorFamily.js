@@ -12,10 +12,9 @@ colorFamilySchema = mongoose.Schema({
   },
   //Establish a baseline for copys/popularity
   copyCount: {type: Number, default: 0},
-  likes: {type: Number, default: 0},
   tags: [{type: String}],
   userId: String,
-  parent: {type: Number, default: null}
+  parent: {type: Number, default: null},
 });
 
 var ColorFamily = mongoose.model('ColorFamily', colorFamilySchema);
