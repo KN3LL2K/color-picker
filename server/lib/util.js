@@ -12,7 +12,6 @@ exports.isValidPassword = function(username, password, cb) {
   User.findOne({ username: username }, function (err, user) {
     bcrypt.compare(password, user.password, function(err, res) {
       if ( err ) {
-        console.log('invalid pw');
         cb(false);
       } else {
         cb(res);
