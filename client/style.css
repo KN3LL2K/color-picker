@@ -100,3 +100,8 @@ body {
   transition: opacity .6s ease-in;
 }
 
+@media (min-width: 768px) {
+  .navbar {
+    border-radius: 0px;
+  }
+}

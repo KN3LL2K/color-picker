@@ -3,7 +3,7 @@ var path = require('path');
 module.exports = {
   entry: './components/index.jsx',
   output: {
-    path: path.resolve(__dirname, 'client/dist'),
+    path: path.resolve(__dirname, 'client'),
     filename: 'bundle.js'
   },
   module: {
@@ -28,4 +28,5 @@ module.exports = {
       path.join(__dirname, 'node_modules'),
     ],
   },
+  devtool: '#inline-source-map'
 };

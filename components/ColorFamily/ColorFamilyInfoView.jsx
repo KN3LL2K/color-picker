@@ -1,9 +1,10 @@
 import React from 'react';
-import ColorInfoView from './ColorInfoView.jsx';
+import ColorInfoView from '../ColorInfoView.jsx';
 import {Panel, Button, Row, Col, Grid} from 'react-bootstrap';
 
 
 var hexToRGB = function(hex) {
+  debugger;
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result ? {
     r: parseInt(result[1], 16),
@@ -19,12 +20,13 @@ class ColorFamilyInfoView extends React.Component {
 
   convertHexToRGB() {
     var objArr = [];
-    for (var key in this.props.currentFamily) {
+    var colors = this.props.currentFamily.colors
+    for (var key in colors) {
       if (key.match(/^color./)) {
         var newObj = {};
-        var rgbObj = hexToRGB(this.props.currentFamily[key]);
+        var rgbObj = hexToRGB(colors[key]);
         var rgb = 'rgb(' + rgbObj.r + ', ' + rgbObj.g + ', ' + rgbObj.b + ')';
-        var newObj = {hex: this.props.currentFamily[key], rgb: rgb};
+        var newObj = {hex: colors[key], rgb: rgb};
         objArr.push(newObj);
       }
     }
@@ -32,57 +34,55 @@ class ColorFamilyInfoView extends React.Component {
   }
 
   render() {
-    console.log(this.props.currentFamily);
-
     var styles = {
       borderColor1: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: this.props.currentFamily.color1
+        borderColor: this.props.currentFamily.primary
       },
       bgColor1: {
         margin: '1px',
-        backgroundColor: this.props.currentFamily.color1
+        backgroundColor: this.props.currentFamily.primary
       },
 
       borderColor2: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: this.props.currentFamily.color2
+        borderColor: this.props.currentFamily.secondary1
       },
       bgColor2: {
         margin: '1px',
-        backgroundColor: this.props.currentFamily.color2
+        backgroundColor: this.props.currentFamily.secondary1
       },
 
       borderColor3: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: this.props.currentFamily.color3
+        borderColor: this.props.currentFamily.secondary2
       },
       bgColor3: {
         margin: '1px',
-        backgroundColor: this.props.currentFamily.color3
+        backgroundColor: this.props.currentFamily.secondary2
       },
 
       borderColor4: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: this.props.currentFamily.color4
+        borderColor: this.props.currentFamily.tertiary1
       },
       bgColor4: {
         margin: '1px',
-        backgroundColor: this.props.currentFamily.color4
+        backgroundColor: this.props.currentFamily.tertiary1
       },
 
       borderColor5: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: this.props.currentFamily.color5
+        borderColor: this.props.currentFamily.tertiary2
       },
       bgColor5: {
         margin: '1px',
-        backgroundColor: this.props.currentFamily.color5
+        backgroundColor: this.props.currentFamily.tertiary2
       }
     };
 
