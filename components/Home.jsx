@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import ColorFamilyView from './ColorFamilyView.jsx';
-import ColorFamilyInfoView from './ColorFamilyInfoView.jsx';
+import ColorFamilyView from './ColorFamily/ColorFamilyView.jsx';
+import ColorFamilyInfoView from './ColorFamily/ColorFamilyInfoView.jsx';
 import CreateYourOwn from './CreateYourOwn.jsx';
 import FilterBar from './FilterBar.jsx';
 import {Button, Grid} from 'react-bootstrap';

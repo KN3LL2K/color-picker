@@ -1,5 +1,5 @@
 import React from 'react';
-import ColorInfoView from './ColorInfoView.jsx';
+import ColorInfoView from '../ColorInfoView.jsx';
 import {Panel, Button, Row, Col, Grid} from 'react-bootstrap';
 
 

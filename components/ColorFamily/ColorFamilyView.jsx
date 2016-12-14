@@ -1,7 +1,7 @@
 import React from 'react';
 import ColorFamily from './ColorFamily.jsx';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import FilterBar from './FilterBar.jsx';
+import FilterBar from '../FilterBar.jsx';
 import {Jumbotron, Button} from 'react-bootstrap';
 
 
