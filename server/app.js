@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var bcrypt = require('bcrypt-nodejs');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -18,24 +19,26 @@ var User = require('./user.js');
 
 var util = require('./lib/util.js');
 
+app.use(express.static('client'));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true}));
+
 // PASSPORT MIDDLEWARE
 app.use(session({secret: 'beanie boyz', resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static('client'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}));
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'client/index.html'));
 });
 
 // for testing right now
-app.get('/restricted',
+app.get('/checkAuth',
   util.isAuth,
   function (req, res) {
-    res.end('restricted path');
+    // res.redirect('/');
   }
 );
 
@@ -95,6 +98,7 @@ passport.use(new LocalStrategy(
         return done(null, false, { message: 'Incorrect username.' });
       }
       util.isValidPassword(username, password, function(isMatch) {
+        console.log('in passport', isMatch, password);
         if (isMatch) {
           console.log('successful login');
           return done(null, user);
@@ -107,11 +111,16 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser(function (user, done) {
-  done(null, user);
+  console.log('serialize', user);
+  done(null, user._id);
 });
 
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
+passport.deserializeUser(function(id, done) {
+  console.log('deserialize', id);
+  User.findById(id, function(err, user) {
+    console.log('in mongo', err, user);
+    done(err, user);
+  });
 });
 
 //
@@ -124,7 +133,7 @@ app.post('/login',
     console.log('login');
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
-    res.redirect('/');
+    res.redirect('/restricted');
   }
 );
 
