@@ -19,6 +19,8 @@ var User = require('./user.js');
 
 var util = require('./lib/util.js');
 
+var route = require('./routes/route-handler.js');
+
 app.use(express.static('client'));
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -29,65 +31,8 @@ app.use(session({secret: 'beanie boyz', resave: true, saveUninitialized: true}))
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'client/index.html'));
-});
-
-// for testing right now
-app.get('/checkAuth',
-  util.isAuth,
-  function (req, res) {
-    // res.redirect('/');
-  }
-);
-
-// API ROUTES
-
-app.get('/api/colors', function(req, res) {
-  ColorFamily.find(function(err, colorFamilies) {
-    res.send(colorFamilies);
-  });
-});
-
-app.post('/api/colors', function(req, res) {
-
-  var error = false;
-
-  var isOk = /(^#[0-9A-F]{6}$)/i;
-  //validate that form dawwwwg
-
-  //loop through each key in req.body
-    //if req.body[key] = (form validation)
-  for (var key in req.body) {
-    if (!req.body[key].match(isOk)) {
-      error = true;
-    }
-    if (error) {
-      res.send('error -- invalid hex code');
-    }
-  }
-
-  if (!error) {
-    new ColorFamily ({
-      primary: req.body.color1,
-      secondary1: req.body.color2,
-      secondary2: req.body.color3,
-      tertiary1: req.body.color4,
-      tertiary2: req.body.color5,
-    }).save()
-    .then(res.sendStatus(201));
-  }
-});
-
-app.get('/api/users', function(req, res) {
-  User.find({}, function(err, users) {
-    res.send(users);
-  });
-});
-
 //
-// passport
+// PASSPORT
 //
 
 passport.use(new LocalStrategy(
@@ -124,42 +69,38 @@ passport.deserializeUser(function(id, done) {
 });
 
 //
+// CLIENT ROUTES
+//
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'client/index.html'));
+});
+
+// for testing right now
+app.get('/checkAuth',
+  util.isAuth,
+  route.checkAuth
+);
+
+//
+// API ROUTES
+//
+
+app.get('/api/colors', route.getColors);
+
+app.post('/api/colors', route.saveColor);
+
+app.put('/api/colors', route.updateColor);
+
+app.get('/api/users', route.getUsers);
+
+//
 // USER ROUTES
 //
 
-app.post('/login',
-  passport.authenticate('local'),
-  function(req, res) {
-    console.log('login');
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    res.redirect('/restricted');
-  }
-);
+app.post('/login', passport.authenticate('local'), route.logIn);
 
-app.post('/signup', function(req, res) {
-  console.log('signup');
-  var username = req.body.username;
-  var plainText = req.body.password;
-
-  User.findOne({ username: username }, function (err, user) {
-    if (err) { return done(err); }
-    if (!user) {
-      bcrypt.hash(plainText, null, null, function(err, hash) {
-        if (err) {
-          throw err;
-        }
-        var newUser = new User({username: username, password: hash});
-        newUser.save(function (err) {
-          if (err) {
-            return handleError(err);
-          }
-          res.redirect('/');
-        });
-      });
-    }
-  });
-});
+app.post('/signup', route.signUp);
 
 //
 // START SERVER
@@ -188,8 +129,3 @@ app.listen(PORT, function () {
 //     tertiary2: currentFamily[4]
 //   }).save();
 // }
-
-
-// TODO
-// add api routes for user
-// user auth
