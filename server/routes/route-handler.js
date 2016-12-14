@@ -1,7 +1,7 @@
-var util = require('./lib/util.js');
+var util = require('../lib/util.js');
 
-var ColorFamily = require('./colorFamily.js');
-var User = require('./user.js');
+var ColorFamily = require('../colorFamily.js');
+var User = require('../user.js');
 
 module.exports = {
   checkAuth: function(req, res) {
@@ -69,7 +69,6 @@ module.exports = {
         if (err) {
           console.log('Something wrong when updating data!');
         }
-
         console.log(doc);
         res.sendStatus(201);
       });
@@ -82,13 +81,11 @@ module.exports = {
     });
   },
   logIn: function(req, res) {
-    console.log('login');
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
     res.redirect('/restricted');
   },
   signUp: function(req, res) {
-    console.log('signup');
     var username = req.body.username;
     var plainText = req.body.password;
 

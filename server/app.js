@@ -43,9 +43,7 @@ passport.use(new LocalStrategy(
         return done(null, false, { message: 'Incorrect username.' });
       }
       util.isValidPassword(username, password, function(isMatch) {
-        console.log('in passport', isMatch, password);
         if (isMatch) {
-          console.log('successful login');
           return done(null, user);
         } else {
           return done(null, false, {message: 'Incorrect password'});
@@ -56,14 +54,11 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser(function (user, done) {
-  console.log('serialize', user);
   done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
-  console.log('deserialize', id);
   User.findById(id, function(err, user) {
-    console.log('in mongo', err, user);
     done(err, user);
   });
 });
