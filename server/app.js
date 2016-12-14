@@ -38,7 +38,9 @@ app.use(passport.session());
 passport.use(new LocalStrategy(
   function(username, password, done) {
     User.findOne({ username: username }, function (err, user) {
-      if (err) { return done(err); }
+      if (err) {
+        return done(err);
+      }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
       }
@@ -83,11 +85,11 @@ app.get('/checkAuth',
 
 app.get('/api/colors', route.getColors);
 
-app.post('/api/colors', route.saveColor);
+app.post('/api/colors', util.isAuth, route.saveColor);
+
+app.put('/api/colors', util.isAuth, route.updateColor);
 
 app.post('/api/colors/create', route.createColorSwatch);
-
-app.put('/api/colors', route.updateColor);
 
 app.get('/api/users', route.getUsers);
 
@@ -96,6 +98,8 @@ app.get('/api/users', route.getUsers);
 //
 
 app.post('/login', passport.authenticate('local'), route.logIn);
+
+app.get('/logout', route.logOut);
 
 app.post('/signup', route.signUp);
 
@@ -119,10 +123,16 @@ app.listen(PORT, function () {
 // for (var i = 0; i < colorFamilies.length; i++) {
 //   var currentFamily = colorFamilies[i];
 //   new ColorFamily({
-//     primary: currentFamily[0],
-//     secondary1: currentFamily[1],
-//     secondary2: currentFamily[2],
-//     tertiary1: currentFamily[3],
-//     tertiary2: currentFamily[4]
+//     name: currentFamily[0],
+//     colors: {
+//       primary: currentFamily[0],
+//       secondary1: currentFamily[1],
+//       secondary2: currentFamily[2],
+//       tertiary1: currentFamily[3],
+//       tertiary2: currentFamily[4]
+//     },
+//     userId: 1324,
+//     tags: ['test'],
+//     parent: null,
 //   }).save();
 // }
