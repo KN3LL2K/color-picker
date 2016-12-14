@@ -127,27 +127,34 @@ var calcAnalagous = function(color, angle) {
 
 //Angle
 // degrees of sep for analagous & triad
-var angle = 30.0;
+var angle = 20.0;
 
 // helper to find shade or tint of color
 var calcShade = function(color, shade) {
-  return [color[0], color[1], color[2] * shade];
+  var lum = color[2] * shade;
+  if (lum > 100) {
+    lum = 100;
+  }
+  if (lum < 0) {
+    lum = 0;
+  }
+  return [color[0], color[1], lum];
 };
 
 //Tints
 // % brighter
-var tint1 = 1.4;
-var tint2 = 1.6;
+var tint1 = 1.2;
+var tint2 = 1.4;
 
 //Shades
 // % darker
-var shade1 = 0.3;
-var shade2 = 0.6;
+var shade1 = 0.7;
+var shade2 = 0.4;
 
 
 module.exports.complementaryPalette = function(pri) {
-  priHsl = hexToHsl(pri);
-  var sec1, sec2, tert1, tert2;
+  let priHsl = hexToHsl(pri);
+  let sec1, sec2, tert1, tert2;
   sec2 = calcComplementary(priHsl);
   sec1 = calcShade(priHsl, tint1);
   tert1 = calcShade(priHsl, shade1);
@@ -159,8 +166,8 @@ module.exports.complementaryPalette = function(pri) {
 // console.log('complementary', complementaryPalette('#DA5252'));
 
 module.exports.analagousPalette = function(pri) {
-  priHsl = hexToHsl(pri);
-  var sec1, sec2, tert1, tert2;
+  let priHsl = hexToHsl(pri);
+  let sec1, sec2, tert1, tert2;
   sec1 = calcAnalagous(priHsl, angle);
   sec2 = calcAnalagous(sec1, angle);
   tert1 = calcAnalagous(priHsl, -(angle));
@@ -172,9 +179,9 @@ module.exports.analagousPalette = function(pri) {
 // console.log('analagous', analagousPalette('#DA5252'));
 
 module.exports.splitCPalette = function(pri) {
-  priHsl = hexToHsl(pri);
-  var sec1, sec2, tert1, tert2;
-  var temp = calcComplementary(priHsl);
+  let priHsl = hexToHsl(pri);
+  let sec1, sec2, tert1, tert2;
+  let temp = calcComplementary(priHsl);
   sec1 = calcAnalagous(temp, angle);
   sec2 = calcAnalagous(temp, -(angle));
   tert1 = calcShade(sec1, shade1);
@@ -186,9 +193,9 @@ module.exports.splitCPalette = function(pri) {
 // console.log('split complementary', splitCPalette('#DA5252'));
 
 module.exports.triadPalette = function(pri) {
-  priHsl = hexToHsl(pri);
-  var sec1, sec2, tert1, tert2;
-  var temp = calcComplementary(priHsl);
+  let priHsl = hexToHsl(pri);
+  let sec1, sec2, tert1, tert2;
+  let temp = calcComplementary(priHsl);
   sec1 = calcAnalagous(temp, 120);
   sec2 = calcAnalagous(temp, -(120));
   tert1 = calcShade(sec1, shade1);
@@ -200,8 +207,8 @@ module.exports.triadPalette = function(pri) {
 // console.log('triad', triadPalette('#DA5252'));
 
 module.exports.shadesPalette = function(pri) {
-  priHsl = hexToHsl(pri);
-  var sec1, sec2, tert1, tert2;
+  let priHsl = hexToHsl(pri);
+  let sec1, sec2, tert1, tert2;
   sec1 = calcShade(priHsl, tint1);
   sec2 = calcShade(priHsl, tint2);
   tert1 = calcShade(priHsl, shade1);
@@ -209,6 +216,7 @@ module.exports.shadesPalette = function(pri) {
 
   return {primary: pri, secondary1: hslToHex(sec1), secondary2: hslToHex(sec2), tertiary1: hslToHex(tert1), tertiary2: hslToHex(tert2)};
 };
+
 
 // console.log('shades', shadesPalette('DA5252'));
 
