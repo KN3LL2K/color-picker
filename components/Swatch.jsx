@@ -20,6 +20,10 @@ class Swatch extends React.Component {
     this.setState({r: RGB[0], g: RGB[1], b: RGB[2]});
   }
 
+  // componentDidUpdate() {
+  //   this.setState({color: this.props.color});
+  // }
+
   _handleHexChange(e) {
     let newColor = e.target.value;
     this.setState({color: newColor});
@@ -83,8 +87,6 @@ class Swatch extends React.Component {
     return (
       <div className='container swatchEditor' style={{padding: 0}}>
           <div className='swatch' style={{backgroundColor: '#' + this.state.color}}>
-
-
           </div>
           <div className="input-group swatchinput">
             <span className="input-group-addon" id="basic-addon5">HEX: </span>
