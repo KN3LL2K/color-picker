@@ -85,6 +85,8 @@ app.get('/api/colors', route.getColors);
 
 app.post('/api/colors', route.saveColor);
 
+app.post('/api/colors/create', route.createColorSwatch);
+
 app.put('/api/colors', route.updateColor);
 
 app.get('/api/users', route.getUsers);
