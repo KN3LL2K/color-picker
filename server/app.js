@@ -6,7 +6,10 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/colorPicker');
+require('dotenv').config();
+
+const mongoURI = process.env.MLAB_URI || 'mongodb://localhost/colorPicker';
+mongoose.connect(mongoURI);
 
 var ColorFamily = require('./colorFamily.js');
 var User = require('./user.js');
@@ -81,8 +84,10 @@ app.post('/api/colors', function(req, res) {
   }
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, function () {
+  console.log(`Colorz.io listening on port ${3000}!`);
 });
 
 // Seed data for new database if you just cloned the repo.
@@ -95,11 +100,11 @@ app.listen(3000, function () {
 // for (var i = 0; i < colorFamilies.length; i++) {
 //   var currentFamily = colorFamilies[i];
 //   new ColorFamily({
-//     color1: currentFamily[0],
-//     color2: currentFamily[1],
-//     color3: currentFamily[2],
-//     color4: currentFamily[3],
-//     color5: currentFamily[4]
+//     primary: currentFamily[0],
+//     secondary1: currentFamily[1],
+//     secondary2: currentFamily[2],
+//     tertiary1: currentFamily[3],
+//     tertiary2: currentFamily[4]
 //   }).save();
 // }
 
