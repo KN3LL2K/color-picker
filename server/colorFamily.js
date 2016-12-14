@@ -8,7 +8,7 @@ colorFamilySchema = mongoose.Schema({
     secondary1: String,
     secondary2: String,
     tertiary1: String,
-    tertiary2: String,
+    tertiary2: String
   },
   //Establish a baseline for copys/popularity
   copyCount: {type: Number, default: 0},
