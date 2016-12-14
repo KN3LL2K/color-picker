@@ -119,10 +119,16 @@ app.listen(PORT, function () {
 // for (var i = 0; i < colorFamilies.length; i++) {
 //   var currentFamily = colorFamilies[i];
 //   new ColorFamily({
-//     primary: currentFamily[0],
-//     secondary1: currentFamily[1],
-//     secondary2: currentFamily[2],
-//     tertiary1: currentFamily[3],
-//     tertiary2: currentFamily[4]
+//     name: currentFamily[0],
+//     colors: {
+//       primary: currentFamily[0],
+//       secondary1: currentFamily[1],
+//       secondary2: currentFamily[2],
+//       tertiary1: currentFamily[3],
+//       tertiary2: currentFamily[4]
+//     },
+//     userId: 1324,
+//     tags: ['test'],
+//     parent: null,
 //   }).save();
 // }

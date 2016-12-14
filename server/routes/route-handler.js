@@ -23,40 +23,49 @@ module.exports = {
     res.send(swatches);
   },
   saveColor: function(req, res) {
-    var error = false;
+    ColorFamily.findOne({name: req.body.name}, function (err, user) {
+      if ( !user ) {
 
-    var isOk = /(^#[0-9A-F]{6}$)/i;
-    //validate that form dawwwwg
+        var error = false;
 
-    //loop through each key in req.body
-      //if req.body[key] = (form validation)
-    for (var key in req.body.color) {
-      if (!req.body.color[key].match(isOk)) {
-        error = true;
+        var isOk = /(^#[0-9A-F]{6}$)/i;
+        //validate that form dawwwwg
+
+        //loop through each key in req.body
+          //if req.body[key] = (form validation)
+        for (var key in req.body.color) {
+          if (!req.body.color[key].match(isOk)) {
+            error = true;
+          }
+          if (error) {
+            res.send('error -- invalid hex code');
+          }
+        }
+        var colorParent = null;
+        if ( req.body.parent !== null ) {
+          colorParent = req.body.parent;
+        }
+        console.log(req.body);
+        if (!error) {
+          new ColorFamily ({
+            name: req.body.name,
+            colors: {
+              primary: req.body.colors.primary,
+              secondary1: req.body.colors.secondary1,
+              secondary2: req.body.colors.secondary2,
+              tertiary1: req.body.colors.tertiary1,
+              tertiary2: req.body.colors.tertiary2
+            },
+            userId: req.body.userId,
+            tags: req.body.tags,
+            parent: colorParent,
+          }).save()
+          .then(res.sendStatus(201));
+        }
+      } else {
+        res.end('color name exists');
       }
-      if (error) {
-        res.send('error -- invalid hex code');
-      }
-    }
-    var colorParent = null;
-    if ( req.body.parent !== null ) {
-      colorParent = req.body.parent;
-    }
-
-    if (!error) {
-      new ColorFamily ({
-        name: req.body.name,
-        primary: req.body.color.primary,
-        secondary1: req.body.color.secondary1,
-        secondary2: req.body.color.secondary2,
-        tertiary1: req.body.color.tertiary1,
-        tertiary2: req.body.color.tertiary2,
-        userId: req.body.userId,
-        tags: req.body.tags,
-        parent: colorParent,
-      }).save()
-      .then(res.sendStatus(201));
-    }
+    });
   },
   updateColor: function() {
     var error = false;
