@@ -2,8 +2,10 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
+var bcrypt = require('bcrypt-nodejs');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var session = require('express-session');
 
 var mongoose = require('mongoose');
 require('dotenv').config();
@@ -14,39 +16,30 @@ mongoose.connect(mongoURI);
 var ColorFamily = require('./colorFamily.js');
 var User = require('./user.js');
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });
-  }
-));
+var util = require('./lib/util.js');
+
+// PASSPORT MIDDLEWARE
+app.use(session({secret: 'beanie boyz', resave: true, saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(express.static('client'));
-
-app.use(bodyParser.urlencoded({ extended: false}));
-
 app.use(bodyParser.json());
-
-app.post('/login',
-  passport.authenticate('local'),
-  function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    res.redirect('/profile/' + req.user.username);
-  }
-);
+app.use(bodyParser.urlencoded({ extended: true}));
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'client/index.html'));
 });
+
+// for testing right now
+app.get('/restricted',
+  util.isAuth,
+  function (req, res) {
+    res.end('restricted path');
+  }
+);
+
+// API ROUTES
 
 app.get('/api/colors', function(req, res) {
   ColorFamily.find(function(err, colorFamilies) {
@@ -83,6 +76,85 @@ app.post('/api/colors', function(req, res) {
     .then(res.sendStatus(201));
   }
 });
+
+app.get('/api/users', function(req, res) {
+  User.find({}, function(err, users) {
+    res.send(users);
+  });
+});
+
+//
+// passport
+//
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      util.isValidPassword(username, password, function(isMatch) {
+        if (isMatch) {
+          console.log('successful login');
+          return done(null, user);
+        } else {
+          return done(null, false, {message: 'Incorrect password'});
+        }
+      });
+    });
+  }
+));
+
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+//
+// USER ROUTES
+//
+
+app.post('/login',
+  passport.authenticate('local'),
+  function(req, res) {
+    console.log('login');
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    res.redirect('/');
+  }
+);
+
+app.post('/signup', function(req, res) {
+  console.log('signup');
+  var username = req.body.username;
+  var plainText = req.body.password;
+
+  User.findOne({ username: username }, function (err, user) {
+    if (err) { return done(err); }
+    if (!user) {
+      bcrypt.hash(plainText, null, null, function(err, hash) {
+        if (err) {
+          throw err;
+        }
+        var newUser = new User({username: username, password: hash});
+        newUser.save(function (err) {
+          if (err) {
+            return handleError(err);
+          }
+          res.redirect('/');
+        });
+      });
+    }
+  });
+});
+
+//
+// START SERVER
+//
 
 const PORT = process.env.PORT || 3000;
 

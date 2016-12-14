@@ -9,13 +9,9 @@ userSchema = mongoose.Schema({
   saved: [],
 });
 
-var user = mongoose.model('User', userSchema);
+var User = mongoose.model('User', userSchema);
 
-// user.methods.validPassword = function(cb) {
-//   return this.model('Animal').find({ type: this.type }, cb);
-// };
-
-module.exports = userSchema;
+module.exports = User;
 
 // TODO
 // change colorFamilySchema
