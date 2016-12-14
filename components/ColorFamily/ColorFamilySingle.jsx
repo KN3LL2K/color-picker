@@ -8,6 +8,8 @@ class ColorFamilySingle extends React.Component {
     super(props);
   }
   hexToRGB(hex) {
+    // debugger;
+    console.log(hex);
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
       red: parseInt(result[1], 16),
@@ -16,15 +18,15 @@ class ColorFamilySingle extends React.Component {
     } : null;
   }
   render() {
-    var rgb = this.hexToRGB(this.props.color);
+    // var rgb = this.hexToRGB(this.props.color);
     let fontColor = null;
     //Functionality for hover on single color to show hex value, either light or dark
     //Not currently implemented but available in css file under .color-single
-    if (rgb.red > 127 || rgb.green > 127 || rgb.blue > 127) {
+    // if (rgb.red > 127 || rgb.green > 127 || rgb.blue > 127) {
       fontColor = '#000000';
-    } else {
-      fontColor = '#ffffff';
-    }
+    // } else {
+      // fontColor = '#ffffff';
+    // }
     var styles = {
       background: {
         backgroundColor: this.props.color,

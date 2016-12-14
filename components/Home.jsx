@@ -4,7 +4,6 @@ import $ from 'jquery';
 import ColorFamilyView from './ColorFamily/ColorFamilyView.jsx';
 import ColorFamilyInfoView from './ColorFamily/ColorFamilyInfoView.jsx';
 import CreateYourOwn from './CreateYourOwn.jsx';
-import FilterBar from './FilterBar.jsx';
 import {Button, Grid} from 'react-bootstrap';
 
 
@@ -15,7 +14,6 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentFilter: 'mostClicked',
       currentFamily: {},
       colorFamilies: [],
       allFamilies: [],
@@ -43,10 +41,6 @@ class Home extends React.Component {
   //Filter display based on navbar choices
   handleStateChange (color) {
     var filteredColorFamilies = [];
-
-    this.setState({
-      currentFilter: color,
-    });
 
     this.state.allFamilies.forEach(function (obj) {
       var include = false;
@@ -120,6 +114,7 @@ class Home extends React.Component {
     $.ajax({
       url: '/api/colors',
       success: function(data) {
+        debugger;
         this.setState({ colorFamilies: data });
         this.setState({ allFamilies: data });
       }.bind(this),
@@ -130,7 +125,6 @@ class Home extends React.Component {
   render() {
     return (
       <div className="app-body">
-        <FilterBar className="app-nav" handleStateChange={this.handleStateChange} currentFilter={this.state.currentFilter} toggleSubmit={this.toggleSubmitForm} />
         <div>
           <div className={this.state.appClass}>
             <div className={this.state.createClass}>

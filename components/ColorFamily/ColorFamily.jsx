@@ -19,6 +19,7 @@ class ColorFamily extends React.Component {
   }
 
   getFamilyColors() {
+    debugger;
     var result = [];
     for (var color in this.props.colorFamily) {
       if (color.match(/^color./)) {
