@@ -65,14 +65,6 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-//
-// CLIENT ROUTES
-//
-
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'client/index.html'));
-});
-
 // for testing right now
 app.get('/checkAuth',
   util.isAuth,
@@ -102,6 +94,15 @@ app.post('/login', passport.authenticate('local'), route.logIn);
 app.get('/logout', route.logOut);
 
 app.post('/signup', route.signUp);
+
+
+//
+// CLIENT ROUTES
+//
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../client/index.html'));
+});
 
 //
 // START SERVER

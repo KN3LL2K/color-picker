@@ -78,7 +78,7 @@ class Home extends React.Component {
 
   setCurrentFamily(familyData) {
     this.setState({
-      currentFamily: familyData
+      currentFamily: familyData.colors
     });
   }
 
@@ -114,7 +114,6 @@ class Home extends React.Component {
     $.ajax({
       url: '/api/colors',
       success: function(data) {
-        debugger;
         this.setState({ colorFamilies: data });
         this.setState({ allFamilies: data });
       }.bind(this),

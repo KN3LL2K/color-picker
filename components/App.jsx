@@ -1,5 +1,5 @@
 import React from 'react';
-import FilterBar from './FilterBar.jsx';
+import TopBar from './TopBar.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,8 +11,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <FilterBar className="app-nav"  />
-        {/*handleStateChange={this.handleStateChange} currentFilter={this.state.currentFilter} toggleSubmit={this.toggleSubmitForm}*/}
+        <TopBar className="app-nav"/>
         {this.props.children}
       </div>
     );

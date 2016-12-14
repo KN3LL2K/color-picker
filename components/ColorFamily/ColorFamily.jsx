@@ -19,12 +19,10 @@ class ColorFamily extends React.Component {
   }
 
   getFamilyColors() {
-    debugger;
     var result = [];
-    for (var color in this.props.colorFamily) {
-      if (color.match(/^color./)) {
-        result.push(this.props.colorFamily[color]);
-      }
+    var colors = this.props.colorFamily.colors
+    for (var key in colors) {
+      result.push(colors[key]);
     }
     return result;
   }
@@ -32,6 +30,12 @@ class ColorFamily extends React.Component {
   onClickHandler() {
     this.props.setCurrentFamily(this.props.colorFamily);
     this.props.toggleSidebarOn();
+  }
+
+  generateSingles() {
+    return this.getFamilyColors().map(function(color, index) {
+      return <ColorFamilySingle hover={this.state.hover} color={color} key={index} index={index}/>
+    }.bind(this))
   }
 
   render() {
@@ -43,9 +47,7 @@ class ColorFamily extends React.Component {
     };
     return (
       <Row style={styles.rowStyle} onClick={this.onClickHandler} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} >
-        {this.getFamilyColors().map(function(color, index) {
-          return <ColorFamilySingle hover={this.state.hover} color={color} key={index} index={index}/>
-        }.bind(this))}
+        {this.generateSingles()}
       </Row>
     );
   }
