@@ -8,11 +8,11 @@ class CreateYourOwn extends React.Component {
     super(props);
 
     this.state = {
-      color1: '',
-      color2: '',
-      color3: '',
-      color4: '',
-      color5: '',
+      primary: '',
+      seconday1: '',
+      secondary2: '',
+      tertiary1: '',
+      tertiary2: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -54,27 +54,27 @@ class CreateYourOwn extends React.Component {
 
         <div className="input-group">
           <span className="input-group-addon" id="basic-addon1">Color 1 </span>
-          <input type="text" className="form-control" placeholder="Hex code" aria-describedby="basic-addon1" value={this.state.color1} onChange={this.handleChange('color1')}></input>
+          <input type="text" className="form-control" placeholder="Hex code" aria-describedby="basic-addon1" value={this.state.primary} onChange={this.handleChange('primary')}></input>
         </div>
 
         <div className="input-group">
           <span className="input-group-addon" id="basic-addon2">Color 2 </span>
-          <input type="text" className="form-control" placeholder="Hex code" aria-describedby="basic-addon2" value={this.state.color2} onChange={this.handleChange('color2')}></input>
+          <input type="text" className="form-control" placeholder="Hex code" aria-describedby="basic-addon2" value={this.state.secondary1} onChange={this.handleChange('secondary1')}></input>
         </div>
 
         <div className="input-group">
           <span className="input-group-addon" id="basic-addon3">Color 3 </span>
-          <input type="text" className="form-control" placeholder="Hex code" aria-describedby="basic-addon3" value={this.state.color3} onChange={this.handleChange('color3')}></input>
+          <input type="text" className="form-control" placeholder="Hex code" aria-describedby="basic-addon3" value={this.state.secondary2} onChange={this.handleChange('secondary2')}></input>
         </div>
 
         <div className="input-group">
           <span className="input-group-addon" id="basic-addon4">Color 4 </span>
-          <input type="text" className="form-control" placeholder="Hex code" aria-describedby="basic-addon4" value={this.state.color4} onChange={this.handleChange('color4')}></input>
+          <input type="text" className="form-control" placeholder="Hex code" aria-describedby="basic-addon4" value={this.state.tertiary1} onChange={this.handleChange('tertiary1')}></input>
         </div>
 
         <div className="input-group">
           <span className="input-group-addon" id="basic-addon5">Color 5 </span>
-          <input type="text" className="form-control" placeholder="Hex code" aria-describedby="basic-addon5" value={this.state.color5} onChange={this.handleChange('color5')}></input>
+          <input type="text" className="form-control" placeholder="Hex code" aria-describedby="basic-addon5" value={this.state.tertiary2} onChange={this.handleChange('tertiary2')}></input>
         </div>
 
         <div className="input-group">

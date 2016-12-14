@@ -32,57 +32,57 @@ class ColorFamilyInfoView extends React.Component {
   }
 
   render() {
-    console.log(this.props.currentFamily);
+    // console.log(this.props.currentFamily);
 
     var styles = {
       borderColor1: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: this.props.currentFamily.color1
+        borderColor: this.props.currentFamily.primary
       },
       bgColor1: {
         margin: '1px',
-        backgroundColor: this.props.currentFamily.color1
+        backgroundColor: this.props.currentFamily.primary
       },
 
       borderColor2: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: this.props.currentFamily.color2
+        borderColor: this.props.currentFamily.secondary1
       },
       bgColor2: {
         margin: '1px',
-        backgroundColor: this.props.currentFamily.color2
+        backgroundColor: this.props.currentFamily.secondary1
       },
 
       borderColor3: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: this.props.currentFamily.color3
+        borderColor: this.props.currentFamily.secondary2
       },
       bgColor3: {
         margin: '1px',
-        backgroundColor: this.props.currentFamily.color3
+        backgroundColor: this.props.currentFamily.secondary2
       },
 
       borderColor4: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: this.props.currentFamily.color4
+        borderColor: this.props.currentFamily.tertiary1
       },
       bgColor4: {
         margin: '1px',
-        backgroundColor: this.props.currentFamily.color4
+        backgroundColor: this.props.currentFamily.tertiary1
       },
 
       borderColor5: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: this.props.currentFamily.color5
+        borderColor: this.props.currentFamily.tertiary2
       },
       bgColor5: {
         margin: '1px',
-        backgroundColor: this.props.currentFamily.color5
+        backgroundColor: this.props.currentFamily.tertiary2
       }
     };
 
