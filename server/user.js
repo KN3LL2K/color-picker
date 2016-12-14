@@ -9,24 +9,6 @@ userSchema = mongoose.Schema({
   saved: [],
 });
 
-var user = mongoose.model('User', userSchema);
+var User = mongoose.model('User', userSchema);
 
-// user.methods.validPassword = function(cb) {
-//   return this.model('Animal').find({ type: this.type }, cb);
-// };
-
-module.exports = userSchema;
-
-// TODO
-// change colorFamilySchema
-  // incorporate primary, secondary, tertiary
-  // add like count
-  // add tags
-  // add parent
-  // add userid
-// add userSchema
-  // userid
-  // username
-  // email
-  // liked colors
-  // saved colors
+module.exports = User;

@@ -1,0 +1,113 @@
+var util = require('./lib/util.js');
+
+var ColorFamily = require('./colorFamily.js');
+var User = require('./user.js');
+
+module.exports = {
+  checkAuth: function(req, res) {
+  },
+  getColors: function(req, res) {
+    ColorFamily.find(function(err, colorFamilies) {
+      res.send(colorFamilies);
+    });
+  },
+  saveColor: function(req, res) {
+    var error = false;
+
+    var isOk = /(^#[0-9A-F]{6}$)/i;
+    //validate that form dawwwwg
+
+    //loop through each key in req.body
+      //if req.body[key] = (form validation)
+    for (var key in req.body.color) {
+      if (!req.body.color[key].match(isOk)) {
+        error = true;
+      }
+      if (error) {
+        res.send('error -- invalid hex code');
+      }
+    }
+    var colorParent = null;
+    if ( req.body.parent !== null ) {
+      colorParent = req.body.parent;
+    }
+
+    if (!error) {
+      new ColorFamily ({
+        name: req.body.name,
+        primary: req.body.color.primary,
+        secondary1: req.body.color.secondary1,
+        secondary2: req.body.color.secondary2,
+        tertiary1: req.body.color.tertiary1,
+        tertiary2: req.body.color.tertiary2,
+        userId: req.body.userId,
+        tags: req.body.tags,
+        parent: colorParent,
+      }).save()
+      .then(res.sendStatus(201));
+    }
+  },
+  updateColor: function() {
+    var error = false;
+
+    var isOk = /(^#[0-9A-F]{6}$)/i;
+    //validate that form dawwwwg
+
+    //loop through each key in req.body
+      //if req.body[key] = (form validation)
+    for (var key in req.body.color) {
+      if (!req.body.color[key].match(isOk)) {
+        error = true;
+      }
+      if (error) {
+        res.send('error -- invalid hex code');
+      }
+    }
+
+    if (!error) {
+      ColorFamily.findOneAndUpdate({name: req.body.name}, req.body, {new: true}, function(err, doc) {
+        if (err) {
+          console.log('Something wrong when updating data!');
+        }
+
+        console.log(doc);
+        res.sendStatus(201);
+      });
+    }
+
+  },
+  getUsers: function(req, res) {
+    User.find({}, function(err, users) {
+      res.send(users);
+    });
+  },
+  logIn: function(req, res) {
+    console.log('login');
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    res.redirect('/restricted');
+  },
+  signUp: function(req, res) {
+    console.log('signup');
+    var username = req.body.username;
+    var plainText = req.body.password;
+
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        bcrypt.hash(plainText, null, null, function(err, hash) {
+          if (err) {
+            throw err;
+          }
+          var newUser = new User({username: username, password: hash});
+          newUser.save(function (err) {
+            if (err) {
+              return handleError(err);
+            }
+            res.redirect('/');
+          });
+        });
+      }
+    });
+  }
+};

@@ -2,8 +2,11 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var bcrypt = require('bcrypt-nodejs');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var session = require('express-session');
 
 var mongoose = require('mongoose');
 require('dotenv').config();
@@ -14,6 +17,24 @@ mongoose.connect(mongoURI);
 var ColorFamily = require('./colorFamily.js');
 var User = require('./user.js');
 
+var util = require('./lib/util.js');
+
+var route = require('./routes/route-handler.js');
+
+app.use(express.static('client'));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true}));
+
+// PASSPORT MIDDLEWARE
+app.use(session({secret: 'beanie boyz', resave: true, saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+//
+// PASSPORT
+//
+
 passport.use(new LocalStrategy(
   function(username, password, done) {
     User.findOne({ username: username }, function (err, user) {
@@ -21,68 +42,69 @@ passport.use(new LocalStrategy(
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
       }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
+      util.isValidPassword(username, password, function(isMatch) {
+        console.log('in passport', isMatch, password);
+        if (isMatch) {
+          console.log('successful login');
+          return done(null, user);
+        } else {
+          return done(null, false, {message: 'Incorrect password'});
+        }
+      });
     });
   }
 ));
 
-app.use(express.static('client'));
+passport.serializeUser(function (user, done) {
+  console.log('serialize', user);
+  done(null, user._id);
+});
 
-app.use(bodyParser.urlencoded({ extended: false}));
+passport.deserializeUser(function(id, done) {
+  console.log('deserialize', id);
+  User.findById(id, function(err, user) {
+    console.log('in mongo', err, user);
+    done(err, user);
+  });
+});
 
-app.use(bodyParser.json());
-
-app.post('/login',
-  passport.authenticate('local'),
-  function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    res.redirect('/profile/' + req.user.username);
-  }
-);
+//
+// CLIENT ROUTES
+//
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'client/index.html'));
 });
 
-app.get('/api/colors', function(req, res) {
-  ColorFamily.find(function(err, colorFamilies) {
-    res.send(colorFamilies);
-  });
-});
+// for testing right now
+app.get('/checkAuth',
+  util.isAuth,
+  route.checkAuth
+);
 
-app.post('/api/colors', function(req, res) {
+//
+// API ROUTES
+//
 
-  var error = false;
+app.get('/api/colors', route.getColors);
 
-  var isOk = /(^#[0-9A-F]{6}$)/i;
-  //validate that form dawwwwg
+app.post('/api/colors', route.saveColor);
 
-  //loop through each key in req.body
-    //if req.body[key] = (form validation)
-  for (var key in req.body) {
-    if (!req.body[key].match(isOk)) {
-      error = true;
-    }
-    if (error) {
-      res.send('error -- invalid hex code');
-    }
-  }
+app.put('/api/colors', route.updateColor);
 
-  if (!error) {
-    new ColorFamily ({
-      primary: req.body.color1,
-      secondary1: req.body.color2,
-      secondary2: req.body.color3,
-      tertiary1: req.body.color4,
-      tertiary2: req.body.color5,
-    }).save()
-    .then(res.sendStatus(201));
-  }
-});
+app.get('/api/users', route.getUsers);
+
+//
+// USER ROUTES
+//
+
+app.post('/login', passport.authenticate('local'), route.logIn);
+
+app.post('/signup', route.signUp);
+
+//
+// START SERVER
+//
 
 const PORT = process.env.PORT || 3000;
 
@@ -107,8 +129,3 @@ app.listen(PORT, function () {
 //     tertiary2: currentFamily[4]
 //   }).save();
 // }
-
-
-// TODO
-// add api routes for user
-// user auth
