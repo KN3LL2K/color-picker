@@ -1,3 +1,5 @@
+var bcrypt = require('bcrypt-nodejs');
+
 var util = require('../lib/util.js');
 var color = require('../lib/colorHelpers.js');
 var ColorFamily = require('../colorFamily.js');
@@ -5,6 +7,7 @@ var User = require('../user.js');
 
 module.exports = {
   checkAuth: function(req, res) {
+    res.redirect('/');
   },
   getColors: function(req, res) {
     ColorFamily.find(function(err, colorFamilies) {
@@ -23,6 +26,7 @@ module.exports = {
     res.send(swatches);
   },
   saveColor: function(req, res) {
+    console.log(req.user);
     ColorFamily.findOne({name: req.body.name}, function (err, user) {
       if ( !user ) {
 
@@ -45,7 +49,6 @@ module.exports = {
         if ( req.body.parent !== null ) {
           colorParent = req.body.parent;
         }
-        console.log(req.body);
         if (!error) {
           new ColorFamily ({
             name: req.body.name,
@@ -56,7 +59,7 @@ module.exports = {
               tertiary1: req.body.colors.tertiary1,
               tertiary2: req.body.colors.tertiary2
             },
-            userId: req.body.userId,
+            userId: req.user._id,
             tags: req.body.tags,
             parent: colorParent,
           }).save()
@@ -93,7 +96,6 @@ module.exports = {
         res.sendStatus(201);
       });
     }
-
   },
   getUsers: function(req, res) {
     User.find({}, function(err, users) {
@@ -103,15 +105,23 @@ module.exports = {
   logIn: function(req, res) {
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
-    res.redirect('/restricted');
+    res.redirect('/');
+  },
+  logOut: function(req, res) {
+    req.logout();
+    res.redirect('/');
   },
   signUp: function(req, res) {
     var username = req.body.username;
     var plainText = req.body.password;
 
     User.findOne({ username: username }, function (err, user) {
-      if (err) { return done(err); }
+      if (err) {
+        console.log(err);
+        return done(err);
+      }
       if (!user) {
+        console.log('user does not exist');
         bcrypt.hash(plainText, null, null, function(err, hash) {
           if (err) {
             throw err;
@@ -119,6 +129,7 @@ module.exports = {
           var newUser = new User({username: username, password: hash});
           newUser.save(function (err) {
             if (err) {
+              console.log('err in save user', err);
               return handleError(err);
             }
             res.redirect('/');
