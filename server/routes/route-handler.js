@@ -14,8 +14,14 @@ module.exports = {
     res.end(`Logged in as ${req.user.username}`);
   },
   getColors: function(req, res, next) {
+    var sortCriteria = {};
+
+    if ( req.query.sort === 'popular' ) {
+      sortCriteria.likes = 'desc';
+    }
+    console.log(sortCriteria);
     // time complexity is horrid....
-    ColorFamily.find({}).lean().exec()
+    ColorFamily.find({}).sort(sortCriteria).lean().exec()
       .then(function(colorFamilies) {
         if ( req.user ) {
           var userLikes = [];
