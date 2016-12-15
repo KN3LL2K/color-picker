@@ -16,6 +16,7 @@ render(
         <Route path="/create" component={CreateYourOwn}/>
         <Route path="/register" component={Register}/>
         <Route path="/login" component={Login}/>
+        <Route path="/swatch/edit/:id" component={CreateYourOwn}/>
         <Route path="*" component={NotFound}/>
       </Route>
     </Router>

@@ -26,10 +26,14 @@ class Login extends React.Component {
     }).done(function(msg) {
       component.props.swal(<SweetAlert success title={msg} confirmBtnText="Nice!" onConfirm={component.finishLogin.bind(component, username)}/>);
     }).fail(function(err) {
+      let title = err.status === 401 ? err.responseText : 'Incorrect username or password';
       component.props.swal(
-        <SweetAlert danger title="Incorrect username or password" confirmBtnText="Dang!" onConfirm={component.hideAlert.bind(component)}>
-          or a server error – Who knows?
-        </SweetAlert>
+        <SweetAlert
+          danger
+          title={title}
+          confirmBtnText="Dang!"
+          onConfirm={component.props.hideAlert.bind(component)}
+        />
       );
     });
   }

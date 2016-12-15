@@ -1,10 +1,10 @@
 import React from 'react';
 import ColorInfoView from '../ColorInfoView.jsx';
-import {Panel, Button, Row, Col, Grid} from 'react-bootstrap';
+import { Panel, Button, Row, Col, Grid } from 'react-bootstrap';
+import { browserHistory } from 'react-router';
 
 
 var hexToRGB = function(hex) {
-  debugger;
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result ? {
     r: parseInt(result[1], 16),
@@ -33,59 +33,71 @@ class ColorFamilyInfoView extends React.Component {
     return objArr;
   }
 
+  editPalette() {
+    let colors = this.props.currentFamily.colors;
+    localStorage.primary = colors.primary;
+    localStorage.secondary1 = colors.secondary1;
+    localStorage.secondary2 = colors.secondary2;
+    localStorage.tertiary1 = colors.tertiary1;
+    localStorage.tertiary2 = colors.tertiary2;
+    localStorage.paletteName = this.props.currentFamily.name;
+    browserHistory.push(`/swatch/edit/${this.props.currentFamily._id}`);
+  }
+
   render() {
+    // this component can render without a currentFamily
+    let colors = this.props.currentFamily.colors || {};
     var styles = {
       borderColor1: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: this.props.currentFamily.primary
+        borderColor: colors.primary
       },
       bgColor1: {
         margin: '1px',
-        backgroundColor: this.props.currentFamily.primary
+        backgroundColor: colors.primary
       },
 
       borderColor2: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: this.props.currentFamily.secondary1
+        borderColor: colors.secondary1
       },
       bgColor2: {
         margin: '1px',
-        backgroundColor: this.props.currentFamily.secondary1
+        backgroundColor: colors.secondary1
       },
 
       borderColor3: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: this.props.currentFamily.secondary2
+        borderColor: colors.secondary2
       },
       bgColor3: {
         margin: '1px',
-        backgroundColor: this.props.currentFamily.secondary2
+        backgroundColor: colors.secondary2
       },
 
       borderColor4: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: this.props.currentFamily.tertiary1
+        borderColor: colors.tertiary1
       },
       bgColor4: {
         margin: '1px',
-        backgroundColor: this.props.currentFamily.tertiary1
+        backgroundColor: colors.tertiary1
       },
 
       borderColor5: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: this.props.currentFamily.tertiary2
+        borderColor: colors.tertiary2
       },
       bgColor5: {
         margin: '1px',
-        backgroundColor: this.props.currentFamily.tertiary2
+        backgroundColor: colors.tertiary2
       }
     };
-
     return (
       <div className="sidebar-content">
         <h5>Click a Code to Copy!</h5>
@@ -114,8 +126,9 @@ class ColorFamilyInfoView extends React.Component {
             <Button style={styles.borderColor3}> Color 3 </Button>
             <Button style={styles.borderColor4}> Color 4 </Button>
             <Button style={styles.borderColor5}> Color 5 </Button>
-
         </div>
+        <br/>
+        <Button bsStyle="primary" onClick={this.editPalette.bind(this)}>Edit this palette</Button>
 
       </div>
     );
