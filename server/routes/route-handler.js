@@ -46,7 +46,7 @@ module.exports = {
         next(err);
       });
   },
-  // probably don't need this anymore, dump on cleanup 
+  // probably don't need this anymore, dump on cleanup
   // createColorSwatch: function(req, res) {
   //   var seed = req.body.seed;
   //   var swatches = {
@@ -251,5 +251,19 @@ module.exports = {
           });
         });
     });
+  },
+  getUser: function(req, res, next) {
+  },
+  getColor: function(req, res, next) {
+    var colorId = req.params.colorId;
+
+    ColorFamily.findOne({_id: colorId}).exec()
+      .then(function(color) {
+        res.json(color);
+      })
+      .catch(function(err) {
+        console.log('err in getting single color', err);
+        next(err);
+      });
   }
 };
