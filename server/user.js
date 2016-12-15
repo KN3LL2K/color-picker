@@ -6,7 +6,7 @@ userSchema = mongoose.Schema({
     unique: true,
     validate: {
       validator: function(v, cb) {
-        User.find({username: v}, function(err, docs) {
+        User.find({username: v}, function(err, docs) { // eslint-disable-line no-use-before-define
           cb(docs.length === 0);
         });
       },

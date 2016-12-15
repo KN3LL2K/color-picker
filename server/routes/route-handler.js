@@ -14,10 +14,18 @@ module.exports = {
     res.redirect('/');
   },
   getColors: function(req, res, next) {
-    ColorFamily.find({}).exec()
+    ColorFamily.find({}).lean().exec()
       .then(function(colorFamilies) {
-        // check if user is logged in
-          // iterate over colorFamilies and add isLiked property to ones that have been liked by user
+        if ( req.user ) {
+          // ColorLikes.find({userId: req.user._id}).exec()
+          //   .then(function(colorLikes) {
+          //     console.log(req.user._id, colorLikes);
+          //   })
+          //   .catch();
+          for ( var i = 0; i < colorFamilies.length; i++ ) {
+            colorFamilies[i].test = 'test';
+          }
+        }
         res.send(colorFamilies);
       })
       .catch(function(err) {
@@ -37,11 +45,8 @@ module.exports = {
     res.send(swatches);
   },
   saveColor: function(req, res, next) {
-    var colorParent = null;
-    if ( req.body.parent !== null ) {
-      colorParent = req.body.parent;
-    }
-    new ColorFamily ({
+    var colorParent = req.body.parent || null;
+    var newColor = new ColorFamily ({
       name: req.body.name,
       colors: {
         primary: req.body.colors.primary,
@@ -53,13 +58,17 @@ module.exports = {
       userId: req.user._id,
       tags: req.body.tags,
       parent: colorParent,
-    })
-    .save()
-    .then(res.sendStatus(201))
-    .catch(function(err) {
-      console.log('err in saveColor', err);
-      next(err);
     });
+    newColor.save()
+      .then(function() {
+        res.end('Color succesffully created');
+      })
+      .catch(function(err) {
+        console.log('err in saveColor', err);
+        res.status(409).send({
+          message: err.errors.name.message
+        });
+      });
   },
   updateColor: function(req, res, next) {
     var error = false;
@@ -74,7 +83,9 @@ module.exports = {
         error = true;
       }
       if (error) {
-        res.send('error -- invalid hex code');
+        res.status(409).send({
+          message: 'Colors need to be Hex values'
+        });
       }
     }
 
@@ -86,7 +97,9 @@ module.exports = {
         })
         .catch(function(err) {
           console.log('Something wrong when updating data!', err);
-          next(err);
+          res.status(409).send({
+            message: 'Unable to update color'
+          });
         });
     }
   },
@@ -176,7 +189,9 @@ module.exports = {
       res.send(users);
     })
     .catch(function(err) {
-      return next(err);
+      res.status(409).send({
+        message: 'Unable to get users'
+      });
     });
   },
   logIn: function(req, res) {
