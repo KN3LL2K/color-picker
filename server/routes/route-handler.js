@@ -136,7 +136,7 @@ module.exports = {
         next(err);
       });
   },
-  userSaveColor: function(req, res) {
+  userSaveColor: function(req, res, next) {
     var colorId = req.params.colorId;
     var userId = req.user._id;
 
@@ -150,7 +150,7 @@ module.exports = {
             })
             .catch(function(err) {
               console.log('err in saving colorsave', err);
-              next(err);
+              return next(err);
             });
         } else {
           var newRelationship = new ColorSaves({colorId: colorId, userId: userId});
@@ -176,7 +176,7 @@ module.exports = {
       res.send(users);
     })
     .catch(function(err) {
-      next(err);
+      return next(err);
     });
   },
   logIn: function(req, res) {
@@ -193,16 +193,20 @@ module.exports = {
     var plainText = req.body.password;
     bcrypt.hash(plainText, null, null, function(err, hash) {
       if (err) {
-        next(err);
+        res.status(409).send({
+          message: 'failed to store password'
+        });
       }
       var newUser = new User({username: username, password: hash});
       newUser.save()
         .then(function () {
-          res.redirect('/');
+          res.end('User succesffully signed up');
         })
         .catch(function(err) {
-          console.log('err in save user', err);
-          next(err);
+          console.log('err in user sign up user:', err);
+          res.status(409).send({
+            message: err.errors.username.message
+          });
         });
     });
   }
