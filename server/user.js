@@ -14,8 +14,8 @@ userSchema = mongoose.Schema({
     }
   },
   password: String,
-  likes: [{type: String, ref: 'ColorFamily'}],
-  saved: [{type: String, ref: 'ColorFamily'}],
+  // likes: [{type: String, ref: 'ColorFamily'}],
+  // saved: [{type: String, ref: 'ColorFamily'}],
 });
 
 var User = mongoose.model('User', userSchema);
