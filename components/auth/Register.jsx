@@ -7,17 +7,6 @@ import { browserHistory } from 'react-router';
 class Register extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      alert: null
-    }
-  }
-
-  alert(jsx) {
-    this.setState({ alert: jsx });
-  }
-
-  hideAlert() {
-    this.setState({ alert: null });
   }
 
   componentDidMount() {
@@ -29,36 +18,40 @@ class Register extends React.Component {
 
   submitRegistration(e) {
     e.preventDefault();
-    let $username = this.$username;
-    let $password = this.$password;
-    let $verify = this.$verify;
+    let username = this.$username.val();
+    let password = this.$password.val();
+    let verify = this.$verify.val();
 
-    let username = $username.val();
-    let password = $password.val();
-    let verify = $verify.val();
     if (password !== verify) {
-      this.setState({ alert:
-        <SweetAlert danger title="Passwords must match" onConfirm={this.hideAlert.bind(this)}/>
-      });
-    } else {
-      let component = this;
-      $.post('/signup', {
-        username: username,
-        password: password
-      }).done(function(res) {
-        component.alert(
-          <SweetAlert success title="Registered Successfully" confirmBtnText="Yay!" onConfirm={browserHistory.push.bind(component, '/')}/>
-        );
-      }).fail(function(err) {
-        component.alert(
-          <SweetAlert danger title="Woops" confirmBtnText="Aww man!" onConfirm={component.hideAlert.bind(component)}>
-            Something went wrong!
-            <br/>
-            (The username is probably already taken)
-          </SweetAlert>
-        );
-      });
+      return this.props.swal(
+        <SweetAlert danger title="Passwords must match" confirmBtnText="You're not my dad!" onConfirm={this.props.hideAlert}/>
+      );
     }
+
+    let component = this;
+    $.post('/signup', {
+      username: username,
+      password: password
+    }).done(function(res) {
+      component.props.swal(
+        <SweetAlert success title="Registered Successfully" confirmBtnText="Yay!" onConfirm={component.finishRegistration.bind(component, username)}/>
+      );
+    }).fail(function(err) {
+      component.props.swal(
+        <SweetAlert danger title="Woops" confirmBtnText="Aww man!" onConfirm={component.props.hideAlert}>
+          Something went wrong!
+          <br/>
+          (The username is probably already taken)
+        </SweetAlert>
+      );
+    });
+  }
+
+  finishRegistration(username) {
+    this.props.hideAlert();
+    this.props.setUser(username);
+    localStorage.username = username;
+    browserHistory.push('/');
   }
 
   render() {
@@ -78,7 +71,6 @@ class Register extends React.Component {
             <Button type="submit" bsStyle="primary">Register</Button>
           </FormGroup>
         </form>
-        {this.state.alert}
       </Col>
     );
   }

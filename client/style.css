@@ -125,11 +125,11 @@ body {
   height:300px;
 }
 
-#registerForm {
+#registerForm, #loginForm {
   padding-top:64px;
 }
 
-#registerForm button {
+#registerForm button, #loginForm button {
   width:80%;
   margin-left:10%;
 }
