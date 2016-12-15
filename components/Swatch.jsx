@@ -8,9 +8,9 @@ class Swatch extends React.Component {
     super(props);
     this.state = {
       color: this.props.color,
-      r: '',
-      g: '',
-      b: ''
+      r: 0,
+      g: 0,
+      b: 0
     };
     this.updateColor = _.debounce(this._hexUpdate.bind(this), 250);
     this.updateRed = _.debounce(this._rUpdate, 250);
@@ -52,7 +52,6 @@ class Swatch extends React.Component {
     this.setState({r: newRed});
     this.updateRed();
   }
-
   _rUpdate() {
     let RGB = [this.state.r, this.state.g, this.state.b];
     let hex = this.rgbToHex(RGB);
@@ -64,10 +63,8 @@ class Swatch extends React.Component {
     e.persist();
     let newGreen = e.target.value;
     this.setState({g: newGreen});
-    
     this.updateGreen();
   }
-
   _gUpdate() {
     let RGB = [this.state.r, this.state.g, this.state.b];
     let hex = this.rgbToHex(RGB);
@@ -79,7 +76,6 @@ class Swatch extends React.Component {
     e.persist();
     let newBlue = e.target.value;
     this.setState({b: newBlue});
-    
     this.updateBlue();
   }
   _bUpdate() {
@@ -89,6 +85,32 @@ class Swatch extends React.Component {
     this.props.update(hex, this.props.type);
   }
 ///////////////////////////////////////////////////////////////////////////
+
+
+  _sliderRChange(e) {
+    e.persist();
+    let newRed = e.target.value;
+    let RGB = [newRed, this.state.g, this.state.b];
+    let hex = this.rgbToHex(RGB);
+    this.setState({color: hex, r: newRed});
+    this.props.update(hex, this.props.type);
+  }
+  _sliderGChange(e) {
+    e.persist();
+    let newGreen = e.target.value;
+    let RGB = [this.state.r, newGreen, this.state.b];
+    let hex = this.rgbToHex(RGB);
+    this.setState({color: hex, g: newGreen});
+    this.props.update(hex, this.props.type);
+  }
+  _sliderBChange(e) {
+    e.persist();
+    let newBlue = e.target.value;
+    let RGB = [this.state.r, this.state.g, newBlue];
+    let hex = this.rgbToHex(RGB);
+    this.setState({color: hex, b: newBlue});
+    this.props.update(hex, this.props.type);
+  }
 
   //convert hex string e.g.'#DA5252' to rgb array e.g.([218, 82, 82]) 0-255
   hexToRgb (hex) {
@@ -121,21 +143,37 @@ class Swatch extends React.Component {
 
 
   render() {
+    let r = Number(this.state.r);
+    let g = this.state.g;
+    let b = this.state.b;
     return (
       <div className='container swatchEditor' style={{padding: 0}}>
+         
           <div className='swatch' style={{backgroundColor: '#' + this.props.color}}>
           </div>
+          
           <div className="input-group swatchinput">
+
             <span className="input-group-addon" id="basic-addon5">HEX: </span>
             <input type="text" className="form-control" placeholder="Hex code" value={this.state.color} aria-describedby="basic-addon5" onChange={(e) => this._handleHexChange(e)}></input>
           </div>
+          <div>
+            
+          
+            
+            
+          </div>
           <div className='input-group swatchinput'>
             <span className="input-group-addon" id="basic-addon5">RGB: </span>
-              <input type="text" className="form-control" placeholder="R" value={this.state.r} aria-describedby="basic-addon5" onChange={(e) => this._handleRChange(e)}></input>
-              
-              <input type="text" className="form-control" placeholder="G" value={this.state.g} aria-describedby="basic-addon5" onChange={(e) => this._handleGChange(e)}></input>
-              
-              <input type="text" className="form-control" placeholder="B" value={this.state.b} aria-describedby="basic-addon5" onChange={(e) => this._handleBChange(e)}></input>
+            <input type="text" className="form-control" placeholder="R" value={this.state.r} aria-describedby="basic-addon5" onChange={(e) => this._handleRChange(e)}></input>
+            <input type='range' name='red' value={r} min={0} max={255} step={1}
+            onChange={(e) => this._sliderRChange(e)}></input>
+            <input type="text" className="form-control" placeholder="G" value={this.state.g} aria-describedby="basic-addon5" onChange={(e) => this._handleGChange(e)}></input>
+            <input type='range' name='red' value={g} min={0} max={255} step={1}
+            onChange={(e) => this._sliderGChange(e)}></input>
+            <input type="text" className="form-control" placeholder="B" value={this.state.b} aria-describedby="basic-addon5" onChange={(e) => this._handleBChange(e)}></input>
+            <input type='range' name='red' value={b} min={0} max={255} step={1}
+            onChange={(e) => this._sliderBChange(e)}></input>
           </div>
       </div>
     );
