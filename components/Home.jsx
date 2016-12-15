@@ -78,7 +78,7 @@ class Home extends React.Component {
 
   setCurrentFamily(familyData) {
     this.setState({
-      currentFamily: familyData.colors
+      currentFamily: familyData
     });
   }
 
@@ -97,7 +97,6 @@ class Home extends React.Component {
       sidebarClass: 'app-sidebar',
       appClass: 'app-main'
     });
-    console.log('toggle on');
   }
 
   toggleSidebarOff() {
@@ -105,7 +104,6 @@ class Home extends React.Component {
       sidebarClass: 'app-sidebar-hidden',
       appClass: 'app-main-full'
     });
-    console.log('toggle off');
 
   }
 
