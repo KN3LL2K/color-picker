@@ -6,7 +6,7 @@ colorFamilySchema = mongoose.Schema({
     unique: true,
     validate: {
       validator: function(v, cb) {
-        ColorFamily.find({name: v}, function(err, docs) {
+        ColorFamily.find({name: v}, function(err, docs) {  // eslint-disable-line no-use-before-define
           cb(docs.length === 0);
         });
       },
