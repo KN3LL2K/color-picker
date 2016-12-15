@@ -1,10 +1,19 @@
 var mongoose = require('mongoose');
 
 userSchema = mongoose.Schema({
-  //Hex color codes only!!
-  username: String,
+  username: {
+    type: String,
+    unique: true,
+    validate: {
+      validator: function(v, cb) {
+        User.find({username: v}, function(err, docs) {
+          cb(docs.length === 0);
+        });
+      },
+      message: 'Color already exists'
+    }
+  },
   password: String,
-  email: String,
   likes: [],
   saved: [],
 });
