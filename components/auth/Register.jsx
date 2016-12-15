@@ -2,6 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import { Button, Col, FormGroup, FormControl } from 'react-bootstrap';
 import SweetAlert from 'react-bootstrap-sweetalert';
+import { browserHistory } from 'react-router';
 
 class Register extends React.Component {
   constructor(props) {
@@ -9,6 +10,10 @@ class Register extends React.Component {
     this.state = {
       alert: null
     }
+  }
+
+  alert(jsx) {
+    this.setState({ alert: jsx });
   }
 
   hideAlert() {
@@ -36,6 +41,23 @@ class Register extends React.Component {
         <SweetAlert danger title="Passwords must match" onConfirm={this.hideAlert.bind(this)}/>
       });
     } else {
+      let component = this;
+      $.post('/signup', {
+        username: username,
+        password: password
+      }).done(function(res) {
+        component.alert(
+          <SweetAlert success title="Registered Successfully" confirmBtnText="Yay!" onConfirm={browserHistory.push.bind(component, '/')}/>
+        );
+      }).fail(function(err) {
+        component.alert(
+          <SweetAlert danger title="Woops" confirmBtnText="Aww man!" onConfirm={component.hideAlert.bind(component)}>
+            Something went wrong!
+            <br/>
+            (The username is probably already taken)
+          </SweetAlert>
+        );
+      });
     }
   }
 
