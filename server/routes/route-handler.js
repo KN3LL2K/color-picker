@@ -253,6 +253,35 @@ module.exports = {
     });
   },
   getUser: function(req, res, next) {
+    var userId = req.params.userId;
+
+    var output = {};
+
+    User.findOne({_id: userId}).select('-password -__v').exec()
+      .then(function(user) {
+        output.info = user;
+        ColorLikes.find({userId: userId}).populate({path: 'colorId', select: '-__v'}).exec()
+          .then(function(likes) {
+            output.userLikes = likes;
+            ColorFamily.find({userId: userId}).select('-__v').exec()
+              .then(function(colors) {
+                output.swatches = colors;
+                res.json(output);
+              })
+              .catch(function(err) {
+                console.log('err in getting single color', err);
+                next(err);
+              });
+          })
+          .catch(function(err) {
+            console.log('err in getting single color', err);
+            next(err);
+          });
+      })
+      .catch(function(err) {
+        console.log('err in getting single color', err);
+        next(err);
+      });
   },
   getColor: function(req, res, next) {
     var colorId = req.params.colorId;
