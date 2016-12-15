@@ -33,17 +33,18 @@ module.exports = {
         next(err);
       });
   },
-  createColorSwatch: function(req, res) {
-    var seed = req.body.seed;
-    var swatches = {
-      complementary: color.complementaryPalette(seed),
-      splitComplementary: color.splitCPalette(seed),
-      analagous: color.analagousPalette(seed),
-      triad: color.triadPalette(seed),
-      shades: color.shadesPalette(seed)
-    };
-    res.send(swatches);
-  },
+  // probably don't need this anymore, dump on cleanup 
+  // createColorSwatch: function(req, res) {
+  //   var seed = req.body.seed;
+  //   var swatches = {
+  //     complementary: color.complementaryPalette(seed),
+  //     splitComplementary: color.splitCPalette(seed),
+  //     analagous: color.analagousPalette(seed),
+  //     triad: color.triadPalette(seed),
+  //     shades: color.shadesPalette(seed)
+  //   };
+  //   res.send(swatches);
+  // },
   saveColor: function(req, res, next) {
     var colorParent = req.body.parent || null;
     var newColor = new ColorFamily ({
