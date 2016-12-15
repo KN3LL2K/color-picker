@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import _ from 'lodash';
 
 
 class Swatch extends React.Component {
@@ -12,50 +12,91 @@ class Swatch extends React.Component {
       g: '',
       b: ''
     };
-    // debugger;
+    this.updateColor = _.debounce(this._hexUpdate.bind(this), 250);
+    this.updateRed = _.debounce(this._rUpdate, 250);
+    this.updateGreen = _.debounce(this._gUpdate, 250);
+    this.updateBlue = _.debounce(this._bUpdate, 250);
+    this.updateFrom = _.debounce(this._updateFromParent, 250);
   }
 
   componentDidMount() {
     let RGB = this.hexToRgb(this.state.color);
     this.setState({r: RGB[0], g: RGB[1], b: RGB[2]});
   }
+  componentWillReceiveProps() {
+    // this.setState({color: this.props.color});
+    this.updateFrom();
+  }
 
+  _updateFromParent() {
+    let RGB = this.hexToRgb(this.props.color);
+    this.setState({color: this.props.color, r: RGB[0], g: RGB[1], b: RGB[2]});
+  }
+// these two functions handle updating the hex value //////////////////////
   _handleHexChange(e) {
+    e.persist();
     let newColor = e.target.value;
     this.setState({color: newColor});
+    this.updateColor(newColor);
+  }
+
+  _hexUpdate(newColor) {
     let RGB = this.hexToRgb(newColor);
     this.setState({r: RGB[0], g: RGB[1], b: RGB[2]});
+    this.props.update(newColor, this.props.type);
   }
-
+// these two functions handle updating the red value //////////////////////
   _handleRChange(e) {
+    e.persist();
     let newRed = e.target.value;
     this.setState({r: newRed});
-    let RGB = [this.state.r, this.state.g, this.state.b];
-    let hex = this.rgbToHex(RGB);
-    this.setState({color: hex});
-  }
-  _handleGChange(e) {
-    let newGreen = e.target.value;
-    this.setState({g: newGreen});
-    let RGB = [this.state.r, this.state.g, this.state.b];
-    let hex = this.rgbToHex(RGB);
-    this.setState({color: hex});
-  }
-  _handleBChange(e) {
-    let newBlue = e.target.value;
-    let RGB = [this.state.r, this.state.g, newBlue];
-    let hex = this.rgbToHex(RGB);
-    this.setState({color: hex, b: newBlue});
+    this.updateRed();
   }
 
+  _rUpdate() {
+    let RGB = [this.state.r, this.state.g, this.state.b];
+    let hex = this.rgbToHex(RGB);
+    this.setState({color: hex});
+    this.props.update(hex, this.props.type);
+  }
+// these two functions handle updating the green value //////////////////////
+  _handleGChange(e) {
+    e.persist();
+    let newGreen = e.target.value;
+    this.setState({g: newGreen});
+    
+    this.updateGreen();
+  }
+
+  _gUpdate() {
+    let RGB = [this.state.r, this.state.g, this.state.b];
+    let hex = this.rgbToHex(RGB);
+    this.setState({color: hex});
+    this.props.update(hex, this.props.type);
+  }
+// these two functions handle updating the blue value //////////////////////
+  _handleBChange(e) {
+    e.persist();
+    let newBlue = e.target.value;
+    this.setState({b: newBlue});
+    
+    this.updateBlue();
+  }
+  _bUpdate() {
+    let RGB = [this.state.r, this.state.g, this.state.b];
+    let hex = this.rgbToHex(RGB);
+    this.setState({color: hex});
+    this.props.update(hex, this.props.type);
+  }
+///////////////////////////////////////////////////////////////////////////
 
   //convert hex string e.g.'#DA5252' to rgb array e.g.([218, 82, 82]) 0-255
   hexToRgb (hex) {
     var hexChars = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15};
     var result = [];
-    //remove #
-    hex = hex.toUpperCase().match(/.{1,2}/g);
+    
     // split
+    hex = hex.toUpperCase().match(/.{1,2}/g);
     var r = hex[0].split(''), g = hex[1].split(''), b = hex[2].split('');
     
     result[0] = Math.round(hexChars[r[0]] * 16 + hexChars[r[1]]);
@@ -82,9 +123,7 @@ class Swatch extends React.Component {
   render() {
     return (
       <div className='container swatchEditor' style={{padding: 0}}>
-          <div className='swatch' style={{backgroundColor: '#' + this.state.color}}>
-
-
+          <div className='swatch' style={{backgroundColor: '#' + this.props.color}}>
           </div>
           <div className="input-group swatchinput">
             <span className="input-group-addon" id="basic-addon5">HEX: </span>

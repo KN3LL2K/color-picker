@@ -3,9 +3,9 @@ import ColorInfoView from './ColorInfoView.jsx';
 import {Row, Col, Grid} from 'react-bootstrap';
 import $ from 'jquery';
 import Swatch from './Swatch.jsx';
-// var color = require('./colorHelpers.js');
 import color from '../utils/colorHelpers.js';
-// debugger;
+import _ from 'lodash';
+
 
 class CreateYourOwn extends React.Component {
   constructor(props) {
@@ -13,10 +13,10 @@ class CreateYourOwn extends React.Component {
 
     this.state = {
       primary: '',
-      seconday1: '',
+      secondary1: '',
       secondary2: '',
       tertiary1: '',
-      tertiary2: '',
+      tertiary2: ''
     };
 
     // this.handleChange = this.handleChange.bind(this);
@@ -24,19 +24,15 @@ class CreateYourOwn extends React.Component {
   }
 
   componentWillMount() {
-
     //randomly pick seed color
     let randNum = function() {
       return Math.floor(Math.random() * 254);
     };
     let randColor = [randNum(), randNum(), randNum()];
-    console.log('color', randColor);
     let hex = this.rgbToHex(randColor);
-    console.log('hello', hex);
     //randomly pick style of palette
     let styles = ['complementary', 'splitComp', 'triad', 'analagous', 'shades'];
     let randStyle = styles[Math.floor(Math.random() * styles.length)];
-    console.log('style', randStyle);
     //generate random palette
     let palette;
     if (randStyle === 'complementary') {
@@ -50,16 +46,14 @@ class CreateYourOwn extends React.Component {
     } else {
       palette = color.shadesPalette(hex);
     }
-    console.log('palette', palette);
     //pass to swatches
     this.setState({
-      color1: palette.primary,
-      color2: palette.secondary1,
-      color3: palette.secondary2,
-      color4: palette.tertiary1,
-      color5: palette.tertiary2,
+      primary: palette.primary,
+      secondary1: palette.secondary1,
+      secondary2: palette.secondary2,
+      tertiary1: palette.tertiary1,
+      tertiary2: palette.tertiary2
     });
-    console.log('color1', this.state.color1, palette.primary);
   }
 
     //convert hex string e.g.'DA5252' to rgb array e.g.([218, 82, 82]) 0-255
@@ -91,66 +85,72 @@ class CreateYourOwn extends React.Component {
   }
 
   _complementary() {
-    let palette = color.complementaryPalette(this.state.color1);
+    let palette = color.complementaryPalette(this.state.primary);
 
     this.setState({
-      // color1: palette.primary,
-      color2: palette.secondary1,
-      color3: palette.secondary2,
-      color4: palette.tertiary1,
-      color5: palette.tertiary2,
+      // primary: palette.primary,
+      secondary1: palette.secondary1,
+      secondary2: palette.secondary2,
+      tertiary1: palette.tertiary1,
+      tertiary2: palette.tertiary2
     });
   }
 
   _splitComplementary() {
-    let palette = color.splitCPalette(this.state.color1);
-
+    let palette = color.splitCPalette(this.state.primary);
     this.setState({
-      color1: palette.primary,
-      color2: palette.secondary1,
-      color3: palette.secondary2,
-      color4: palette.tertiary1,
-      color5: palette.tertiary2,
+      // primary: palette.primary,
+      secondary1: palette.secondary1,
+      secondary2: palette.secondary2,
+      tertiary1: palette.tertiary1,
+      tertiary2: palette.tertiary2
     });
   }
 
   _triad() {
-    let palette = color.triadPalette(this.state.color1);
+    let palette = color.triadPalette(this.state.primary);
 
     this.setState({
-      color1: palette.primary,
-      color2: palette.secondary1,
-      color3: palette.secondary2,
-      color4: palette.tertiary1,
-      color5: palette.tertiary2,
+      // primary: palette.primary,
+      secondary1: palette.secondary1,
+      secondary2: palette.secondary2,
+      tertiary1: palette.tertiary1,
+      tertiary2: palette.tertiary2
     }); 
   }
   _analagous() {
-    let palette = color.analagousPalette(this.state.color1);
+    let palette = color.analagousPalette(this.state.primary);
 
     this.setState({
-      color1: palette.primary,
-      color2: palette.secondary1,
-      color3: palette.secondary2,
-      color4: palette.tertiary1,
-      color5: palette.tertiary2,
+      // primary: palette.primary,
+      secondary1: palette.secondary1,
+      secondary2: palette.secondary2,
+      tertiary1: palette.tertiary1,
+      tertiary2: palette.tertiary2
     }); 
   }
 
   _shades() {
-    let palette = color.shadesPalette(this.state.color1);
+    let palette = color.shadesPalette(this.state.primary);
 
     this.setState({
-      color1: palette.primary,
-      color2: palette.secondary1,
-      color3: palette.secondary2,
-      color4: palette.tertiary1,
-      color5: palette.tertiary2,
+      // primary: palette.primary,
+      secondary1: palette.secondary1,
+      secondary2: palette.secondary2,
+      tertiary1: palette.tertiary1,
+      tertiary2: palette.tertiary2
     });
   }
 
   _handleSwatchClick() {
 
+  }
+
+  _updateSwatch(color, type) {
+    var change = _.extend({}, this.state);
+    change[type] = color;
+    this.setState(change);
+    
   }
 
 
@@ -178,11 +178,11 @@ class CreateYourOwn extends React.Component {
         <h5>Create your own!</h5>
         <br/>
         <div className='swatchWrapper'>
-          <Swatch color={this.state.color4} />
-          <Swatch color={this.state.color2} />
-          <Swatch color={this.state.color1} onClick={this._handleSwatchClick} />
-          <Swatch color={this.state.color3} />
-          <Swatch color={this.state.color5} />
+          <Swatch update={this._updateSwatch.bind(this)} type={'tertiary1'} color={this.state.tertiary1} />
+          <Swatch update={this._updateSwatch.bind(this)} type={'secondary1'} color={this.state.secondary1} />
+          <Swatch update={this._updateSwatch.bind(this)} type={'primary'} color={this.state.primary} />
+          <Swatch update={this._updateSwatch.bind(this)} type={'secondary2'} color={this.state.secondary2} />
+          <Swatch update={this._updateSwatch.bind(this)} type={'tertiary2'} color={this.state.tertiary2} />
         </div>
 
         <br/>
@@ -190,19 +190,19 @@ class CreateYourOwn extends React.Component {
         
           <div className="input-group">
               <span className="input-group-btn">
-                <button className="btn btn-default" onClick={this._complementary}>Complementary</button>
+                <button className="btn btn-default" onClick={this._complementary.bind(this)}>Complementary</button>
               </span>
               <span className="input-group-btn">
-                <button className="btn btn-default" onClick={this._splitComplementary}>Split Complementary</button>
+                <button className="btn btn-default" onClick={this._splitComplementary.bind(this)}>Split Complementary</button>
               </span>
               <span className="input-group-btn">
-                <button className="btn btn-default" onClick={this._triad}>Triad</button>
+                <button className="btn btn-default" onClick={this._triad.bind(this)}>Triad</button>
               </span>
               <span className="input-group-btn">
-                <button className="btn btn-default" onClick={this._analagous}>Analagous</button>
+                <button className="btn btn-default" onClick={this._analagous.bind(this)}>Analagous</button>
               </span>
               <span className="input-group-btn">
-                <button className="btn btn-default" onClick={this._shades}>Shades</button>
+                <button className="btn btn-default" onClick={this._shades.bind(this)}>Shades</button>
               </span>
           </div>
         
