@@ -24,23 +24,7 @@ class CreateYourOwn extends React.Component {
     // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    // console.log('route', this.props.route);
-    // if (!this.props.route) {
-      // let path = this.props.route;
-        
-    //   if (path.slice(0, 13) === '/swatch/edit/') {
-    //     this.setState({
-    //       name: '',
-    //       primary: '',
-    //       secondary1: '',
-    //       secondary2: '',
-    //       tertiary1: '',
-    //       tertiary2: ''
-    //     });
-    //   }
-    // }
-  }
+
 
   componentWillMount() {
     let path = this.props.route;
@@ -208,7 +192,7 @@ class CreateYourOwn extends React.Component {
     };
     $.ajax({
       method: 'POST',
-      url: 'api/colors',
+      url: '/api/colors',
       data: newColor,
       dataType: 'JSON',
       success: function (resp) {
