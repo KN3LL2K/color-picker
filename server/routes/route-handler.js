@@ -14,19 +14,32 @@ module.exports = {
     res.end(`Logged in as ${req.user.username}`);
   },
   getColors: function(req, res, next) {
+    // time complexity is horrid....
     ColorFamily.find({}).lean().exec()
       .then(function(colorFamilies) {
         if ( req.user ) {
-          // ColorLikes.find({userId: req.user._id}).exec()
-          //   .then(function(colorLikes) {
-          //     console.log(req.user._id, colorLikes);
-          //   })
-          //   .catch();
-          for ( var i = 0; i < colorFamilies.length; i++ ) {
-            colorFamilies[i].test = 'test';
-          }
+          var userLikes = [];
+          ColorLikes.find({userId: req.user._id}).populate('colorId').exec()
+            .then(function(colorLikes) {
+              colorLikes.forEach(function(like) {
+                userLikes.push(JSON.stringify(like.colorId._id));
+              });
+              for ( var i = 0; i < colorFamilies.length; i++ ) {
+                if ( userLikes.indexOf(JSON.stringify(colorFamilies[i]._id)) !== -1 ) {
+                  colorFamilies[i].isLiked = true;
+                } else {
+                  colorFamilies[i].isLiked = false;
+                }
+              }
+              res.send(colorFamilies);
+            })
+            .catch(function(err) {
+              console.log('err in getting color likes', err);
+              next(err);
+            });
+        } else {
+          res.send(colorFamilies);
         }
-        res.send(colorFamilies);
       })
       .catch(function(err) {
         console.log('err in getting colors', err);
@@ -116,6 +129,13 @@ module.exports = {
               console.log('relationship removed', color);
               ColorLikes.count({colorId: colorId}).exec()
                 .then(function( err, count) {
+                  console.log(colorId);
+                  ColorFamily.findOneAndUpdate({ _id: colorId }, { $inc: { likes: -1 } })
+                    .exec()
+                    .catch(function(err) {
+                      console.log('err in saving colorsave', err);
+                      return next(err);
+                    });
                   res.end(count);
                 })
                 .catch(function(err) {
@@ -133,6 +153,12 @@ module.exports = {
               console.log('new colorlike', color);
               ColorLikes.count({colorId: colorId}).exec()
                 .then(function( err, count) {
+                  ColorFamily.findOneAndUpdate({ _id: colorId }, { $inc: { likes: 1 } })
+                    .exec()
+                    .catch(function(err) {
+                      console.log('err in saving colorsave', err);
+                      return next(err);
+                    });
                   res.end(count);
                 })
                 .catch(function(err) {
