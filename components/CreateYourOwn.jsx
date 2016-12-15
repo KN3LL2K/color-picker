@@ -12,6 +12,7 @@ class CreateYourOwn extends React.Component {
     super(props);
 
     this.state = {
+      name: '',
       primary: '',
       secondary1: '',
       secondary2: '',
@@ -31,7 +32,7 @@ class CreateYourOwn extends React.Component {
     let randColor = [randNum(), randNum(), randNum()];
     let hex = this.rgbToHex(randColor);
     //randomly pick style of palette
-    let styles = ['complementary', 'splitComp', 'triad', 'analagous', 'shades'];
+    let styles = ['shades'];
     let randStyle = styles[Math.floor(Math.random() * styles.length)];
     //generate random palette
     let palette;
@@ -50,8 +51,8 @@ class CreateYourOwn extends React.Component {
     this.setState({
       primary: palette.primary,
       secondary1: palette.secondary1,
-      secondary2: palette.secondary2,
-      tertiary1: palette.tertiary1,
+      secondary2: palette.tertiary1,
+      tertiary1: palette.secondary2,
       tertiary2: palette.tertiary2
     });
   }
@@ -123,10 +124,10 @@ class CreateYourOwn extends React.Component {
 
     this.setState({
       // primary: palette.primary,
-      secondary1: palette.secondary1,
-      secondary2: palette.secondary2,
-      tertiary1: palette.tertiary1,
-      tertiary2: palette.tertiary2
+      secondary1: palette.tertiary1,
+      secondary2: palette.secondary1,
+      tertiary1: palette.secondary1,
+      tertiary2: palette.secondary2
     }); 
   }
 
@@ -136,8 +137,8 @@ class CreateYourOwn extends React.Component {
     this.setState({
       // primary: palette.primary,
       secondary1: palette.secondary1,
-      secondary2: palette.secondary2,
-      tertiary1: palette.tertiary1,
+      secondary2: palette.tertiary1,
+      tertiary1: palette.secondary2,
       tertiary2: palette.tertiary2
     });
   }
@@ -153,15 +154,30 @@ class CreateYourOwn extends React.Component {
     
   }
 
+  _nameChange(e) {
+    e.persist();
+    let name = e.target.value;
+    this.setState({name: name});
+  }
 
-  _handleSubmit(event) {
-    event.preventDefault();
-    console.log(event);
-
+  _handleSubmit(e) {
+    e.preventDefault();
+    // console.log('name', this.state.name);
+    console.log('palette', this.state);
+    let newColor = {
+      name: this.state.name,
+      colors: {
+        primary: this.state.primary,
+        secondary1: this.state.secondary1,
+        secondary2: this.state.secondary2,
+        tertiary1: this.state.tertiary1,
+        tertiary2: this.state.tertiary2
+      }
+    };
     $.ajax({
       method: 'POST',
       url: 'api/colors',
-      data: this.state,
+      data: newColor,
       dataType: 'JSON',
       success: function (resp) {
         console.log('success', resp);
@@ -187,6 +203,9 @@ class CreateYourOwn extends React.Component {
 
         <br/>
         <br/>
+        <br/>
+        <br/>
+        <br/>
         
           <div className="input-group">
               <span className="input-group-btn">
@@ -199,17 +218,19 @@ class CreateYourOwn extends React.Component {
                 <button className="btn btn-default" onClick={this._triad.bind(this)}>Triad</button>
               </span>
               <span className="input-group-btn">
-                <button className="btn btn-default" onClick={this._analagous.bind(this)}>Analagous</button>
+                <button className="btn btn-default" onClick={this._analagous.bind(this)}>Analogous</button>
               </span>
               <span className="input-group-btn">
                 <button className="btn btn-default" onClick={this._shades.bind(this)}>Shades</button>
               </span>
           </div>
         
-        <form className="content-wrap" onSubmit={this._handleSubmit}>
+        <form className="content-wrap" onSubmit={(e) => this._handleSubmit(e)}>
           <div className="input-group">
+          Name:
+            <input placeholder='My New Palette' onChange={this._nameChange.bind(this)}/>
             <span className="input-group-btn">
-              <button className="btn btn-default" type="submit">Submit</button>
+              <button className="btn btn-default" action='' type="submit">Submit</button>
             </span>
           </div>
         </form>
