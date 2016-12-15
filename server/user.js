@@ -10,7 +10,7 @@ userSchema = mongoose.Schema({
           cb(docs.length === 0);
         });
       },
-      message: 'Color already exists'
+      message: 'Username already exists'
     }
   },
   password: String,
