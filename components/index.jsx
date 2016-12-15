@@ -5,6 +5,7 @@ import App from './App.jsx';
 import Home from './Home.jsx';
 import CreateYourOwn from './CreateYourOwn.jsx';
 import Register from './auth/Register.jsx';
+import Login from './auth/Login.jsx';
 import NotFound from './NotFound.jsx';
 
 render(
@@ -14,6 +15,7 @@ render(
         <IndexRoute component={Home}/>
         <Route path="/create" component={CreateYourOwn}/>
         <Route path="/register" component={Register}/>
+        <Route path="/login" component={Login}/>
         <Route path="*" component={NotFound}/>
       </Route>
     </Router>

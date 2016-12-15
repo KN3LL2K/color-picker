@@ -6,13 +6,42 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentFilter: 'mostClicked',
+      username: localStorage.username || null
     }
   }
+
+  setUser(username=null) {
+    this.setState({ username: username });
+  }
+
+  swal(jsx) {
+    this.setState({ alert: jsx });
+  }
+
+  hideAlert() {
+    this.setState({ alert: null });
+  }
+
   render() {
+    const childrenWithProps = React.Children.map(this.props.children,
+      (child) => React.cloneElement(child, {
+        swal: this.swal.bind(this),
+        setUser: this.setUser.bind(this),
+        hideAlert: this.hideAlert.bind(this)
+      })
+    );
+
     return (
       <div>
-        <TopBar className="app-nav"/>
-        {this.props.children}
+        <TopBar
+          className="app-nav"
+          setUser={this.setUser.bind(this)}
+          swal={this.swal.bind(this)}
+          hideAlert={this.hideAlert.bind(this)}
+          username={this.state.username}
+        />
+        {childrenWithProps}
+        {this.state.alert}
       </div>
     );
   }

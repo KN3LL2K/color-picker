@@ -11,7 +11,7 @@ var ColorSaves = require('../colorSaves.js');
 
 module.exports = {
   checkAuth: function(req, res) {
-    res.redirect('/');
+    res.end(`Logged in as ${req.user.username}`);
   },
   getColors: function(req, res, next) {
     ColorFamily.find({}).lean().exec()
@@ -198,11 +198,11 @@ module.exports = {
   logIn: function(req, res) {
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
-    res.redirect('/');
+    res.end(`Logged in as ${req.user.username}`);
   },
   logOut: function(req, res) {
     req.logout();
-    res.redirect('/');
+    res.end('Logged out');
   },
   signUp: function(req, res, next) {
     var username = req.body.username;
