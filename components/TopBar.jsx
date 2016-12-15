@@ -2,6 +2,7 @@ import {Nav, Navbar, NavItem, NavDropdown, MenuItem, Button} from 'react-bootstr
 
 import React from 'react';
 import { Link } from 'react-router';
+import { LinkContainer } from 'react-router-bootstrap';
 
 var TopBar = (props) => {
 
@@ -16,12 +17,18 @@ var TopBar = (props) => {
         <Link to="/">Colorz.io</Link>
       </Navbar.Brand>
     </Navbar.Header>
-    <Nav pullRight>
-      <NavItem eventKey={1}>
-        <Link to="/create">
-          <Button bsStyle="primary" onClick={props.toggleSubmit}>Create New</Button>
-        </Link>
-      </NavItem>
+    <Nav>
+      <LinkContainer to="/register">
+        <NavItem>Register</NavItem>
+      </LinkContainer>
+      <LinkContainer to="/login">
+        <NavItem>Log In</NavItem>
+      </LinkContainer>
+    </Nav>
+    <Nav bsStyle="pills" pullRight>
+      <LinkContainer to="/create">
+        <NavItem eventKey={1} onClick={props.toggleSubmit}>Create New</NavItem>
+      </LinkContainer>
     </Nav>
     </Navbar>
   )
