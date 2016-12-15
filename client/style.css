@@ -123,6 +123,14 @@ body {
   display:flex;
   width:100%;
   height:300px;
+}
 
+#registerForm {
+  padding-top:64px;
+}
+
+#registerForm button {
+  width:80%;
+  margin-left:10%;
 }
 
