@@ -3,9 +3,9 @@ import ColorInfoView from './ColorInfoView.jsx';
 import {Row, Col, Grid} from 'react-bootstrap';
 import $ from 'jquery';
 import Swatch from './Swatch.jsx';
-// var color = require('./colorHelpers.js');
 import color from '../utils/colorHelpers.js';
-// debugger;
+import _ from 'lodash';
+
 
 class CreateYourOwn extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class CreateYourOwn extends React.Component {
 
     this.state = {
       primary: '',
-      seconday1: '',
+      secondary1: '',
       secondary2: '',
       tertiary1: '',
       tertiary2: ''
@@ -29,13 +29,10 @@ class CreateYourOwn extends React.Component {
       return Math.floor(Math.random() * 254);
     };
     let randColor = [randNum(), randNum(), randNum()];
-    console.log('color', randColor);
     let hex = this.rgbToHex(randColor);
-    console.log('hello', hex);
     //randomly pick style of palette
     let styles = ['complementary', 'splitComp', 'triad', 'analagous', 'shades'];
     let randStyle = styles[Math.floor(Math.random() * styles.length)];
-    console.log('style', randStyle);
     //generate random palette
     let palette;
     if (randStyle === 'complementary') {
@@ -49,7 +46,6 @@ class CreateYourOwn extends React.Component {
     } else {
       palette = color.shadesPalette(hex);
     }
-    console.log('palette', palette);
     //pass to swatches
     this.setState({
       primary: palette.primary,
@@ -58,7 +54,6 @@ class CreateYourOwn extends React.Component {
       tertiary1: palette.tertiary1,
       tertiary2: palette.tertiary2
     });
-    console.log('color1', palette.primary);
   }
 
     //convert hex string e.g.'DA5252' to rgb array e.g.([218, 82, 82]) 0-255
@@ -93,7 +88,7 @@ class CreateYourOwn extends React.Component {
     let palette = color.complementaryPalette(this.state.primary);
 
     this.setState({
-      primary: palette.primary,
+      // primary: palette.primary,
       secondary1: palette.secondary1,
       secondary2: palette.secondary2,
       tertiary1: palette.tertiary1,
@@ -103,9 +98,8 @@ class CreateYourOwn extends React.Component {
 
   _splitComplementary() {
     let palette = color.splitCPalette(this.state.primary);
-    console.log('pal', palette);
     this.setState({
-      primary: palette.primary,
+      // primary: palette.primary,
       secondary1: palette.secondary1,
       secondary2: palette.secondary2,
       tertiary1: palette.tertiary1,
@@ -117,7 +111,7 @@ class CreateYourOwn extends React.Component {
     let palette = color.triadPalette(this.state.primary);
 
     this.setState({
-      primary: palette.primary,
+      // primary: palette.primary,
       secondary1: palette.secondary1,
       secondary2: palette.secondary2,
       tertiary1: palette.tertiary1,
@@ -128,7 +122,7 @@ class CreateYourOwn extends React.Component {
     let palette = color.analagousPalette(this.state.primary);
 
     this.setState({
-      primary: palette.primary,
+      // primary: palette.primary,
       secondary1: palette.secondary1,
       secondary2: palette.secondary2,
       tertiary1: palette.tertiary1,
@@ -140,7 +134,7 @@ class CreateYourOwn extends React.Component {
     let palette = color.shadesPalette(this.state.primary);
 
     this.setState({
-      primary: palette.primary,
+      // primary: palette.primary,
       secondary1: palette.secondary1,
       secondary2: palette.secondary2,
       tertiary1: palette.tertiary1,
@@ -150,6 +144,13 @@ class CreateYourOwn extends React.Component {
 
   _handleSwatchClick() {
 
+  }
+
+  _updateSwatch(color, type) {
+    var change = _.extend({}, this.state);
+    change[type] = color;
+    this.setState(change);
+    
   }
 
 
@@ -177,11 +178,11 @@ class CreateYourOwn extends React.Component {
         <h5>Create your own!</h5>
         <br/>
         <div className='swatchWrapper'>
-          <Swatch color={this.state.tertiary1} />
-          <Swatch color={this.state.secondary1} />
-          <Swatch color={this.state.primary} />
-          <Swatch color={this.state.secondary2} />
-          <Swatch color={this.state.tertiary2} />
+          <Swatch update={this._updateSwatch.bind(this)} type={'tertiary1'} color={this.state.tertiary1} />
+          <Swatch update={this._updateSwatch.bind(this)} type={'secondary1'} color={this.state.secondary1} />
+          <Swatch update={this._updateSwatch.bind(this)} type={'primary'} color={this.state.primary} />
+          <Swatch update={this._updateSwatch.bind(this)} type={'secondary2'} color={this.state.secondary2} />
+          <Swatch update={this._updateSwatch.bind(this)} type={'tertiary2'} color={this.state.tertiary2} />
         </div>
 
         <br/>
