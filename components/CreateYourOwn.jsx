@@ -24,37 +24,69 @@ class CreateYourOwn extends React.Component {
     // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    // console.log('route', this.props.route);
+    // if (!this.props.route) {
+      // let path = this.props.route;
+        
+    //   if (path.slice(0, 13) === '/swatch/edit/') {
+    //     this.setState({
+    //       name: '',
+    //       primary: '',
+    //       secondary1: '',
+    //       secondary2: '',
+    //       tertiary1: '',
+    //       tertiary2: ''
+    //     });
+    //   }
+    // }
+  }
+
   componentWillMount() {
-    //randomly pick seed color
-    let randNum = function() {
-      return Math.floor(Math.random() * 254);
-    };
-    let randColor = [randNum(), randNum(), randNum()];
-    let hex = this.rgbToHex(randColor);
-    //randomly pick style of palette
-    let styles = ['shades'];
-    let randStyle = styles[Math.floor(Math.random() * styles.length)];
-    //generate random palette
-    let palette;
-    if (randStyle === 'complementary') {
-      palette = color.complementaryPalette(hex);
-    } else if (randStyle === 'splitComp') {
-      palette = color.splitCPalette(hex);
-    } else if (randStyle === 'triad') {
-      palette = color.triadPalette(hex);
-    } else if (randStyle === 'analagous') {
-      palette = color.analagousPalette(hex);
+    let path = this.props.route;
+    if (path && path.path.slice(0, 13) === '/swatch/edit/') {
+      this.setState({
+        name: '',
+        primary: '',
+        secondary1: '',
+        secondary2: '',
+        tertiary1: '',
+        tertiary2: ''
+      });
     } else {
-      palette = color.shadesPalette(hex);
+
+
+    //randomly pick seed color
+      let randNum = function() {
+        return Math.floor(Math.random() * 254);
+      };
+      let randColor = [randNum(), randNum(), randNum()];
+      let hex = this.rgbToHex(randColor);
+      //randomly pick style of palette
+      let styles = ['shades'];
+      let randStyle = styles[Math.floor(Math.random() * styles.length)];
+      //generate random palette
+      let palette;
+      if (randStyle === 'complementary') {
+        palette = color.complementaryPalette(hex);
+      } else if (randStyle === 'splitComp') {
+        palette = color.splitCPalette(hex);
+      } else if (randStyle === 'triad') {
+        palette = color.triadPalette(hex);
+      } else if (randStyle === 'analagous') {
+        palette = color.analagousPalette(hex);
+      } else {
+        palette = color.shadesPalette(hex);
+      }
+      //pass to swatches
+      this.setState({
+        primary: palette.primary,
+        secondary1: palette.secondary1,
+        secondary2: palette.tertiary1,
+        tertiary1: palette.secondary2,
+        tertiary2: palette.tertiary2
+      });
     }
-    //pass to swatches
-    this.setState({
-      primary: palette.primary,
-      secondary1: palette.secondary1,
-      secondary2: palette.tertiary1,
-      tertiary1: palette.secondary2,
-      tertiary2: palette.tertiary2
-    });
   }
 
     //convert hex string e.g.'DA5252' to rgb array e.g.([218, 82, 82]) 0-255
@@ -191,7 +223,6 @@ class CreateYourOwn extends React.Component {
   render() {
     return (
       <div>
-        <h5>Create your own!</h5>
         <br/>
         <div className='swatchWrapper'>
           <Swatch update={this._updateSwatch.bind(this)} type={'tertiary1'} color={this.state.tertiary1} />
