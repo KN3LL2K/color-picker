@@ -100,11 +100,19 @@ app.post('/login',
     passport.authenticate('local', function(err, user, info) {
       if (err) {
         return res.status(403).end('err');
+        console.log('err');
       }
       if (!user) {
+        console.log('err');
         return res.status(403).end(info.message);
       }
-      next();
+      req.logIn(user, function(err) {
+        if (err) {
+          console.log('err in login');
+          return next(err);
+        }
+        next();
+      });
     })(req, res, next);
   },
   route.logIn
