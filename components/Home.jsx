@@ -19,7 +19,9 @@ class Home extends React.Component {
       allFamilies: [],
       appClass: 'app-main-full',
       sidebarClass: 'app-sidebar-hidden',
-      createClass: 'create-family-hidden'
+      createClass: 'create-family-hidden',
+      showSideBar: false
+
     };
 
     this.handleStateChange = this.handleStateChange.bind(this);
@@ -95,14 +97,16 @@ class Home extends React.Component {
   toggleSidebarOn() {
     this.setState({
       sidebarClass: 'app-sidebar',
-      appClass: 'app-main'
+      appClass: 'app-main',
+      showSideBar: true
     });
   }
 
   toggleSidebarOff() {
     this.setState({
       sidebarClass: 'app-sidebar-hidden',
-      appClass: 'app-main-full'
+      appClass: 'app-main-full',
+      showSideBar: false
     });
 
   }
@@ -120,6 +124,7 @@ class Home extends React.Component {
   }
 
   render() {
+    let sideBarShow = this.state.showSideBar;
     return (
       <div className="app-body">
         <div>
@@ -131,7 +136,7 @@ class Home extends React.Component {
             <ColorFamilyView setCurrentFamily={this.setCurrentFamily.bind(this)} colorFamilies={this.state.colorFamilies} toggleSidebarOn={this.toggleSidebarOn}/>
           </div>
           <div className={this.state.sidebarClass}>
-            <ColorFamilyInfoView currentFamily={this.state.currentFamily} toggleSidebarOff={this.toggleSidebarOff}/>
+            { sideBarShow ? <ColorFamilyInfoView currentFamily={this.state.currentFamily} toggleSidebarOff={this.toggleSidebarOff}/> : null }
           </div>
         </div>
       </div>
