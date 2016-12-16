@@ -266,7 +266,7 @@ module.exports = {
         ColorLikes.find({userId: userId}).sort('-date').select('-__v -userId').populate({path: 'colorId', select: '-__v -userId'}).exec()
           .then(function(likes) {
             output.userLikes = likes;
-            ColorFamily.find({userId: userId}).select('-__v -userId').exec()
+            ColorFamily.find({userId: userId}).sort('-date').select('-__v -userId').exec()
               .then(function(colors) {
                 output.swatches = colors;
                 res.json(output);
