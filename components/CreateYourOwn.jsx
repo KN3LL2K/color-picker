@@ -2,7 +2,7 @@ import React from 'react';
 import ColorInfoView from './ColorInfoView.jsx';
 import {Row, Col, Grid} from 'react-bootstrap';
 import $ from 'jquery';
-import Swatch from './Swatch.jsx';
+import SwatchEditor from './SwatchEditor.jsx';
 import color from '../utils/colorHelpers.js';
 import _ from 'lodash';
 import request from 'superagent';
@@ -218,11 +218,11 @@ class CreateYourOwn extends React.Component {
       <div>
         <br/>
         <div className='swatchWrapper'>
-          <Swatch update={this._updateSwatch.bind(this)} type={'tertiary1'} color={this.state.tertiary1} />
-          <Swatch update={this._updateSwatch.bind(this)} type={'secondary1'} color={this.state.secondary1} />
-          <Swatch update={this._updateSwatch.bind(this)} type={'primary'} color={this.state.primary} />
-          <Swatch update={this._updateSwatch.bind(this)} type={'secondary2'} color={this.state.secondary2} />
-          <Swatch update={this._updateSwatch.bind(this)} type={'tertiary2'} color={this.state.tertiary2} />
+          <SwatchEditor update={this._updateSwatch.bind(this)} type={'tertiary1'} color={this.state.tertiary1} />
+          <SwatchEditor update={this._updateSwatch.bind(this)} type={'secondary1'} color={this.state.secondary1} />
+          <SwatchEditor update={this._updateSwatch.bind(this)} type={'primary'} color={this.state.primary} />
+          <SwatchEditor update={this._updateSwatch.bind(this)} type={'secondary2'} color={this.state.secondary2} />
+          <SwatchEditor update={this._updateSwatch.bind(this)} type={'tertiary2'} color={this.state.tertiary2} />
         </div>
 
         <br/>
