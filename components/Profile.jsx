@@ -30,20 +30,19 @@ class Profile extends React.Component {
       <Col sm={12}>
         <h1>{user.info.username}&#39;s Profile</h1>
         <h3>Liked Swatches: {user.userLikes.length}</h3>
-        <Palette colors={user.userLikes[0].colorId.colors}/>
+        <ul>
+          {user.userLikes.map(function(palette, index) {
+           return <li key={index}><Palette colors={palette.colorId.colors}/></li>
+          })}
+        </ul>
         <h3>Created Swatches: {user.swatches.length}</h3>
+        <ul>
+          {user.swatches.map(function(palette, index) {
+           return <li key={index}><Palette key={index} colors={palette.colors}/></li>
+          })}
+        </ul>
       </Col>
     );
-        // <ul>
-        //   {user.userLikes.map(function(palette, index) {
-        //    return <li key={index}><Palette colorFamily={palette.colorId.colors}/></li>
-        //   })}
-        // </ul>
-        // <ul>
-        //   {user.swatches.map(function(palette, index) {
-        //    return <li key={index}><Palette key={index} colorFamily={palette.colors}/></li>
-        //   })}
-        // </ul>
   }
 
   render() {
