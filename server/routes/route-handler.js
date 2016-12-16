@@ -229,7 +229,8 @@ module.exports = {
   logIn: function(req, res) {
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
-    res.end(`Logged in as ${req.user.username}`);
+    // send username and id
+    res.json({userId: req.user._id, username: req.user.username });
   },
   logOut: function(req, res) {
     req.logout();
@@ -244,8 +245,9 @@ module.exports = {
       }
       var newUser = new User({username: username, password: hash});
       newUser.save()
-        .then(function () {
-          res.end('User succesffully signed up');
+        .then(function (user) {
+          // send user id
+          res.json({userId: user._id});
         })
         .catch(function(err) {
           console.log('err in user sign up user:', err);
@@ -261,7 +263,7 @@ module.exports = {
     User.findOne({_id: userId}).select('-password -__v').exec()
       .then(function(user) {
         output.info = user;
-        ColorLikes.find({userId: userId}).select('-__v -userId').populate({path: 'colorId', select: '-__v -userId'}).exec()
+        ColorLikes.find({userId: userId}).sort('-date').select('-__v -userId').populate({path: 'colorId', select: '-__v -userId'}).exec()
           .then(function(likes) {
             output.userLikes = likes;
             ColorFamily.find({userId: userId}).select('-__v -userId').exec()
