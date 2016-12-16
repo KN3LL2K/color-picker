@@ -34,8 +34,9 @@ class Register extends React.Component {
       username: username,
       password: password
     }).done(function(res) {
+      debugger;
       component.props.swal(
-        <SweetAlert success title="Registered Successfully" confirmBtnText="Yay!" onConfirm={component.finishRegistration.bind(component, username)}/>
+        <SweetAlert success title="Registered Successfully" confirmBtnText="Yay!" onConfirm={component.finishRegistration.bind(component, username, )}/>
       );
     }).fail(function(err) {
       component.props.swal(
@@ -48,10 +49,11 @@ class Register extends React.Component {
     });
   }
 
-  finishRegistration(username) {
+  finishRegistration(username, userId) {
     this.props.hideAlert();
-    this.props.setUser(username);
+    this.props.setUser(username, userId);
     localStorage.username = username;
+    localStorage.userId = userId;
     browserHistory.push('/');
   }
 

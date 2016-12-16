@@ -25,6 +25,7 @@ class Login extends React.Component {
       username: username,
       password: password
     }).done(function(msg) {
+      debugger;
       component.props.swal(<SweetAlert success title={msg} confirmBtnText="Nice!" onConfirm={component.finishLogin.bind(component, username)}/>);
     }).fail(function(err) {
       let title = err.status === 401 ? err.responseText : 'Incorrect username or password';
