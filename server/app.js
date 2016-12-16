@@ -99,16 +99,13 @@ app.post('/login',
   function(req, res, next ) {
     passport.authenticate('local', function(err, user, info) {
       if (err) {
-        return res.status(403).end('err');
-        console.log('err');
+        return res.status(403).end(err);
       }
       if (!user) {
-        console.log('err');
         return res.status(403).end(info.message);
       }
       req.logIn(user, function(err) {
         if (err) {
-          console.log('err in login');
           return next(err);
         }
         next();
