@@ -5,6 +5,7 @@ import $ from 'jquery';
 import Swatch from './Swatch.jsx';
 import color from '../utils/colorHelpers.js';
 import _ from 'lodash';
+import request from 'superagent';
 
 
 class CreateYourOwn extends React.Component {
@@ -19,24 +20,26 @@ class CreateYourOwn extends React.Component {
       tertiary1: '',
       tertiary2: ''
     };
-
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
 
 
   componentWillMount() {
     let path = this.props.route;
+    let palette;
+    let name;
     if (path && path.path.slice(0, 13) === '/swatch/edit/') {
+      
       this.setState({
-        name: '',
-        primary: '',
-        secondary1: '',
-        secondary2: '',
-        tertiary1: '',
-        tertiary2: ''
+        name: localStorage.paletteName,
+        primary: localStorage.primary,
+        secondary1: localStorage.secondary1,
+        secondary2: localStorage.tertiary1,
+        tertiary1: localStorage.secondary2,
+        tertiary2: localStorage.tertiary2
       });
+
+
     } else {
 
 
@@ -50,7 +53,7 @@ class CreateYourOwn extends React.Component {
       let styles = ['shades'];
       let randStyle = styles[Math.floor(Math.random() * styles.length)];
       //generate random palette
-      let palette;
+      // let palette;
       if (randStyle === 'complementary') {
         palette = color.complementaryPalette(hex);
       } else if (randStyle === 'splitComp') {
@@ -72,6 +75,9 @@ class CreateYourOwn extends React.Component {
       });
     }
   }
+
+
+
 
     //convert hex string e.g.'DA5252' to rgb array e.g.([218, 82, 82]) 0-255
   hexToRgb (hex) {
@@ -179,7 +185,7 @@ class CreateYourOwn extends React.Component {
   _handleSubmit(e) {
     e.preventDefault();
     // console.log('name', this.state.name);
-    console.log('palette', this.state);
+    // console.log('palette', this.state);
     let newColor = {
       name: this.state.name,
       colors: {
@@ -190,18 +196,21 @@ class CreateYourOwn extends React.Component {
         tertiary2: this.state.tertiary2
       }
     };
-    $.ajax({
-      method: 'POST',
-      url: '/api/colors',
-      data: newColor,
-      dataType: 'JSON',
-      success: function (resp) {
-        console.log('success', resp);
-      },
-      error: function (error) {
-        console.log('error', error);
+    request.post('/api/colors')
+    .set('Content-Type', 'application/json')
+    .send(JSON.stringify(newColor))
+    .end(function(err, res) {
+      if (err) {
+        throw err;
       }
+      console.log('res', res.body);
     });
+
+    delete localStorage.primary;
+    delete localStorage.secondary1;
+    delete localStorage.secondary2;
+    delete localStorage.tertiary1;
+    delete localStorage.tertiary2;
   }
 
   render() {

@@ -20,7 +20,7 @@ class ColorFamilyInfoView extends React.Component {
 
   convertHexToRGB() {
     var objArr = [];
-    var colors = this.props.currentFamily.colors
+    var colors = this.props.currentFamily.colors;
     for (var key in colors) {
       if (key.match(/^color./)) {
         var newObj = {};
@@ -35,11 +35,11 @@ class ColorFamilyInfoView extends React.Component {
 
   editPalette() {
     let colors = this.props.currentFamily.colors;
-    localStorage.primary = colors.primary;
-    localStorage.secondary1 = colors.secondary1;
-    localStorage.secondary2 = colors.secondary2;
-    localStorage.tertiary1 = colors.tertiary1;
-    localStorage.tertiary2 = colors.tertiary2;
+    localStorage.primary = colors.primary.slice(1);
+    localStorage.secondary1 = colors.secondary1.slice(1);
+    localStorage.secondary2 = colors.secondary2.slice(1);
+    localStorage.tertiary1 = colors.tertiary1.slice(1);
+    localStorage.tertiary2 = colors.tertiary2.slice(1);
     localStorage.paletteName = this.props.currentFamily.name;
     browserHistory.push(`/swatch/edit/${this.props.currentFamily._id}`);
   }
@@ -51,51 +51,51 @@ class ColorFamilyInfoView extends React.Component {
       borderColor1: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: colors.primary
+        borderColor: '#' + colors.primary
       },
       bgColor1: {
         margin: '1px',
-        backgroundColor: colors.primary
+        backgroundColor: '#' + colors.primary
       },
 
       borderColor2: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: colors.secondary1
+        borderColor: '#' + colors.secondary1
       },
       bgColor2: {
         margin: '1px',
-        backgroundColor: colors.secondary1
+        backgroundColor: '#' + colors.secondary1
       },
 
       borderColor3: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: colors.secondary2
+        borderColor: '#' + colors.secondary2
       },
       bgColor3: {
         margin: '1px',
-        backgroundColor: colors.secondary2
+        backgroundColor: '#' + colors.secondary2
       },
 
       borderColor4: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: colors.tertiary1
+        borderColor: '#' + colors.tertiary1
       },
       bgColor4: {
         margin: '1px',
-        backgroundColor: colors.tertiary1
+        backgroundColor: '#' + colors.tertiary1
       },
 
       borderColor5: {
         margin: '1px',
         borderWidth: '2px',
-        borderColor: colors.tertiary2
+        borderColor: '#' + colors.tertiary2
       },
       bgColor5: {
         margin: '1px',
-        backgroundColor: colors.tertiary2
+        backgroundColor: '#' + colors.tertiary2
       }
     };
     return (
@@ -104,7 +104,7 @@ class ColorFamilyInfoView extends React.Component {
         <Button onClick={this.props.toggleSidebarOff}>Hide Sidebar</Button>
         <div className="color-family-info">
           {this.convertHexToRGB().map(function(color, index) {
-            return <ColorInfoView color={color} key={index} index={index}/>
+            return <ColorInfoView color={color} key={index} index={index}/>;
           })}
 
            <h5> Example UI Elements</h5>

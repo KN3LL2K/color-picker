@@ -6,10 +6,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       username: localStorage.username || null
-    }
+    };
   }
 
-  setUser(username=null) {
+  setUser(username = null) {
     this.setState({ username: username });
   }
 

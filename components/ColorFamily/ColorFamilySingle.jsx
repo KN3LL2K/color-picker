@@ -29,7 +29,7 @@ class ColorFamilySingle extends React.Component {
     // }
     var styles = {
       background: {
-        backgroundColor: this.props.color,
+        backgroundColor: '#' + this.props.color,
         height: "100px",
         display: 'flex',
         alignItems: 'center',
