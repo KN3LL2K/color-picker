@@ -6,6 +6,7 @@ import Home from './Home.jsx';
 import CreateYourOwn from './CreateYourOwn.jsx';
 import Register from './auth/Register.jsx';
 import Login from './auth/Login.jsx';
+import Profile from './Profile.jsx';
 import NotFound from './NotFound.jsx';
 
 render(
@@ -17,6 +18,7 @@ render(
         <Route path="/register" component={Register}/>
         <Route path="/login" component={Login}/>
         <Route path="/swatch/edit/:id" component={CreateYourOwn}/>
+        <Route path="/profile/:id" component={Profile}/>
         <Route path="*" component={NotFound}/>
       </Route>
     </Router>

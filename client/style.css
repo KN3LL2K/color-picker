@@ -139,3 +139,7 @@ body {
 #NotFound {
   text-align: center;
 }
+
+#profile {
+  padding-top:64px;
+}
