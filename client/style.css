@@ -131,9 +131,16 @@ body {
   padding-top:64px;
 }
 
+.form-control {
+  height: 36px; /* need to add this so that the font awesome icons are lined up */
+}
+
 #registerForm button, #loginForm button {
-  width:80%;
-  margin-left:10%;
+  /*width:80%;
+  margin-left:10%;*/
+  margin: 0 auto;
+  display: block;
+  padding: 6px 24px;
 }
 
 #NotFound {

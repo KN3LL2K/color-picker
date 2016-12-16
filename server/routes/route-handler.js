@@ -19,7 +19,6 @@ module.exports = {
     if ( req.query.sort === 'popular' ) {
       sortCriteria.likes = 'desc';
     }
-    console.log(sortCriteria);
     // time complexity is horrid....
     ColorFamily.find({}).sort(sortCriteria).select('-__v').lean().exec()
       .then(function(colorFamilies) {
@@ -111,7 +110,6 @@ module.exports = {
     if (!error) {
       ColorFamily.findOneAndUpdate({name: req.body.name}, req.body, {new: true}).exec()
         .then(function(doc) {
-          console.log(doc);
           res.sendStatus(201);
         })
         .catch(function(err) {
@@ -134,7 +132,6 @@ module.exports = {
               console.log('relationship removed', color);
               ColorLikes.count({colorId: colorId}).exec()
                 .then(function( err, count) {
-                  console.log(colorId);
                   ColorFamily.findOneAndUpdate({ _id: colorId }, { $inc: { likes: -1 } })
                     .exec()
                     .catch(function(err) {

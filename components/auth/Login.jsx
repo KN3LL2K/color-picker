@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
-import { Button, Col, FormGroup, FormControl } from 'react-bootstrap';
+import { InputGroup, Button, Col, FormGroup, FormControl } from 'react-bootstrap';
+import FontAwesome from 'react-fontawesome';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import { browserHistory } from 'react-router';
 
@@ -47,13 +48,19 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Col sm={10} smPush={1}>
+      <Col sm={6} smPush={3}>
         <form id="loginForm" onSubmit={this.submitLogin.bind(this)}>
           <FormGroup controlId="username">
-            <FormControl type="text" placeholder="Username"/>
+            <InputGroup>
+              <InputGroup.Addon><FontAwesome fixedWidth name='user' /></InputGroup.Addon>
+              <FormControl type="text" placeholder="Username"/>
+            </InputGroup>
           </FormGroup>
           <FormGroup controlId="password">
-            <FormControl type="password" placeholder="Password"/>
+            <InputGroup>
+              <InputGroup.Addon><FontAwesome fixedWidth name='key' /></InputGroup.Addon>
+              <FormControl type="password" placeholder="Password"/>
+            </InputGroup>
           </FormGroup>
           <FormGroup controlId="doLogin">
             <Button type="submit" bsStyle="primary">Login</Button>
