@@ -240,9 +240,7 @@ module.exports = {
     var plainText = req.body.password;
     bcrypt.hash(plainText, null, null, function(err, hash) {
       if (err) {
-        res.status(409).send({
-          message: 'failed to store password'
-        });
+        res.status(409).send('failed to store password');
       }
       var newUser = new User({username: username, password: hash});
       newUser.save()
@@ -251,9 +249,7 @@ module.exports = {
         })
         .catch(function(err) {
           console.log('err in user sign up user:', err);
-          res.status(409).send({
-            message: err.errors.username.message
-          });
+          res.status(409).send(err.errors.username.message);
         });
     });
   },
