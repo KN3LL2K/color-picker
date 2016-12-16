@@ -21,7 +21,7 @@ module.exports = {
     }
     console.log(sortCriteria);
     // time complexity is horrid....
-    ColorFamily.find({}).sort(sortCriteria).lean().exec()
+    ColorFamily.find({}).sort(sortCriteria).select('-__v').lean().exec()
       .then(function(colorFamilies) {
         if ( req.user ) {
           var userLikes = [];
@@ -76,7 +76,6 @@ module.exports = {
         tertiary2: req.body.colors.tertiary2
       },
       userId: req.user._id,
-      tags: req.body.tags,
       parent: colorParent,
     });
     newColor.save()
@@ -266,10 +265,10 @@ module.exports = {
     User.findOne({_id: userId}).select('-password -__v').exec()
       .then(function(user) {
         output.info = user;
-        ColorLikes.find({userId: userId}).populate({path: 'colorId', select: '-__v'}).exec()
+        ColorLikes.find({userId: userId}).select('-__v -userId').populate({path: 'colorId', select: '-__v -userId'}).exec()
           .then(function(likes) {
             output.userLikes = likes;
-            ColorFamily.find({userId: userId}).select('-__v').exec()
+            ColorFamily.find({userId: userId}).select('-__v -userId').exec()
               .then(function(colors) {
                 output.swatches = colors;
                 res.json(output);
@@ -292,7 +291,7 @@ module.exports = {
   getColor: function(req, res, next) {
     var colorId = req.params.colorId;
 
-    ColorFamily.findOne({_id: colorId}).exec()
+    ColorFamily.findOne({_id: colorId}).select('-__v').exec()
       .then(function(color) {
         res.json(color);
       })
