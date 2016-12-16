@@ -148,3 +148,12 @@ body {
 #profile {
   padding-top:64px;
 }
+
+.swatchPreview {
+
+}
+
+.swatchPreview:hover {
+  text-decoration: underline;
+  text-decoration-color: black;
+}
