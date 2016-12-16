@@ -42,7 +42,7 @@ passport.use(new LocalStrategy(
         return done(err);
       }
       if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
+        return done(null, false, { message: 'Incorrect username' });
       }
       util.isValidPassword(username, password, function(isMatch) {
         if (isMatch) {
@@ -95,7 +95,20 @@ app.get('/api/users/:userId', route.getUser);
 // USER ROUTES
 //
 
-app.post('/login', passport.authenticate('local'), route.logIn);
+app.post('/login',
+  function(req, res, next ) {
+    passport.authenticate('local', function(err, user, info) {
+      if (err) {
+        return res.status(403).end('err');
+      }
+      if (!user) {
+        return res.status(403).end(info.message);
+      }
+      next();
+    })(req, res, next);
+  },
+  route.logIn
+);
 
 app.get('/logout', route.logOut);
 
