@@ -20,10 +20,16 @@ class ColorFamily extends React.Component {
 
   getFamilyColors() {
     var result = [];
-    var colors = this.props.colorFamily.colors
-    for (var key in colors) {
-      result.push(colors[key]);
-    }
+    var colors = this.props.colorFamily.colors;
+
+    result.push(colors.tertiary2);
+    result.push(colors.tertiary1);
+    result.push(colors.primary);
+    result.push(colors.secondary1);
+    result.push(colors.secondary2);
+    // for (var key in colors) {
+    //   result.push(colors[key]);
+    // }
     return result;
   }
 
@@ -34,8 +40,8 @@ class ColorFamily extends React.Component {
 
   generateSingles() {
     return this.getFamilyColors().map(function(color, index) {
-      return <ColorFamilySingle hover={this.state.hover} color={color} key={index} index={index}/>
-    }.bind(this))
+      return <ColorFamilySingle hover={this.state.hover} color={color} key={index} index={index}/>;
+    }.bind(this));
   }
 
   render() {
