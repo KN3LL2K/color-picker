@@ -40,10 +40,9 @@ class Login extends React.Component {
     });
   }
 
-  finishLogin(username) {
+  finishLogin(username, userId) {
     this.props.hideAlert();
-    this.props.setUser(username);
-    localStorage.username = username;
+    this.props.setUser(username, userId);
     browserHistory.push('/');
   }
 

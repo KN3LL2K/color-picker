@@ -52,8 +52,6 @@ class Register extends React.Component {
   finishRegistration(username, userId) {
     this.props.hideAlert();
     this.props.setUser(username, userId);
-    localStorage.username = username;
-    localStorage.userId = userId;
     browserHistory.push('/');
   }
 

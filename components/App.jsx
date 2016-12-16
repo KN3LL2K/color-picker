@@ -15,6 +15,8 @@ class App extends React.Component {
       username: username,
       userId: userId
     });
+    localStorage.username = username;
+    localStorage.userId = userId;
   }
 
   swal(jsx) {
