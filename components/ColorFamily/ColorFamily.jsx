@@ -27,9 +27,7 @@ class ColorFamily extends React.Component {
     result.push(colors.primary);
     result.push(colors.secondary1);
     result.push(colors.secondary2);
-    // for (var key in colors) {
-    //   result.push(colors[key]);
-    // }
+
     return result;
   }
 

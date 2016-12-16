@@ -47,9 +47,11 @@ class TopBar extends React.Component {
     }
     return (
       <Nav>
-        <NavItem href="">
+      <LinkContainer to={`/profile/${localStorage.userId}`}>
+        <NavItem>
           Weclome, {this.props.username}!
         </NavItem>
+      </LinkContainer>
         <NavItem onClick={this.logout.bind(this)}>
           Log out
         </NavItem>

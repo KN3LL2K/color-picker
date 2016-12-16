@@ -3,7 +3,6 @@ import ColorInfoView from './ColorInfoView.jsx';
 import {Row, Col, Grid} from 'react-bootstrap';
 import $ from 'jquery';
 import SwatchEditor from './SwatchEditor.jsx';
-import Swatch from './Swatch.jsx';
 import color from '../utils/colorHelpers.js';
 import _ from 'lodash';
 import request from 'superagent';
