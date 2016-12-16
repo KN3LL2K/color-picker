@@ -9,6 +9,7 @@ class Palette extends React.Component {
       hover: false
     };
     this.toggleHover = this.toggleHover.bind(this);
+    this.generateSingles = this.generateSingles.bind(this);
   }
 
   getFamilyColors() {
@@ -25,9 +26,10 @@ class Palette extends React.Component {
   }
 
   generateSingles() {
-    debugger;
+    // debugger;
+    let component = this;
     return this.getFamilyColors().map(function(color, index) {
-      return <ColorFamilySingle hover={this.state.hover} color={color} key={index} index={index}/>;
+      return <ColorFamilySingle hover={component.state.hover} color={color} key={index} index={index}/>;
     });
   }
 
