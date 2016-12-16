@@ -46,7 +46,7 @@ class Palette extends React.Component {
     };
 
     return (
-      <Row style={styles.rowStyle} onClick={this.onClickHandler} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} >
+      <Row style={styles.rowStyle} className="palette" onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} >
         {this.generateSingles()}
       </Row>
     );

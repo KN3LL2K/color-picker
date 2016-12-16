@@ -153,11 +153,30 @@ body {
 }
 
 #profile {
-  padding-top:64px;
+  padding-top:48px;
+  padding-left:0px;
+  padding-right:0px;
 }
 
-.swatchPreview {
+#profile ul {
+  list-style:none;
+  padding:0px;
+  margin:0px;
+}
 
+#profile h1, #profile h4 {
+  text-align:center;
+}
+
+#profile > .col-xs-12,
+#profile > .col-xs-12 > .col-xs-6 {
+  padding-left:0px;
+  padding-right:0px;
+}
+
+.palette {
+  padding:0px;
+  cursor:default;
 }
 
 .swatchPreview:hover {
