@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
-import { Button, Col, FormGroup, FormControl } from 'react-bootstrap';
+import { InputGroup, Button, Col, FormGroup, FormControl } from 'react-bootstrap';
+import FontAwesome from 'react-fontawesome';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import { browserHistory } from 'react-router';
 
@@ -56,16 +57,25 @@ class Register extends React.Component {
 
   render() {
     return (
-      <Col sm={10} smPush={1}>
+      <Col sm={6} smPush={3}>
         <form id="registerForm" onSubmit={this.submitRegistration.bind(this)}>
           <FormGroup controlId="username">
-            <FormControl type="text" placeholder="Username"/>
+            <InputGroup>
+              <InputGroup.Addon><FontAwesome fixedWidth name='user' /></InputGroup.Addon>
+              <FormControl type="text" placeholder="Username"/>
+            </InputGroup>
           </FormGroup>
           <FormGroup controlId="password">
-            <FormControl type="password" placeholder="Password"/>
+            <InputGroup>
+              <InputGroup.Addon><FontAwesome fixedWidth name='key' /></InputGroup.Addon>
+              <FormControl type="password" placeholder="Password"/>
+            </InputGroup>
           </FormGroup>
           <FormGroup controlId="verify">
-            <FormControl type="password" placeholder="Verify Password"/>
+            <InputGroup>
+              <InputGroup.Addon><FontAwesome fixedWidth name='key' /></InputGroup.Addon>
+              <FormControl type="password" placeholder="Verify Password"/>
+            </InputGroup>
           </FormGroup>
           <FormGroup controlId="doRegister">
             <Button type="submit" bsStyle="primary">Register</Button>
