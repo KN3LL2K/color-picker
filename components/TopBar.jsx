@@ -17,8 +17,9 @@ class TopBar extends React.Component {
   logout() {
     let component = this;
     var finishLogout = function() {
-      component.props.setUser(null);
+      component.props.setUser(null, null);
       delete localStorage.username;
+      delete localStorage.userId;
       component.props.hideAlert();
       browserHistory.push.bind(component, '/');
     }
@@ -46,9 +47,11 @@ class TopBar extends React.Component {
     }
     return (
       <Nav>
-        <NavItem href="">
+      <LinkContainer to={`/profile/${localStorage.userId}`}>
+        <NavItem>
           Weclome, {this.props.username}!
         </NavItem>
+      </LinkContainer>
         <NavItem onClick={this.logout.bind(this)}>
           Log out
         </NavItem>

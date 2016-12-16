@@ -5,12 +5,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: localStorage.username || null
+      username: localStorage.username || null,
+      userId: localStorage.userId || null
     };
   }
 
-  setUser(username = null) {
-    this.setState({ username: username });
+  setUser(username = null, userId = null) {
+    this.setState({
+      username: username,
+      userId: userId
+    });
+    localStorage.username = username;
+    localStorage.userId = userId;
   }
 
   swal(jsx) {

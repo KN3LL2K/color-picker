@@ -33,9 +33,11 @@ class Register extends React.Component {
     $.post('/signup', {
       username: username,
       password: password
-    }).done(function(res) {
+    }).done(function(user) {
+      user.username = username;
+      let msg = `Registered as ${user.username}`;
       component.props.swal(
-        <SweetAlert success title="Registered Successfully" confirmBtnText="Yay!" onConfirm={component.finishRegistration.bind(component, username)}/>
+        <SweetAlert success title={msg} confirmBtnText="Yay!" onConfirm={component.finishRegistration.bind(component, user)}/>
       );
     }).fail(function(err) {
       component.props.swal(
@@ -48,10 +50,9 @@ class Register extends React.Component {
     });
   }
 
-  finishRegistration(username) {
+  finishRegistration(user) {
     this.props.hideAlert();
-    this.props.setUser(username);
-    localStorage.username = username;
+    this.props.setUser(user.username, user.userId);
     browserHistory.push('/');
   }
 

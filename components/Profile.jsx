@@ -2,7 +2,7 @@ import React from 'react';
 import { Col } from 'react-bootstrap';
 import $ from 'jquery';
 import SweetAlert from 'react-bootstrap-sweetalert';
-import ColorFamily from './ColorFamily/ColorFamily.jsx';
+import Palette from './Palette.jsx';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -26,24 +26,24 @@ class Profile extends React.Component {
 
   renderProfile() {
     let user = this.state.user
-    debugger;
     return (
       <Col sm={12}>
         <h1>{user.info.username}&#39;s Profile</h1>
         <h3>Liked Swatches: {user.userLikes.length}</h3>
-        <ul>
-          {user.userLikes.map(function(swatch, index) {
-           return <ColorFamily key={index}>{swatch.toString()}</ColorFamily>
-          })}
-        </ul>
+        <Palette colors={user.userLikes[0].colorId.colors}/>
         <h3>Created Swatches: {user.swatches.length}</h3>
-        <ul>
-          {user.swatches.map(function(swatch, index) {
-           return <li key={index}>{swatch.toString()}</li>
-          })}
-        </ul>
       </Col>
     );
+        // <ul>
+        //   {user.userLikes.map(function(palette, index) {
+        //    return <li key={index}><Palette colorFamily={palette.colorId.colors}/></li>
+        //   })}
+        // </ul>
+        // <ul>
+        //   {user.swatches.map(function(palette, index) {
+        //    return <li key={index}><Palette key={index} colorFamily={palette.colors}/></li>
+        //   })}
+        // </ul>
   }
 
   render() {

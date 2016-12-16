@@ -24,8 +24,9 @@ class Login extends React.Component {
     $.post('/login', {
       username: username,
       password: password
-    }).done(function(msg) {
-      component.props.swal(<SweetAlert success title={msg} confirmBtnText="Nice!" onConfirm={component.finishLogin.bind(component, username)}/>);
+    }).done(function(user) {
+      let msg = `Logged in as ${user.username}`;
+      component.props.swal(<SweetAlert success title={msg} confirmBtnText="Nice!" onConfirm={component.finishLogin.bind(component, user)}/>);
     }).fail(function(err) {
       let title = err.status === 401 ? err.responseText : 'Incorrect username or password';
       component.props.swal(
@@ -39,10 +40,9 @@ class Login extends React.Component {
     });
   }
 
-  finishLogin(username) {
+  finishLogin(user) {
     this.props.hideAlert();
-    this.props.setUser(username);
-    localStorage.username = username;
+    this.props.setUser(user.username, user.userId);
     browserHistory.push('/');
   }
 
