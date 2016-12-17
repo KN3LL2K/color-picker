@@ -129,16 +129,15 @@ module.exports = {
         if ( isSaved ) {
           ColorLikes.findOneAndRemove({colorId: colorId, userId: userId}).exec()
             .then(function(color) {
-              console.log('relationship removed', color);
-              ColorLikes.count({colorId: colorId}).exec()
-                .then(function( err, count) {
+              ColorLikes.find({colorId: colorId})
+                .count(function( err, count) {
                   ColorFamily.findOneAndUpdate({ _id: colorId }, { $inc: { likes: -1 } })
                     .exec()
                     .catch(function(err) {
                       console.log('err in saving colorsave', err);
                       return next(err);
                     });
-                  res.end(count);
+                  res.json(count);
                 })
                 .catch(function(err) {
                   next(err);
@@ -152,16 +151,15 @@ module.exports = {
           var newRelationship = new ColorLikes({colorId: colorId, userId: userId});
           newRelationship.save()
             .then(function (color) {
-              console.log('new colorlike', color);
-              ColorLikes.count({colorId: colorId}).exec()
-                .then(function( err, count) {
+              ColorLikes.find({colorId: colorId})
+                .count(function( err, count) {
                   ColorFamily.findOneAndUpdate({ _id: colorId }, { $inc: { likes: 1 } })
                     .exec()
                     .catch(function(err) {
                       console.log('err in saving colorsave', err);
                       return next(err);
                     });
-                  res.end(count);
+                  res.json(count);
                 })
                 .catch(function(err) {
                   next(err);

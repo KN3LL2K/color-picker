@@ -207,6 +207,8 @@ body {
   width:20px;
   display:inline-block;
   margin-right:4px;
+  margin:0;
+  padding:0;
 }
 
 #profile {
@@ -237,11 +239,19 @@ body {
 }
 
 .swatchPreview {
-  padding-left:3px;
+  padding-left:6px;
   cursor:pointer;
 }
 
 .swatchPreview:hover {
   text-decoration: underline;
   text-decoration-color: black;
+  cursor: pointer;
+}
+
+.likeBtn {
+  font-size:1.5em;
+}
+.likeBtn:hover {
+  cursor: pointer;
 }

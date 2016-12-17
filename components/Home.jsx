@@ -5,6 +5,7 @@ import ColorFamilyView from './ColorFamily/ColorFamilyView.jsx';
 import ColorFamilyInfoView from './ColorFamily/ColorFamilyInfoView.jsx';
 import CreateYourOwn from './CreateYourOwn.jsx';
 import {Button, Grid} from 'react-bootstrap';
+import request from 'superagent';
 
 
 //this app relies heavily on React Bootstrap
@@ -92,6 +93,26 @@ class Home extends React.Component {
     }
   }
 
+  _like() {
+    let colorId = this.state.currentFamily._id;
+    let change = _.extend({}, this.state);
+    change.currentFamily.isLiked = !this.state.currentFamily.isLiked;
+    this.setState(change);
+    request.post('/api/colors/' + colorId + '/like')
+    .send()
+    .end(function(err, res) {
+      if (err) {
+        let change = _.extend({}, this.state);
+        change.currentFamily.isLiked = !this.state.currentFamily.isLiked;
+        this.setState(change);
+        throw err;
+      }
+      let change = _.extend({}, this.state);
+      change.currentFamily.likes = res.body;
+      this.setState(change);
+    }.bind(this));
+  }
+
   //Change state of components to display side via css
 
   toggleSidebarOn() {
@@ -114,7 +135,7 @@ class Home extends React.Component {
   //load data before render
   componentWillMount() {
     $.ajax({
-      url: '/api/colors',
+      url: '/api/colors?sort=popular',
       success: function(data) {
         this.setState({ colorFamilies: data });
         this.setState({ allFamilies: data });
@@ -136,7 +157,7 @@ class Home extends React.Component {
             <ColorFamilyView setCurrentFamily={this.setCurrentFamily.bind(this)} colorFamilies={this.state.colorFamilies} toggleSidebarOn={this.toggleSidebarOn}/>
           </div>
           <div className={this.state.sidebarClass}>
-            { sideBarShow ? <ColorFamilyInfoView currentFamily={this.state.currentFamily} toggleSidebarOff={this.toggleSidebarOff}/> : null }
+            { sideBarShow ? <ColorFamilyInfoView likeHandler={this._like.bind(this)} currentFamily={this.state.currentFamily} toggleSidebarOff={this.toggleSidebarOff}/> : null }
           </div>
         </div>
       </div>
