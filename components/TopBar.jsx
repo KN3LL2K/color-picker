@@ -22,7 +22,6 @@ class TopBar extends React.Component {
       delete localStorage.userId;
       component.props.hideAlert();
       browserHistory.push('/');
-      // component.props.swal(<SweetAlert success title="Logged Out" confirmBtnText="See you later!" onConfirm={finishLogout}/>);
     }).fail(function(err) {
       component.props.swal(
         <SweetAlert danger title="Failed to log out" confirmBtnText="How does this even happen?" onConfirm={component.props.hideAlert}/>

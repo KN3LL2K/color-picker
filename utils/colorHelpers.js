@@ -125,7 +125,6 @@ var calcAnalagous = function(color, angle) {
   return [h, s, l];
 };
 
-//Angle
 // degrees of sep for analagous & triad
 var angle = 20.0;
 
@@ -141,12 +140,10 @@ var calcShade = function(color, shade) {
   return [color[0], color[1], lum];
 };
 
-//Tints
 // % brighter
 var tint1 = 1.2;
 var tint2 = 1.4;
 
-//Shades
 // % darker
 var shade1 = 0.7;
 var shade2 = 0.4;
@@ -163,8 +160,6 @@ module.exports.complementaryPalette = function(pri) {
   return {primary: pri, secondary1: hslToHex(sec1), secondary2: hslToHex(sec2), tertiary1: hslToHex(tert1), tertiary2: hslToHex(tert2)};
 };
 
-// console.log('complementary', complementaryPalette('#DA5252'));
-
 module.exports.analagousPalette = function(pri) {
   let priHsl = hexToHsl(pri);
   let sec1, sec2, tert1, tert2;
@@ -175,8 +170,6 @@ module.exports.analagousPalette = function(pri) {
 
   return {primary: pri, secondary1: hslToHex(sec1), secondary2: hslToHex(sec2), tertiary1: hslToHex(tert1), tertiary2: hslToHex(tert2)};
 };
-
-// console.log('analagous', analagousPalette('#DA5252'));
 
 module.exports.splitCPalette = function(pri) {
   let priHsl = hexToHsl(pri);
@@ -190,8 +183,6 @@ module.exports.splitCPalette = function(pri) {
   return {primary: pri, secondary1: hslToHex(sec1), secondary2: hslToHex(sec2), tertiary1: hslToHex(tert1), tertiary2: hslToHex(tert2)};
 };
 
-// console.log('split complementary', splitCPalette('#DA5252'));
-
 module.exports.triadPalette = function(pri) {
   let priHsl = hexToHsl(pri);
   let sec1, sec2, tert1, tert2;
@@ -203,8 +194,6 @@ module.exports.triadPalette = function(pri) {
 
   return {primary: pri, secondary1: hslToHex(sec1), secondary2: hslToHex(sec2), tertiary1: hslToHex(tert1), tertiary2: hslToHex(tert2)};
 };
-
-// console.log('triad', triadPalette('#DA5252'));
 
 module.exports.shadesPalette = function(pri) {
   let priHsl = hexToHsl(pri);
@@ -218,8 +207,3 @@ module.exports.shadesPalette = function(pri) {
 };
 
 module.exports.hexToRgb = hexToRgb;
-
-// console.log('shades', shadesPalette('DA5252'));
-
-
-

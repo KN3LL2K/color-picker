@@ -43,17 +43,18 @@ class CreateYourOwn extends React.Component {
     } else {
 
       this.setState({isChanged: true, name: 'Enter a name..'});
-    //randomly pick seed color
+      // Randomly pick seed color
       let randNum = function() {
         return Math.floor(Math.random() * 254);
       };
       let randColor = [randNum(), randNum(), randNum()];
       let hex = this.rgbToHex(randColor);
-      //randomly pick style of palette
+
+      // Randomly pick style of palette
       let styles = ['shades'];
       let randStyle = styles[Math.floor(Math.random() * styles.length)];
-      //generate random palette
-      // let palette;
+
+      // Generate random palette
       if (randStyle === 'complementary') {
         palette = color.complementaryPalette(hex);
       } else if (randStyle === 'splitComp') {
@@ -65,7 +66,8 @@ class CreateYourOwn extends React.Component {
       } else {
         palette = color.shadesPalette(hex);
       }
-      //pass to swatches
+
+      // Pass to swatches
       this.setState({
         primary: palette.primary,
         secondary1: palette.secondary1,
@@ -79,13 +81,13 @@ class CreateYourOwn extends React.Component {
 
 
 
-    //convert hex string e.g.'DA5252' to rgb array e.g.([218, 82, 82]) 0-255
+  // Convert hex string e.g.'DA5252' to rgb array e.g.([218, 82, 82]) 0-255
   hexToRgb (hex) {
     var hexChars = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15};
     var result = [];
-    //remove #
+    // Remove "#"
     hex = hex.toUpperCase().match(/.{1,2}/g);
-    // split
+    // Split the red, green, and blue
     var r = hex[0].split(''), g = hex[1].split(''), b = hex[2].split('');
     
     result[0] = Math.round(hexChars[r[0]] * 16 + hexChars[r[1]]);
@@ -94,7 +96,7 @@ class CreateYourOwn extends React.Component {
     return result;
   }
 
-  //convert rgb array e.g.([218, 82, 82]) to hex e.g.'DA5252'
+  // Convert rgb array e.g.([218, 82, 82]) to hex e.g.'DA5252'
   rgbToHex (array) {
     var hexChars = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'};
     var result = '';
@@ -111,7 +113,6 @@ class CreateYourOwn extends React.Component {
     let palette = color.complementaryPalette(this.state.primary);
 
     this.setState({
-      // primary: palette.primary,
       secondary1: palette.secondary1,
       secondary2: palette.secondary2,
       tertiary1: palette.tertiary1,
@@ -122,7 +123,6 @@ class CreateYourOwn extends React.Component {
   _splitComplementary() {
     let palette = color.splitCPalette(this.state.primary);
     this.setState({
-      // primary: palette.primary,
       secondary1: palette.secondary1,
       secondary2: palette.secondary2,
       tertiary1: palette.tertiary1,
@@ -134,7 +134,6 @@ class CreateYourOwn extends React.Component {
     let palette = color.triadPalette(this.state.primary);
 
     this.setState({
-      // primary: palette.primary,
       secondary1: palette.secondary1,
       secondary2: palette.secondary2,
       tertiary1: palette.tertiary1,
@@ -145,7 +144,6 @@ class CreateYourOwn extends React.Component {
     let palette = color.analagousPalette(this.state.primary);
 
     this.setState({
-      // primary: palette.primary,
       secondary1: palette.tertiary1,
       secondary2: palette.secondary1,
       tertiary1: palette.secondary1,
@@ -157,7 +155,6 @@ class CreateYourOwn extends React.Component {
     let palette = color.shadesPalette(this.state.primary);
 
     this.setState({
-      // primary: palette.primary,
       secondary1: palette.secondary1,
       secondary2: palette.tertiary1,
       tertiary1: palette.secondary2,
