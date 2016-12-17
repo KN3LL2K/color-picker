@@ -95,40 +95,43 @@ class ColorFamilyInfoView extends React.Component {
     
     return (
       <div className="sidebar-content">
-        <Button onClick={this.props.toggleSidebarOff}>Hide Sidebar</Button>
-        <div className="color-family-info">
- 
-        <h4>Name: {this.props.currentFamily.name}</h4>
-        <div className='likeBtn' onClick={this.props.likeHandler}>
-        { this.props.currentFamily.isLiked ? <i className="fa fa-heart" aria-hidden="true"></i> : <i className='fa fa-heart-o' aria-hidden="true"></i> } {this.props.currentFamily.likes}
-        </div>
-        <h5>Click a Code to Copy!</h5>
-        <ul style={styles.list}>
-          {Object.keys(colors).map((color, key) => <SwatchPreview color={colors[color]} key={color} />)}
-        </ul>
+        <div className="sidebar-scrollable">
+          <Button onClick={this.props.toggleSidebarOff}>Hide Sidebar</Button>
+          <div className="color-family-info">
+            <h4>Name: {this.props.currentFamily.name}</h4>
+
+            <div className='likeBtn' onClick={this.props.likeHandler}>
+            { this.props.currentFamily.isLiked ? <i className="fa fa-heart" aria-hidden="true"></i> : <i className='fa fa-heart-o' aria-hidden="true"></i> } {this.props.currentFamily.likes}
+            </div>
+            <h5>Click a Code to Copy!</h5>
+            <ul style={styles.list}>
+              {Object.keys(colors).map((color, key) => <SwatchPreview color={colors[color]} key={color} />)}
+            </ul>
+            
            <h5> Example UI Elements</h5>
 
-          <Panel style={styles.bgColor5}>
-          Panel
-          </Panel>
-            <Button style={styles.bgColor1}> Color 1 </Button>
-            <Button style={styles.bgColor2}> Color 2 </Button>
-            <Button style={styles.bgColor3}> Color 3 </Button>
-            <Button style={styles.bgColor4}> Color 4 </Button>
-            <Button style={styles.bgColor5}> Color 5 </Button> <br/><br/>
+            <Panel style={styles.bgColor5}>
+            Panel
+            </Panel>
+              <Button style={styles.bgColor1}> Color 1 </Button>
+              <Button style={styles.bgColor2}> Color 2 </Button>
+              <Button style={styles.bgColor3}> Color 3 </Button>
+              <Button style={styles.bgColor4}> Color 4 </Button>
+              <Button style={styles.bgColor5}> Color 5 </Button> <br/><br/>
 
-          <Panel style={styles.borderColor5}>
-          Panel
-          </Panel>
+            <Panel style={styles.borderColor5}>
+            Panel
+            </Panel>
             <Button style={styles.borderColor1}> Color 1 </Button>
             <Button style={styles.borderColor2}> Color 2 </Button>
             <Button style={styles.borderColor3}> Color 3 </Button>
             <Button style={styles.borderColor4}> Color 4 </Button>
             <Button style={styles.borderColor5}> Color 5 </Button>
-        </div>
-        <br/>
-        <Button bsStyle="primary" onClick={this.editPalette.bind(this)}>Edit this palette</Button>
+          </div>
+          <br/>
+          <Button bsStyle="primary" onClick={this.editPalette.bind(this)}>Edit this palette</Button>
 
+        </div>
       </div>
     );
   }

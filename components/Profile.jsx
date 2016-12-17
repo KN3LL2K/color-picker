@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col } from 'react-bootstrap';
+import { Col, Grid } from 'react-bootstrap';
 import $ from 'jquery';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import Palette from './Palette.jsx';
@@ -27,29 +27,33 @@ class Profile extends React.Component {
   renderProfile() {
     let user = this.state.user
     return (
-      <Col sm={12}>
+      <Col xs={12}>
         <h1>{user.info.username}&#39;s Profile</h1>
-        <h3>Liked Swatches: {user.userLikes.length}</h3>
-        <ul>
-          {user.userLikes.map(function(palette, index) {
-           return <li key={index}><Palette colors={palette.colorId.colors}/></li>
-          })}
-        </ul>
-        <h3>Created Swatches: {user.swatches.length}</h3>
-        <ul>
-          {user.swatches.map(function(palette, index) {
-           return <li key={index}><Palette key={index} colors={palette.colors}/></li>
-          })}
-        </ul>
+        <Col sm={6}>
+          <h4>Liked Swatches: {user.userLikes.length}</h4>
+          <ul>
+            {user.userLikes.map(function(palette, index) {
+             return <li key={index}><Palette colors={palette.colorId.colors}/></li>
+            })}
+          </ul>
+        </Col>
+        <Col sm={6}>
+          <h4>Created Swatches: {user.swatches.length}</h4>
+          <ul>
+            {user.swatches.map(function(palette, index) {
+             return <li key={index}><Palette key={index} colors={palette.colors}/></li>
+            })}
+          </ul>
+        </Col>
       </Col>
     );
   }
 
   render() {
     return (
-      <Col id="profile" sm={10} smPush={1}>
+      <Grid id="profile" fluid>
         {this.state.loading ? <h3>Loading...</h3> : this.renderProfile()}
-      </Col>
+      </Grid>
     );
   }
 }

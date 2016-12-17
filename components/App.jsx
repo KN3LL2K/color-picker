@@ -32,9 +32,11 @@ class App extends React.Component {
       (child) => React.cloneElement(child, {
         swal: this.swal.bind(this),
         setUser: this.setUser.bind(this),
-        hideAlert: this.hideAlert.bind(this)
+        hideAlert: this.hideAlert.bind(this),
       })
     );
+
+    let loggedIn = !!this.state.username;
 
     return (
       <div>
@@ -45,7 +47,9 @@ class App extends React.Component {
           hideAlert={this.hideAlert.bind(this)}
           username={this.state.username}
         />
-        {childrenWithProps}
+        <div className={`heightManager ${loggedIn ? 'loggedIn' : 'guest'}`}>
+          {childrenWithProps}
+        </div>
         {this.state.alert}
       </div>
     );
