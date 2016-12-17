@@ -1,6 +1,5 @@
 import React from 'react';
 import { Row, Col, Grid } from 'react-bootstrap';
-import ColorFamilySingle from './ColorFamily/ColorFamilySingle.jsx';
 import Swatch from './Swatch.jsx';
 
 class Palette extends React.Component {

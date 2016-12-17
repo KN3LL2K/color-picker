@@ -1,5 +1,4 @@
 import React from 'react';
-import ColorFamily from './ColorFamily.jsx';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {Jumbotron, Button, Row} from 'react-bootstrap';
 import Palette from '../Palette.jsx';
