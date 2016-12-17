@@ -32,6 +32,7 @@ class SwatchPreview extends React.Component {
     let color = this.props.color
     let rgb = hexToRgb(color);
     let isClicked = this.state.copied;
+
     var styles = {
       color: {
         backgroundColor: '#' + color,
@@ -43,11 +44,7 @@ class SwatchPreview extends React.Component {
         zIndex: '1000',
       }
     };
-    // if (this.state.copied) {
-    //   styles.toolTip.opacity = 1;
-    // } else {
-    //   styles.toolTip.opacity = 0;
-    // }
+
     return (
       <li>
         {isClicked ? <Tooltip style={styles.toolTip} placement="top" className="in" id="tooltip">{this.state.toolTipText} Copied!</Tooltip> : null }
@@ -63,8 +60,3 @@ class SwatchPreview extends React.Component {
 }
 
 export default SwatchPreview;
-
-
-        // <CopyToClipboard onCopy={this._onCopyHandler.bind(this)} text={'#' + this.props.color}>
-        //   <div className='sideBarPreview' style={styles.color}></div> #{this.props.color}
-        // </CopyToClipboard>

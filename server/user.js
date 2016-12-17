@@ -13,9 +13,7 @@ userSchema = mongoose.Schema({
       message: 'Username already exists'
     }
   },
-  password: String,
-  // likes: [{type: String, ref: 'ColorFamily'}],
-  // saved: [{type: String, ref: 'ColorFamily'}],
+  password: String
 });
 
 var User = mongoose.model('User', userSchema);
