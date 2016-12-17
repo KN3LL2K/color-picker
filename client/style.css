@@ -65,6 +65,10 @@ body {
   margin-top:52px;
 }
 
+.color-family, .color-family h4 {
+  cursor:pointer;
+}
+
 @media (max-width: 767px) {
   .heightManager.loggedIn {
     height:calc(100vh - 195px);
@@ -80,9 +84,9 @@ body {
   .app-main {
     width:100vw;
   }
-}
-
-@media (max-width: 767px) {
+  .color-family, .color-family h4 {
+    cursor:default;
+  }
 }
 
 .app-sidebar {
@@ -122,14 +126,6 @@ body {
   opacity: 0;
   transition: opacity .2s ease-in-out;
   cursor:default;
-}
-
-.color-family {
-  cursor:pointer;
-}
-
-.color-family h4 {
-  cursor:pointer;
 }
 
 .color-family-info {
