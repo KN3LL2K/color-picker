@@ -65,7 +65,7 @@ body {
   margin-top:52px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .heightManager.loggedIn {
     height:calc(100vh - 195px);
     margin-top:195px;
@@ -74,6 +74,15 @@ body {
     height:calc(100vh - 147px);
     margin-top:147px;
   }
+  .app-sidebar {
+    display:none;
+  }
+  .app-main {
+    width:100vw;
+  }
+}
+
+@media (max-width: 767px) {
 }
 
 .app-sidebar {
