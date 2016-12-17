@@ -128,6 +128,10 @@ body {
   cursor:pointer;
 }
 
+.color-family h4 {
+  cursor:pointer;
+}
+
 .color-family-info {
   margin-top: 20px;
 }
