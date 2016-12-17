@@ -18,7 +18,8 @@ class CreateYourOwn extends React.Component {
       secondary1: '',
       secondary2: '',
       tertiary1: '',
-      tertiary2: ''
+      tertiary2: '',
+      isChanged: false
     };
   }
 
@@ -42,7 +43,7 @@ class CreateYourOwn extends React.Component {
 
     } else {
 
-
+      this.setState({isChanged: true});
     //randomly pick seed color
       let randNum = function() {
         return Math.floor(Math.random() * 254);
@@ -172,6 +173,7 @@ class CreateYourOwn extends React.Component {
   _updateSwatch(color, type) {
     var change = _.extend({}, this.state);
     change[type] = color;
+    change.isChanged = true;
     this.setState(change);
     
   }
@@ -179,13 +181,14 @@ class CreateYourOwn extends React.Component {
   _nameChange(e) {
     e.persist();
     let name = e.target.value;
-    this.setState({name: name});
+    this.setState({
+      name: name,
+      isChanged: true
+    });
   }
 
   _handleSubmit(e) {
     e.preventDefault();
-    // console.log('name', this.state.name);
-    // console.log('palette', this.state);
     let newColor = {
       name: this.state.name,
       colors: {
@@ -252,9 +255,9 @@ class CreateYourOwn extends React.Component {
         <form className="content-wrap" onSubmit={(e) => this._handleSubmit(e)}>
           <div className="input-group">
           Name:
-            <input placeholder='My New Palette' onChange={this._nameChange.bind(this)}/>
+            <input placeholder={localStorage.paletteName} onChange={this._nameChange.bind(this)}/>
             <span className="input-group-btn">
-              <button className="btn btn-default" action='' type="submit">Submit</button>
+              <button className="btn btn-default" disabled={!this.state.isChanged} action='' type="submit">Save</button>
             </span>
           </div>
         </form>

@@ -3,39 +3,29 @@ import ColorInfoView from '../ColorInfoView.jsx';
 import { Panel, Button, Row, Col, Grid, Tooltip } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import SwatchPreview from './SwatchPreview.jsx';
+import request from 'superagent';
 
 class ColorFamilyInfoView extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      // isLiked: false,
+      // likes: 0
+    };
   }
 
-   //convert rgb array e.g.([218, 82, 82]) to hex e.g.'DA5252'
-  rgbToHex (array) {
-    var hexChars = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'};
-    var result = '';
-    for (var i = 0; i < array.length; i++) {
-      var d1 = parseInt(array[i] / 16);
-      result += hexChars[d1];
-      var d2 = array[i] - (d1 * 16);
-      result += hexChars[d2];
-    }
-    return result;
-  }
-     //convert hex string e.g.'DA5252' to rgb array e.g.([218, 82, 82]) 0-255
-  hexToRgb (hex) {
-    var hexChars = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15};
-    var result = [];
-    //remove #
-    hex = hex.toUpperCase().match(/.{1,2}/g);
-    // split
-    var r = hex[0].split(''), g = hex[1].split(''), b = hex[2].split('');
-    
-    result[0] = Math.round(hexChars[r[0]] * 16 + hexChars[r[1]]);
-    result[1] = Math.round(hexChars[g[0]] * 16 + hexChars[g[1]]);
-    result[2] = Math.round(hexChars[b[0]] * 16 + hexChars[b[1]]);
-    return result;
-  }
+  // componentWillMount() {
+  //   console.log('sidebar', this.props);
+  //   this.setState({isLiked: this.props.currentFamily.isLiked,
+  //     likes: this.props.currentFamily.likes});
 
+  // }
+
+  // componentWillReceiveProps() {
+  //   // console.log('props', nextProps);
+  //   this.setState({isLiked: this.props.currentFamily.isLiked,
+  //     likes: this.props.currentFamily.likes});
+  // }
 
   editPalette() {
     let colors = this.props.currentFamily.colors;
@@ -48,10 +38,23 @@ class ColorFamilyInfoView extends React.Component {
     browserHistory.push(`/swatch/edit/${this.props.currentFamily._id}`);
   }
 
+  // _like() {
+  //   this.props.likeHandler();
+  //   // let likesCounter;
+  //   // if (!this.props.currentFamily.isLiked) {
+  //   //   likesCounter = this.state.likes + 1;
+  //   // } else {
+  //   //   likesCounter = this.state.likes - 1;
+  //   // }
+  //   this.setState({isLiked: !this.state.isLiked});
+
+  // }
+
 
   render() {
     // this component can render without a currentFamily
     let colors = this.props.currentFamily.colors || {};
+    
     var styles = {
       borderColor1: {
         margin: '1px',
@@ -113,7 +116,9 @@ class ColorFamilyInfoView extends React.Component {
         <div className="color-family-info">
  
         <h4>Name: {this.props.currentFamily.name}</h4>
-  
+        <div className='likeBtn' onClick={this.props.likeHandler}>
+        { this.props.currentFamily.isLiked ? <i className="fa fa-heart" aria-hidden="true"></i> : <i className='fa fa-heart-o' aria-hidden="true"></i> } {this.props.currentFamily.likes}
+        </div>
         <h5>Click a Code to Copy!</h5>
         <ul style={styles.list}>
           {Object.keys(colors).map((color, key) => <SwatchPreview color={colors[color]} key={color} />)}
