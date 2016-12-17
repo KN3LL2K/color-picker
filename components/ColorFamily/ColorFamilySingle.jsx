@@ -14,7 +14,7 @@ class ColorFamilySingle extends React.Component {
       green: parseInt(result[2], 16),
       blue: parseInt(result[3], 16)
     } : null;
-  }
+  } 
   render() {
     // var rgb = this.hexToRGB(this.props.color);
     let fontColor = null;
