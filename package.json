@@ -4,9 +4,11 @@
   "description": "",
   "main": "server/app.js",
   "scripts": {
-    "start": "nodemon server/app.js",
+    "start": "node server/app.js",
+    "start-watch": "nodemon server/app.js",
     "start-webpack": "webpack --config webpack.config.js --progress --colors --watch",
-    "start-dev": "npm run start & npm run start-webpack"
+    "start-dev": "npm run start-watch & npm run start-webpack",
+    "postinstall": "webpack --config webpack.config.js --progress --colors"
   },
   "repository": {
     "type": "git",
