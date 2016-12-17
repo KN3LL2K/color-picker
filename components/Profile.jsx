@@ -9,7 +9,7 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       loading: true
-    }
+    };
   }
 
   componentWillMount() {
@@ -25,7 +25,7 @@ class Profile extends React.Component {
   }
 
   renderProfile() {
-    let user = this.state.user
+    let user = this.state.user;
     return (
       <Col xs={12}>
         <h1>{user.info.username}&#39;s Profile</h1>
@@ -33,7 +33,7 @@ class Profile extends React.Component {
           <h4>Liked Swatches: {user.userLikes.length}</h4>
           <ul>
             {user.userLikes.map(function(palette, index) {
-             return <li key={index}><Palette colors={palette.colorId.colors}/></li>
+              return <li key={index}><Palette colorFamily={{colors: palette.colorId.colors}} /></li>;
             })}
           </ul>
         </Col>
@@ -41,7 +41,7 @@ class Profile extends React.Component {
           <h4>Created Swatches: {user.swatches.length}</h4>
           <ul>
             {user.swatches.map(function(palette, index) {
-             return <li key={index}><Palette key={index} colors={palette.colors}/></li>
+              return <li key={index}><Palette key={index} colorFamily={{colors: palette.colors}} /></li>;
             })}
           </ul>
         </Col>

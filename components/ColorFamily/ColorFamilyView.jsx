@@ -8,50 +8,23 @@ import Palette from '../Palette.jsx';
 class ColorFamilyView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      hover: false
-    };
-    // this.toggleHover = this.toggleHover.bind(this);
   }
 
   componentDidMount() {
     console.log('cfamv', this.props);
   }
 
-  // toggleHover() {
-  //   this.setState({hover: !this.state.hover});
-  // }
-
-  onClickHandler() {
-    this.props.setCurrentFamily(this.props.colorFamily);
+  onClickHandler(colorFamily) {
+    this.props.setCurrentFamily(colorFamily);
     this.props.toggleSidebarOn();
   }
 
   render() {
-    let styles = {
-      rowStyle: {
-        padding: '0',
-        height: '150px',
-        width: '80%',
-        
-      },
-      view: {
-        minHeight: '1000px',
-        width: '100%',
-        paddingLeft: '10%'
-      },
-      palette: {
-        padding: '0',
-        height: '200px',
-        width: '80%',
-        display: 'flex'
-      }
-    };
     return (
       <div className="content-wrap container-fluid" className='paletteView'>
-        {this.props.colorFamilies.map((obj, index) => {
+        {this.props.colorFamilies.map((colorFamily, index) => {
           return (
-            <Palette key={index} clickHandler={this.onClickHandler.bind(this)} setCurrentFamily={this.props.setCurrentFamily} toggleSidebarOn={this.props.toggleSidebarOn} colorFamily={obj}/> 
+            <Palette key={index} clickHandler={this.onClickHandler.bind(this, colorFamily)} setCurrentFamily={this.props.setCurrentFamily} toggleSidebarOn={this.props.toggleSidebarOn} colorFamily={colorFamily}/> 
           );
         })}
      </div>

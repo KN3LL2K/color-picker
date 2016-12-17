@@ -80,6 +80,7 @@ class Home extends React.Component {
   }
 
   setCurrentFamily(familyData) {
+    console.log('data', familyData);
     this.setState({
       currentFamily: familyData
     });

@@ -9,15 +9,10 @@ class Palette extends React.Component {
     this.state = {
       hover: false
     };
-    // this.toggleHover = this.toggleHover.bind(this);
-    // this.generateSingles = this.generateSingles.bind(this);
   }
 
-  // componentDidMount() {
-  //   console.log('props', this.props);
-  // }
-
   getFamilyColors() {
+    debugger;
     var result = [];
     var colors = this.props.colorFamily.colors;
 
@@ -31,22 +26,10 @@ class Palette extends React.Component {
   }
 
   render() {
-    let styles = {
-      palette: {
-        width: '90%',
-        height: 'auto',
-      },
-      wrapper: {
-        paddingTop: '15px',
-        paddingBottom: '15px'
-      }
-    };
-
     return (
-      <div style={styles.wrapper}>
+      <div className='wrapper'>
         <div onClick={this.props.clickHandler} className='palette row'>
           {this.getFamilyColors().map((color, index) => <Swatch color={color} key={index} />)}
-          <br/><br/>
         </div>
       </div>
     );

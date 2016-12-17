@@ -230,6 +230,9 @@ body {
 .palette {
   padding:0px;
   cursor:default;
+  margin-right:0px;
+  margin-left:0px;
+  font-size:0px;
 }
 
 .swatchPreview {
@@ -252,11 +255,11 @@ body {
 
 .paletteView {
   width: 100%;
-  padding-left: 10%;
-  
+  padding-left: 8.25%;
 }
 
 .palette {
+  position:relative;
   width: 90%;
   height: auto;
 }
@@ -267,14 +270,20 @@ body {
   transition: all 0.3s ease-out;
 }
 
+.wrapper {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
 @media (max-width: 767px ) {
   .palette {
     width: 100%;
+    padding: 0;
   }
   .paletteView {
   width: 100%;
-  padding-left: 0;
-  padding-right:0;
+  padding-left: 0px;
+  padding-right:0px;
   }
   .palette > div {
     display:inline-block;
