@@ -150,6 +150,8 @@ body {
 .sideBarPreview {
   height:20px;
   width:20px;
+  margin:0;
+  padding:0;
 }
 
 #profile {
@@ -157,10 +159,19 @@ body {
 }
 
 .swatchPreview {
-
+  margin:0;
+  padding:0;
 }
 
 .swatchPreview:hover {
   text-decoration: underline;
   text-decoration-color: black;
+  cursor: pointer;
+}
+
+.likeBtn {
+  font-size:1.5em;
+}
+.likeBtn:hover {
+  cursor: pointer;
 }

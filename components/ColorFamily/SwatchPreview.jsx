@@ -15,8 +15,6 @@ class SwatchPreview extends React.Component {
   }
 
   _onCopyHandler(copyVal) {
-    console.log('val', copyVal);
-
     var type = '';
     this.setState({
       copied: true,
@@ -31,24 +29,25 @@ class SwatchPreview extends React.Component {
   }
 
   render() {
+    let isClicked = this.state.copied;
     var styles = {
       color: {
         backgroundColor: '#' + this.props.color
       },
       toolTip: {
-        opacity: 0,
+        opacity: 1,
         transition: 'opacity 0.2s ease-in-out',
         zIndex: '1000',
       }
     };
-    if (this.state.copied) {
-      styles.toolTip.opacity = 1;
-    } else {
-      styles.toolTip.opacity = 0;
-    }
+    // if (this.state.copied) {
+    //   styles.toolTip.opacity = 1;
+    // } else {
+    //   styles.toolTip.opacity = 0;
+    // }
     return (
       <li>
-        <Tooltip style={styles.toolTip} placement="top" className="in" id="tooltip">{this.state.toolTipText} Copied!</Tooltip>
+        {isClicked ? <Tooltip style={styles.toolTip} placement="top" className="in" id="tooltip">{this.state.toolTipText} Copied!</Tooltip> : null }
         <div className='sideBarPreview' style={styles.color}></div>
         <CopyToClipboard onCopy={this._onCopyHandler.bind(this)} text={'#' + this.props.color}>
         <span className='swatchPreview'> #{this.props.color}</span>
