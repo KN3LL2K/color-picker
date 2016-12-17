@@ -7,7 +7,6 @@ import CreateYourOwn from './CreateYourOwn.jsx';
 import {Button, Grid} from 'react-bootstrap';
 import request from 'superagent';
 
-
 //this app relies heavily on React Bootstrap
 //https://react-bootstrap.github.io/ for the documentation
 
@@ -29,6 +28,10 @@ class Home extends React.Component {
     this.toggleSidebarOn = this.toggleSidebarOn.bind(this);
     this.toggleSidebarOff = this.toggleSidebarOff.bind(this);
     this.toggleSubmitForm = this.toggleSubmitForm.bind(this);
+  }
+
+  componentDidMount() {
+    TweenLite.fromTo('.paletteView', 1.25, {y: 999, opacity: 0}, {y: 0, opacity: 1, ease: Expo.easeOut, delay: 0.45});
   }
 
   //Convert hex values to rgb object
