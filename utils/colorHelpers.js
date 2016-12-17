@@ -217,6 +217,7 @@ module.exports.shadesPalette = function(pri) {
   return {primary: pri, secondary1: hslToHex(sec1), secondary2: hslToHex(sec2), tertiary1: hslToHex(tert1), tertiary2: hslToHex(tert2)};
 };
 
+module.exports.hexToRgb = hexToRgb;
 
 // console.log('shades', shadesPalette('DA5252'));
 
