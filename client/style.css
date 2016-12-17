@@ -78,15 +78,23 @@ body {
 .color-single h4 {
   opacity: 0;
   transition: opacity .2s ease-in-out;
+  cursor:default;
 }
 
 /*.color-single:hover h4 {
   opacity: 1;
 }*/
 
+.color-family {
+  cursor:pointer;
+}
 
 .color-family-info {
   margin-top: 20px;
+}
+
+.color-family-info .tooltip-inner {
+  cursor:default;
 }
 
 .tooltip-inner {
@@ -150,6 +158,11 @@ body {
 .sideBarPreview {
   height:20px;
   width:20px;
+  display:inline-block;
+  margin-right:4px;
+  outline-color:#CCC;
+  outline-style:outset;
+  outline-width:1px;
 }
 
 #profile {
@@ -177,6 +190,11 @@ body {
 .palette {
   padding:0px;
   cursor:default;
+}
+
+.swatchPreview {
+  padding-left:3px;
+  cursor:pointer;
 }
 
 .swatchPreview:hover {

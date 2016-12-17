@@ -50,7 +50,7 @@ class ColorFamily extends React.Component {
       }
     };
     return (
-      <Row style={styles.rowStyle} onClick={this.onClickHandler} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} >
+      <Row className="color-family" style={styles.rowStyle} onClick={this.onClickHandler} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} >
         {this.generateSingles()}
       </Row>
     );

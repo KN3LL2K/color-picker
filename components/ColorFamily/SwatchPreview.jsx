@@ -49,9 +49,11 @@ class SwatchPreview extends React.Component {
     return (
       <li>
         <Tooltip style={styles.toolTip} placement="top" className="in" id="tooltip">{this.state.toolTipText} Copied!</Tooltip>
-        <div className='sideBarPreview' style={styles.color}></div>
         <CopyToClipboard onCopy={this._onCopyHandler.bind(this)} text={'#' + this.props.color}>
-        <span className='swatchPreview'> #{this.props.color}</span>
+          <div>
+            <div className='sideBarPreview' style={styles.color}></div>
+            <span className='swatchPreview'>#{this.props.color}</span>
+          </div>
         </CopyToClipboard>
       </li>
     );
