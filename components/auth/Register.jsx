@@ -37,14 +37,14 @@ class Register extends React.Component {
       user.username = username;
       let msg = `Registered as ${user.username}`;
       component.props.swal(
-        <SweetAlert success title={msg} confirmBtnText="Yay!" onConfirm={component.finishRegistration.bind(component, user)}/>
+        <SweetAlert success title={msg} confirmBtnText="Okay!" onConfirm={component.finishRegistration.bind(component, user)}>
+          Please proceed to log in
+        </SweetAlert>
       );
     }).fail(function(err) {
       component.props.swal(
-        <SweetAlert danger title="Woops" confirmBtnText="Aww man!" onConfirm={component.props.hideAlert}>
-          Something went wrong!
-          <br/>
-          (The username is probably already taken)
+        <SweetAlert danger title="This username is already taken" confirmBtnText="Aww man!" onConfirm={component.props.hideAlert}>
+          Please choose another one
         </SweetAlert>
       );
     });
@@ -52,8 +52,7 @@ class Register extends React.Component {
 
   finishRegistration(user) {
     this.props.hideAlert();
-    this.props.setUser(user.username, user.userId);
-    browserHistory.push('/');
+    browserHistory.push('/login');
   }
 
   render() {
