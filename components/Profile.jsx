@@ -30,7 +30,7 @@ class Profile extends React.Component {
       <Col xs={12}>
         <h1>{user.info.username}&#39;s Profile</h1>
         <Col sm={6}>
-          <h4>Liked Swatches: {user.userLikes.length}</h4>
+          <h4>Liked Palettes: {user.userLikes.length}</h4>
           <ul>
             {user.userLikes.map(function(palette, index) {
               return <li key={index}><Palette colorFamily={{colors: palette.colorId.colors}} /></li>;
@@ -38,7 +38,7 @@ class Profile extends React.Component {
           </ul>
         </Col>
         <Col sm={6}>
-          <h4>Created Swatches: {user.swatches.length}</h4>
+          <h4>Created Palettes: {user.swatches.length}</h4>
           <ul>
             {user.swatches.map(function(palette, index) {
               return <li key={index}><Palette key={index} colorFamily={{colors: palette.colors}} /></li>;

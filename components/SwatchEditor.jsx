@@ -24,7 +24,6 @@ class Swatch extends React.Component {
     this.setState({r: RGB[0], g: RGB[1], b: RGB[2]});
   }
   componentWillReceiveProps() {
-    // this.setState({color: this.props.color});
     this.updateFrom();
   }
 
@@ -151,9 +150,7 @@ class Swatch extends React.Component {
          
           <div className='swatch' style={{backgroundColor: '#' + this.props.color}}>
           </div>
-          
           <div className="controlWrapper">
-          
             <div className="input-group swatchinput">
               <span className="input-group-addon" id="basic-addon5"><i className="fa fa-hashtag" aria-hidden="true"></i></span>
               <input type="text" className="form-control" placeholder="Hex code" value={this.state.color} aria-describedby="basic-addon5" onChange={(e) => this._handleHexChange(e)}></input>

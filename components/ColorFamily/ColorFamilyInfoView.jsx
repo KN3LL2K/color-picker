@@ -21,21 +21,8 @@ class ColorFamilyInfoView extends React.Component {
     browserHistory.push(`/swatch/edit/${this.props.currentFamily._id}`);
   }
 
-  // _like() {
-  //   this.props.likeHandler();
-  //   // let likesCounter;
-  //   // if (!this.props.currentFamily.isLiked) {
-  //   //   likesCounter = this.state.likes + 1;
-  //   // } else {
-  //   //   likesCounter = this.state.likes - 1;
-  //   // }
-  //   this.setState({isLiked: !this.state.isLiked});
-
-  // }
-
-
   render() {
-    // this component can render without a currentFamily
+    // This component can render without a currentFamily
     let colors = this.props.currentFamily.colors || {};
     
     var styles = {
