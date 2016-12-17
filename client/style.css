@@ -181,7 +181,7 @@ body {
 }
 
 .palette:hover {
-  box-shadow: 0 2px 2px 5px rgba(0, 0, 0, 0.15);
-
-  transition: all 0.4s ease-out;
+  box-shadow: 0 2px 20px 2px rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  transition: all 0.3s ease-out;
 }

@@ -49,16 +49,19 @@ class Palette extends React.Component {
       palette: {
         width: '90%',
         height: 'auto',
-        // paddingTop: '10px',
-        // paddingBottom: '10px'
-        // position: 'absolute'
+      },
+      wrapper: {
+        paddingTop: '15px',
+        paddingBottom: '15px'
       }
     };
 
     return (
-      <div style={styles.palette} onClick={this.props.clickHandler} className='palette row'>
-        {this.getFamilyColors().map((color, index) => <Swatch color={color} key={index} />)}
-        <br/><br/>
+      <div style={styles.wrapper}>
+        <div style={styles.palette} onClick={this.props.clickHandler} className='palette row'>
+          {this.getFamilyColors().map((color, index) => <Swatch color={color} key={index} />)}
+          <br/><br/>
+        </div>
       </div>
     );
   }
