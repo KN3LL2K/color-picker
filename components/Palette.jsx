@@ -1,20 +1,19 @@
 import React from 'react';
 import { Row, Col, Grid } from 'react-bootstrap';
 import ColorFamilySingle from './ColorFamily/ColorFamilySingle.jsx';
+import Swatch from './Swatch.jsx';
 
 class Palette extends React.Component {
   constructor(props) {
     super(props);
-     this.state = {
+    this.state = {
       hover: false
     };
-    this.toggleHover = this.toggleHover.bind(this);
-    this.generateSingles = this.generateSingles.bind(this);
   }
 
   getFamilyColors() {
     var result = [];
-    var colors = this.props.colors;
+    var colors = this.props.colorFamily.colors;
 
     result.push(colors.tertiary2);
     result.push(colors.tertiary1);
@@ -25,30 +24,13 @@ class Palette extends React.Component {
     return result;
   }
 
-  generateSingles() {
-    // debugger;
-    let component = this;
-    return this.getFamilyColors().map(function(color, index) {
-      return <ColorFamilySingle hover={component.state.hover} color={color} key={index} index={index}/>;
-    });
-  }
-
-  toggleHover() {
-    this.setState({hover: !this.state.hover});
-  }
-
   render() {
-    let styles = {
-      rowStyle: {
-        padding: '10px',
-        height: 'px'
-      }
-    };
-
     return (
-      <Row style={styles.rowStyle} className="palette" onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} >
-        {this.generateSingles()}
-      </Row>
+      <div className='wrapper'>
+        <div onClick={this.props.clickHandler} className='palette row'>
+          {this.getFamilyColors().map((color, index) => <Swatch color={color} key={index} />)}
+        </div>
+      </div>
     );
   }
 }

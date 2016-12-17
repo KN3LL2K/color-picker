@@ -230,6 +230,9 @@ body {
 .palette {
   padding:0px;
   cursor:default;
+  margin-right:0px;
+  margin-left:0px;
+  font-size:0px;
 }
 
 .swatchPreview {
@@ -249,3 +252,42 @@ body {
 .likeBtn:hover {
   cursor: pointer;
 }
+
+.paletteView {
+  width: 100%;
+  padding-left: 8.25%;
+}
+
+.palette {
+  position:relative;
+  width: 90%;
+  height: auto;
+}
+
+.palette:hover {
+  box-shadow: 0 2px 20px 2px rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.wrapper {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+@media (max-width: 767px ) {
+  .palette {
+    width: 100%;
+    padding: 0;
+  }
+  .paletteView {
+  width: 100%;
+  padding-left: 0px;
+  padding-right:0px;
+  }
+  .palette > div {
+    display:inline-block;
+    position:relative;
+  }
+}
+
