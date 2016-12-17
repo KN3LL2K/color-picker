@@ -129,7 +129,6 @@ module.exports = {
         if ( isSaved ) {
           ColorLikes.findOneAndRemove({colorId: colorId, userId: userId}).exec()
             .then(function(color) {
-              console.log('relationship removed', color);
               ColorLikes.find({colorId: colorId})
                 .count(function( err, count) {
                   ColorFamily.findOneAndUpdate({ _id: colorId }, { $inc: { likes: -1 } })
@@ -138,7 +137,6 @@ module.exports = {
                       console.log('err in saving colorsave', err);
                       return next(err);
                     });
-                    console.log(count)
                   res.json(count);
                 })
                 .catch(function(err) {
@@ -153,7 +151,6 @@ module.exports = {
           var newRelationship = new ColorLikes({colorId: colorId, userId: userId});
           newRelationship.save()
             .then(function (color) {
-              console.log('new colorlike', color);
               ColorLikes.find({colorId: colorId})
                 .count(function( err, count) {
                   ColorFamily.findOneAndUpdate({ _id: colorId }, { $inc: { likes: 1 } })
@@ -162,7 +159,6 @@ module.exports = {
                       console.log('err in saving colorsave', err);
                       return next(err);
                     });
-                    console.log(count)
                   res.json(count);
                 })
                 .catch(function(err) {

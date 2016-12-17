@@ -1,5 +1,4 @@
 import React from 'react';
-import ColorInfoView from '../ColorInfoView.jsx';
 import { Panel, Button, Row, Col, Grid, Tooltip } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import SwatchPreview from './SwatchPreview.jsx';
@@ -8,24 +7,8 @@ import request from 'superagent';
 class ColorFamilyInfoView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // isLiked: false,
-      // likes: 0
-    };
+  
   }
-
-  // componentWillMount() {
-  //   console.log('sidebar', this.props);
-  //   this.setState({isLiked: this.props.currentFamily.isLiked,
-  //     likes: this.props.currentFamily.likes});
-
-  // }
-
-  // componentWillReceiveProps() {
-  //   // console.log('props', nextProps);
-  //   this.setState({isLiked: this.props.currentFamily.isLiked,
-  //     likes: this.props.currentFamily.likes});
-  // }
 
   editPalette() {
     let colors = this.props.currentFamily.colors;

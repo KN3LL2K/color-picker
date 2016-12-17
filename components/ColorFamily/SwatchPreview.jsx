@@ -15,8 +15,6 @@ class SwatchPreview extends React.Component {
   }
 
   _onCopyHandler(copyVal) {
-    console.log('val', copyVal);
-
     var type = '';
     this.setState({
       copied: true,

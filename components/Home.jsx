@@ -92,12 +92,12 @@ class Home extends React.Component {
       this.setState({createClass: 'create-family-hidden'});
     }
   }
+
   _like() {
     let colorId = this.state.currentFamily._id;
     let change = _.extend({}, this.state);
     change.currentFamily.isLiked = !this.state.currentFamily.isLiked;
     this.setState(change);
-    console.log('llikes', this.state.currentFamily.isLiked);
     request.post('/api/colors/' + colorId + '/like')
     .send()
     .end(function(err, res) {
@@ -107,12 +107,10 @@ class Home extends React.Component {
         this.setState(change);
         throw err;
       }
-      debugger;
-      console.log('likes', res.body);
       let change = _.extend({}, this.state);
       change.currentFamily.likes = res.body;
       this.setState(change);
-    });
+    }.bind(this));
   }
 
   //Change state of components to display side via css
@@ -137,7 +135,7 @@ class Home extends React.Component {
   //load data before render
   componentWillMount() {
     $.ajax({
-      url: '/api/colors',
+      url: '/api/colors?sort=popular',
       success: function(data) {
         this.setState({ colorFamilies: data });
         this.setState({ allFamilies: data });
