@@ -2,7 +2,6 @@ var bcrypt = require('bcrypt-nodejs');
 require('mongoose').Promise = Promise;
 
 var util = require('../lib/util.js');
-var color = require('../lib/colorHelpers.js');
 
 var ColorFamily = require('../colorFamily.js');
 var User = require('../user.js');
@@ -51,18 +50,6 @@ module.exports = {
         next(err);
       });
   },
-  // probably don't need this anymore, dump on cleanup
-  // createColorSwatch: function(req, res) {
-  //   var seed = req.body.seed;
-  //   var swatches = {
-  //     complementary: color.complementaryPalette(seed),
-  //     splitComplementary: color.splitCPalette(seed),
-  //     analagous: color.analagousPalette(seed),
-  //     triad: color.triadPalette(seed),
-  //     shades: color.shadesPalette(seed)
-  //   };
-  //   res.send(swatches);
-  // },
   saveColor: function(req, res, next) {
     var colorParent = req.body.parent || null;
     var newColor = new ColorFamily ({
@@ -92,7 +79,6 @@ module.exports = {
     var error = false;
 
     var isOk = /(^#[0-9A-F]{6}$)/i;
-    //validate that form dawwwwg
 
     //loop through each key in req.body
       //if req.body[key] = (form validation)
@@ -224,7 +210,6 @@ module.exports = {
   logIn: function(req, res) {
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
-    // send username and id
     res.json({userId: req.user._id, username: req.user.username });
   },
   logOut: function(req, res) {
@@ -241,7 +226,7 @@ module.exports = {
       var newUser = new User({username: username, password: hash});
       newUser.save()
         .then(function (user) {
-          // send user id
+
           res.json({userId: user._id});
         })
         .catch(function(err) {
