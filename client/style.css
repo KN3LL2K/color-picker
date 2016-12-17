@@ -2,14 +2,12 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
-  /*background-color:#7f7f7f;*/
 }
 
 .app-body {
-  position: relative;
-  width: 100%;
-  height: 100%;
-
+  position:absolute;
+  width:100vw;
+  height:100%;
 }
 
 .app-nav {
@@ -18,7 +16,11 @@ body {
 }
 
 .navbar {
+  position:absolute;
+  top:0;
+  width:100vw;
   margin-bottom: 0;
+  z-index:10;
 }
 
 .create-family-show {
@@ -38,38 +40,70 @@ body {
   transition: all .3s ease-in-out;
 }
 
-.app-main {
-  width: 70%;
+.app-main, .app-main-full {
+  top:0;
   position: absolute;
   left: 0;
-  padding: 80px 0 20px 0;
+  padding: 40px 0 20px 0;
   transition: width .3s ease-in-out;
+  overflow-y:auto;
+  height: 100%;
+}
+
+.app-main {
+  width: 70vw;
 }
 
 .app-main-full {
-  width: 100%;
-  position: absolute;
-  left: 0;
-  padding: 80px 0 20px 0;
-  transition: width .3s ease-in-out;
+  width: 100vw;
+}
+
+.heightManager {
+  position:absolute;
+  height:calc(100vh - 52px);
+  width:100vw;
+  margin-top:52px;
+}
+
+@media (max-width: 768px) {
+  .heightManager.loggedIn {
+    height:calc(100vh - 195px);
+    margin-top:195px;
+  }
+  .heightManager.guest {
+    height:calc(100vh - 147px);
+    margin-top:147px;
+  }
 }
 
 .app-sidebar {
-  position: fixed;
+  position: absolute;
   right: 0;
-  width: 30%;
+  width: 30vw;
   height: 100%;
-  padding: 80px 30px 30px 30px;
   background-color: #f8f8f8;
   border-left: 1px solid #e7e7e7;
   transition: right .3s ease-in-out;
+  top:0px;
+  overflow-y:auto;
 }
+
+.app-sidebar .sidebar-scrollable {
+  height: 100%;
+  overflow-y: auto;
+  padding:48px 30px 30px 30px;;
+}
+
+.sidebar-content {
+  top:0;
+}
+
 .app-sidebar-hidden {
-  position: fixed;
+  position: absolute;
   right: -30%;
   width: 30%;
   height: 100%;
-  padding: 80px 30px 30px 30px;
+  padding-top: 80px;
   background-color: #f8f8f8;
   border-left: 1px solid #e7e7e7;
   transition: right .3s ease-in-out;
@@ -78,15 +112,27 @@ body {
 .color-single h4 {
   opacity: 0;
   transition: opacity .2s ease-in-out;
+  cursor:default;
 }
 
-/*.color-single:hover h4 {
-  opacity: 1;
-}*/
+.color-family {
+  cursor:pointer;
+}
 
+.color-family h4 {
+  cursor:pointer;
+}
 
 .color-family-info {
   margin-top: 20px;
+}
+
+.color-family-info .tooltip-inner {
+  cursor:default;
+}
+
+.color-family-info > ul {
+  padding-left:0px;
 }
 
 .tooltip-inner {
@@ -136,8 +182,6 @@ body {
 }
 
 #registerForm button, #loginForm button {
-  /*width:80%;
-  margin-left:10%;*/
   margin: 0 auto;
   display: block;
   padding: 6px 24px;
@@ -150,17 +194,42 @@ body {
 .sideBarPreview {
   height:20px;
   width:20px;
+  display:inline-block;
+  margin-right:4px;
   margin:0;
   padding:0;
 }
 
 #profile {
-  padding-top:64px;
+  padding-top:48px;
+  padding-left:0px;
+  padding-right:0px;
+}
+
+#profile ul {
+  list-style:none;
+  padding:0px;
+  margin:0px;
+}
+
+#profile h1, #profile h4 {
+  text-align:center;
+}
+
+#profile > .col-xs-12,
+#profile > .col-xs-12 > .col-xs-6 {
+  padding-left:0px;
+  padding-right:0px;
+}
+
+.palette {
+  padding:0px;
+  cursor:default;
 }
 
 .swatchPreview {
-  margin:0;
-  padding:0;
+  padding-left:6px;
+  cursor:pointer;
 }
 
 .swatchPreview:hover {

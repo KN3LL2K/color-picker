@@ -2,7 +2,7 @@ import React from 'react';
 import { Panel, Button, Row, Col, Grid, Tooltip } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import CopyToClipboard from 'react-copy-to-clipboard';
-
+import { hexToRgb } from '../../utils/colorHelpers.js';
 
 class SwatchPreview extends React.Component {
   constructor(props) {
@@ -29,10 +29,13 @@ class SwatchPreview extends React.Component {
   }
 
   render() {
+    let color = this.props.color
+    let rgb = hexToRgb(color);
     let isClicked = this.state.copied;
     var styles = {
       color: {
-        backgroundColor: '#' + this.props.color
+        backgroundColor: '#' + color,
+        boxShadow: `0px 2px 6px 0px rgba(120, 120, 120, 0.25), 0px 2px 6px 0px rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.15)`
       },
       toolTip: {
         opacity: 1,
@@ -48,9 +51,11 @@ class SwatchPreview extends React.Component {
     return (
       <li>
         {isClicked ? <Tooltip style={styles.toolTip} placement="top" className="in" id="tooltip">{this.state.toolTipText} Copied!</Tooltip> : null }
-        <div className='sideBarPreview' style={styles.color}></div>
         <CopyToClipboard onCopy={this._onCopyHandler.bind(this)} text={'#' + this.props.color}>
-        <span className='swatchPreview'> #{this.props.color}</span>
+          <div>
+            <div className='sideBarPreview' style={styles.color}></div>
+            <span className='swatchPreview'>#{this.props.color}</span>
+          </div>
         </CopyToClipboard>
       </li>
     );
