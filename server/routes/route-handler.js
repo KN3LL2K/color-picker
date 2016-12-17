@@ -2,7 +2,6 @@ var bcrypt = require('bcrypt-nodejs');
 require('mongoose').Promise = Promise;
 
 var util = require('../lib/util.js');
-var color = require('../lib/colorHelpers.js');
 
 var ColorFamily = require('../colorFamily.js');
 var User = require('../user.js');
