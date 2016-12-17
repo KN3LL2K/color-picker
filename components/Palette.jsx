@@ -12,7 +12,6 @@ class Palette extends React.Component {
   }
 
   getFamilyColors() {
-    debugger;
     var result = [];
     var colors = this.props.colorFamily.colors;
 
