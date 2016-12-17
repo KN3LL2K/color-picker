@@ -65,7 +65,11 @@ body {
   margin-top:52px;
 }
 
-@media (max-width: 768px) {
+.color-family, .color-family h4 {
+  cursor:pointer;
+}
+
+@media (max-width: 767px) {
   .heightManager.loggedIn {
     height:calc(100vh - 195px);
     margin-top:195px;
@@ -73,6 +77,15 @@ body {
   .heightManager.guest {
     height:calc(100vh - 147px);
     margin-top:147px;
+  }
+  .app-sidebar {
+    display:none;
+  }
+  .app-main {
+    width:100vw;
+  }
+  .color-family, .color-family h4 {
+    cursor:default;
   }
 }
 
@@ -113,14 +126,6 @@ body {
   opacity: 0;
   transition: opacity .2s ease-in-out;
   cursor:default;
-}
-
-.color-family {
-  cursor:pointer;
-}
-
-.color-family h4 {
-  cursor:pointer;
 }
 
 .color-family-info {
