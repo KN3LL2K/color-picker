@@ -8,7 +8,7 @@
     "start-watch": "nodemon server/app.js",
     "start-webpack": "webpack --config webpack.config.js --progress --colors --watch",
     "start-dev": "npm run start-watch & npm run start-webpack",
-    "postinstall": "node ./node_modules/webpack/bin/webpack.js -p --config webpack.config.js --progress --colors"
+    "postinstall": "node node_modules/webpack/bin/webpack.js -p --config webpack.config.js --progress --colors"
   },
   "repository": {
     "type": "git",
