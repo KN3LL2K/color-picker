@@ -38,8 +38,7 @@ class ColorFamilyView extends React.Component {
       view: {
         minHeight: '1000px',
         width: '100%',
-        paddingLeft: '5%',
-        marginLeft: '50px'
+        paddingLeft: '10%'
       },
       palette: {
         padding: '0',
@@ -49,7 +48,7 @@ class ColorFamilyView extends React.Component {
       }
     };
     return (
-      <div className="content-wrap container-fluid" style={styles.view}>
+      <div className="content-wrap container-fluid" className='paletteView'>
         {this.props.colorFamilies.map((obj, index) => {
           return (
             <Palette key={index} clickHandler={this.onClickHandler.bind(this)} setCurrentFamily={this.props.setCurrentFamily} toggleSidebarOn={this.props.toggleSidebarOn} colorFamily={obj}/> 

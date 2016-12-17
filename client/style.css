@@ -176,8 +176,15 @@ body {
   cursor: pointer;
 }
 
-.palette {
+.paletteView {
+  width: 100%;
+  padding-left: 10%;
+  
+}
 
+.palette {
+  width: 90%;
+  height: auto;
 }
 
 .palette:hover {
@@ -185,3 +192,19 @@ body {
   cursor: pointer;
   transition: all 0.3s ease-out;
 }
+
+@media (max-width: 767px ) {
+  .palette {
+    width: 100%;
+  }
+  .paletteView {
+  width: 100%;
+  padding-left: 0;
+  padding-right:0;
+  }
+  .palette > div {
+    display:inline-block;
+    position:relative;
+  }
+}
+
