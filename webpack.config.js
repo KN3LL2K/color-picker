@@ -29,7 +29,7 @@ module.exports = {
     root: [
       path.join(__dirname, 'node_modules'),
     ],
-  }
+  },
   plugins: [
     new webpack.DefinePlugin({  // <-- Key to reducing React's size
       'process.env': {
