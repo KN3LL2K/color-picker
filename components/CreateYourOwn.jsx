@@ -184,6 +184,7 @@ class CreateYourOwn extends React.Component {
   }
 
   _handleSubmit(e) {
+    console.log('save');
     e.preventDefault();
     let newColor = {
       name: this.state.name,
@@ -233,13 +234,10 @@ class CreateYourOwn extends React.Component {
             <MenuItem onSelect={this._analagous.bind(this)} eventKey="5">Analogous</MenuItem>
             <MenuItem onSelect={this._shades.bind(this)} eventKey="6">Shades</MenuItem>
           </SplitButton>
-
           <FormGroup style={styles.nameForm} onSubmit={(e) => this._handleSubmit(e)}>
-              <FormControl type='text' placeholder={this.state.name} onChange={this._nameChange.bind(this)}/>
-          </FormGroup>
-            <span>
+              <FormControl placeholder={this.state.name} onChange={this._nameChange.bind(this)}/>
                 <button className="btn btn-default" disabled={!this.state.isChanged} action='' type="submit">Save</button>
-            </span>
+          </FormGroup>
         </div>
 
         <br/>
