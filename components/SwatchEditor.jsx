@@ -12,7 +12,7 @@ class Swatch extends React.Component {
       g: 0,
       b: 0
     };
-    this.updateColor = _.debounce(this._hexUpdate.bind(this), 250);
+    this.updateColor = _.debounce(this._hexUpdate.bind(this), 750);
     this.updateRed = _.debounce(this._rUpdate, 250);
     this.updateGreen = _.debounce(this._gUpdate, 250);
     this.updateBlue = _.debounce(this._bUpdate, 250);

@@ -30,6 +30,7 @@ module.exports = {
       path.join(__dirname, 'node_modules'),
     ],
   },
+  devtool: '#inline-source-map',
   // plugins: [
   //   new webpack.DefinePlugin({  // <-- Key to reducing React's size
   //     'process.env': {
