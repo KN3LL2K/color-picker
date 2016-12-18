@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, Grid, FormGroup, FormControl} from 'react-bootstrap';
+import { Row, Col, Grid, FormGroup, FormControl, SplitButton, MenuItem } from 'react-bootstrap';
 import $ from 'jquery';
 import SwatchEditor from './SwatchEditor.jsx';
 import color from '../utils/colorHelpers.js';
@@ -213,25 +213,34 @@ class CreateYourOwn extends React.Component {
   }
 
   render() {
+
+    let styles = {
+      nameForm: {
+        marginLeft: '10px'
+      }
+    };
+
     return (
       <div>
-        <div className="input-group buttonRow">
-          <span className="input-group-btn">
-            <button className="btn btn-default" onClick={this._complementary.bind(this)}>Complementary</button>
-          </span>
-          <span className="input-group-btn">
-            <button className="btn btn-default" onClick={this._splitComplementary.bind(this)}>Split Complementary</button>
-          </span>
-          <span className="input-group-btn">
-            <button className="btn btn-default" onClick={this._triad.bind(this)}>Triad</button>
-          </span>
-          <span className="input-group-btn">
-            <button className="btn btn-default" onClick={this._analagous.bind(this)}>Analogous</button>
-          </span>
-          <span className="input-group-btn">
-            <button className="btn btn-default" onClick={this._shades.bind(this)}>Shades</button>
-          </span>
-      </div>
+        <div className="buttonRow">
+                
+          <SplitButton title="Select a pattern" pullRight id="split-button-pull-right">
+            <MenuItem eventKey="1">Select a pattern</MenuItem>
+            <MenuItem divider />
+            <MenuItem onSelect={this._complementary.bind(this)} eventKey="2">Complementary</MenuItem>
+            <MenuItem onSelect={this._splitComplementary.bind(this)} eventKey="3">Split Complementary</MenuItem>
+            <MenuItem onSelect={this._triad.bind(this)} eventKey="4">Triad</MenuItem>
+            <MenuItem onSelect={this._analagous.bind(this)} eventKey="5">Analogous</MenuItem>
+            <MenuItem onSelect={this._shades.bind(this)} eventKey="6">Shades</MenuItem>
+          </SplitButton>
+
+          <FormGroup style={styles.nameForm} onSubmit={(e) => this._handleSubmit(e)}>
+              <FormControl type='text' placeholder={this.state.name} onChange={this._nameChange.bind(this)}/>
+          </FormGroup>
+            <span>
+                <button className="btn btn-default" disabled={!this.state.isChanged} action='' type="submit">Save</button>
+            </span>
+        </div>
 
         <br/>
         <div className='editorWrapper row'>
@@ -240,17 +249,7 @@ class CreateYourOwn extends React.Component {
           <SwatchEditor update={this._updateSwatch.bind(this)} type={'primary'} color={this.state.primary} />
           <SwatchEditor update={this._updateSwatch.bind(this)} type={'secondary2'} color={this.state.secondary2} />
           <SwatchEditor update={this._updateSwatch.bind(this)} type={'tertiary2'} color={this.state.tertiary2} />
-        </div>
-        <div className='nameForm'>
-          <FormGroup onSubmit={(e) => this._handleSubmit(e)}>
-            <FormControl placeholder={this.state.name} onChange={this._nameChange.bind(this)}/>
-            <br/><br/>
-              <button className="btn btn-default" disabled={!this.state.isChanged} action='' type="submit">Save</button>
-            
-              
-          </FormGroup>
-        </div>
-        
+        </div>        
       </div>
     );
   }

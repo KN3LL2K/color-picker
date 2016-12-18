@@ -162,14 +162,23 @@ body {
 }
 
 .buttonRow {
-  padding-top:10px;
-  height:50px;
+  padding-top:20px;
+  /*height:50px;*/
   width: 100%;
 
-  padding-left:20%;
-  padding-right:20%;
-  display:inline-block;
-  justify-content: flex-end;
+  /*padding-left:20%;*/
+  /*padding-right:20%;*/
+  display:flex;
+  justify-content: center;
+} 
+
+.buttonRow button {
+  margin-left:10px;
+}
+
+.buttonRow form {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .swatchEditor {
