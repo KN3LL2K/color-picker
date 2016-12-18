@@ -11,7 +11,11 @@ class TopBar extends React.Component {
     super(props);
     this.state = {
       alert: null
-    }
+    };
+  }
+
+  componentDidMount() {
+    TweenLite.fromTo('.navBar', 1.25, {y: -50, opacity: 0}, {y: 0, opacity: 1, ease: Expo.easeOut, delay: 0.5});
   }
 
   logout() {
@@ -57,7 +61,7 @@ class TopBar extends React.Component {
   }
   render() {
     return (
-      <Navbar inverse>
+      <Navbar inverse className='navBar'>
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">Colorz.io</Link>

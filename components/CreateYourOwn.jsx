@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, Grid} from 'react-bootstrap';
+import {Row, Col, Grid, FormGroup, FormControl} from 'react-bootstrap';
 import $ from 'jquery';
 import SwatchEditor from './SwatchEditor.jsx';
 import color from '../utils/colorHelpers.js';
@@ -215,48 +215,42 @@ class CreateYourOwn extends React.Component {
   render() {
     return (
       <div>
+        <div className="input-group buttonRow">
+          <span className="input-group-btn">
+            <button className="btn btn-default" onClick={this._complementary.bind(this)}>Complementary</button>
+          </span>
+          <span className="input-group-btn">
+            <button className="btn btn-default" onClick={this._splitComplementary.bind(this)}>Split Complementary</button>
+          </span>
+          <span className="input-group-btn">
+            <button className="btn btn-default" onClick={this._triad.bind(this)}>Triad</button>
+          </span>
+          <span className="input-group-btn">
+            <button className="btn btn-default" onClick={this._analagous.bind(this)}>Analogous</button>
+          </span>
+          <span className="input-group-btn">
+            <button className="btn btn-default" onClick={this._shades.bind(this)}>Shades</button>
+          </span>
+      </div>
+
         <br/>
-        <div className='swatchWrapper'>
+        <div className='editorWrapper row'>
           <SwatchEditor update={this._updateSwatch.bind(this)} type={'tertiary1'} color={this.state.tertiary1} />
           <SwatchEditor update={this._updateSwatch.bind(this)} type={'secondary1'} color={this.state.secondary1} />
           <SwatchEditor update={this._updateSwatch.bind(this)} type={'primary'} color={this.state.primary} />
           <SwatchEditor update={this._updateSwatch.bind(this)} type={'secondary2'} color={this.state.secondary2} />
           <SwatchEditor update={this._updateSwatch.bind(this)} type={'tertiary2'} color={this.state.tertiary2} />
         </div>
-
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        
-          <div className="input-group">
-              <span className="input-group-btn">
-                <button className="btn btn-default" onClick={this._complementary.bind(this)}>Complementary</button>
-              </span>
-              <span className="input-group-btn">
-                <button className="btn btn-default" onClick={this._splitComplementary.bind(this)}>Split Complementary</button>
-              </span>
-              <span className="input-group-btn">
-                <button className="btn btn-default" onClick={this._triad.bind(this)}>Triad</button>
-              </span>
-              <span className="input-group-btn">
-                <button className="btn btn-default" onClick={this._analagous.bind(this)}>Analogous</button>
-              </span>
-              <span className="input-group-btn">
-                <button className="btn btn-default" onClick={this._shades.bind(this)}>Shades</button>
-              </span>
-          </div>
-        
-        <form className="content-wrap" onSubmit={(e) => this._handleSubmit(e)}>
-          <div className="input-group">
-          Name:
-            <input placeholder={this.state.name} onChange={this._nameChange.bind(this)}/>
-            <span className="input-group-btn">
+        <div className='nameForm'>
+          <FormGroup onSubmit={(e) => this._handleSubmit(e)}>
+            <FormControl placeholder={this.state.name} onChange={this._nameChange.bind(this)}/>
+            <br/><br/>
               <button className="btn btn-default" disabled={!this.state.isChanged} action='' type="submit">Save</button>
-            </span>
-          </div>
-        </form>
+            
+              
+          </FormGroup>
+        </div>
+        
       </div>
     );
   }

@@ -146,30 +146,28 @@ class Swatch extends React.Component {
     let g = this.state.g;
     let b = this.state.b;
     return (
-      <div className='container swatchEditor' style={{padding: 0}}>
+      <div className='container swatchEditor'>
          
           <div className='swatch' style={{backgroundColor: '#' + this.props.color}}>
           </div>
-          
-          <div className="input-group swatchinput">
-
-            <span className="input-group-addon" id="basic-addon5"><i className="fa fa-hashtag" aria-hidden="true"></i></span>
-            <input type="text" className="form-control" placeholder="Hex code" value={this.state.color} aria-describedby="basic-addon5" onChange={(e) => this._handleHexChange(e)}></input>
-          </div>
-          <div>
-            
-          </div>
-          <div className='input-group swatchinput'>
-            <span className="input-group-addon" id="basic-addon5">RGB: </span>
-            <input type="text" className="form-control" placeholder="R" value={this.state.r} aria-describedby="basic-addon5" onChange={(e) => this._handleRChange(e)}></input>
-            <input type='range' name='red' value={r} min={0} max={255} step={1}
-            onChange={(e) => this._sliderRChange(e)}></input>
-            <input type="text" className="form-control" placeholder="G" value={this.state.g} aria-describedby="basic-addon5" onChange={(e) => this._handleGChange(e)}></input>
-            <input type='range' name='red' value={g} min={0} max={255} step={1}
-            onChange={(e) => this._sliderGChange(e)}></input>
-            <input type="text" className="form-control" placeholder="B" value={this.state.b} aria-describedby="basic-addon5" onChange={(e) => this._handleBChange(e)}></input>
-            <input type='range' name='red' value={b} min={0} max={255} step={1}
-            onChange={(e) => this._sliderBChange(e)}></input>
+          <div className="controlWrapper">
+            <div className="input-group swatchinput">
+              <span className="input-group-addon" id="basic-addon5"><i className="fa fa-hashtag" aria-hidden="true"></i></span>
+              <input type="text" className="form-control" placeholder="Hex code" value={this.state.color} aria-describedby="basic-addon5" onChange={(e) => this._handleHexChange(e)}></input>
+            </div>
+            <br/>
+            <div className='input-group swatchinput'>
+              <span className="input-group-addon" id="basic-addon5">RGB: </span>
+              <input type="text" className="form-control" placeholder="R" value={this.state.r} aria-describedby="basic-addon5" onChange={(e) => this._handleRChange(e)}></input>
+              <input type='range' name='red' value={r} min={0} max={255} step={1}
+              onChange={(e) => this._sliderRChange(e)}></input>
+              <input type="text" className="form-control" placeholder="G" value={this.state.g} aria-describedby="basic-addon5" onChange={(e) => this._handleGChange(e)}></input>
+              <input type='range' name='red' value={g} min={0} max={255} step={1}
+              onChange={(e) => this._sliderGChange(e)}></input>
+              <input type="text" className="form-control" placeholder="B" value={this.state.b} aria-describedby="basic-addon5" onChange={(e) => this._handleBChange(e)}></input>
+              <input type='range' name='red' value={b} min={0} max={255} step={1}
+              onChange={(e) => this._sliderBChange(e)}></input>
+            </div>
           </div>
       </div>
     );
