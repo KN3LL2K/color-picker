@@ -24,11 +24,7 @@ Many app developers lack the artistic savvy to create an aesthetically pleasing 
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node 6.3.1
 
 ## Development
 
@@ -37,9 +33,7 @@ Many app developers lack the artistic savvy to create an aesthetically pleasing 
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
 ```
 
 ### Roadmap
