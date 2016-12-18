@@ -175,4 +175,11 @@ class Swatch extends React.Component {
 }
 
 
+// <div class="form-group row">
+//   <label for="example-color-input" class="col-xs-2 col-form-label">Color</label>
+//   <div class="col-xs-10">
+//     <input class="form-control" type="color" value="#563d7c" id="example-color-input">
+//   </div>
+// </div>
+
 export default Swatch;
