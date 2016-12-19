@@ -5,7 +5,7 @@ import SwatchEditor from './SwatchEditor.jsx';
 import color from '../utils/colorHelpers.js';
 import _ from 'lodash';
 import request from 'superagent';
-
+import { browserHistory } from 'react-router';
 
 class CreateYourOwn extends React.Component {
   constructor(props) {
@@ -203,6 +203,7 @@ class CreateYourOwn extends React.Component {
       if (err) {
         throw err;
       }
+      browserHistory.push(`/profile/${localStorage.userId}`);
     });
 
     delete localStorage.primary;
