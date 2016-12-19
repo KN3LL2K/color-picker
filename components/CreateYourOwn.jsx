@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Grid, FormGroup, FormControl, SplitButton, MenuItem } from 'react-bootstrap';
+import { Row, Col, Grid, FormGroup, FormControl, SplitButton, MenuItem, Button, InputGroup } from 'react-bootstrap';
 import $ from 'jquery';
 import SwatchEditor from './SwatchEditor.jsx';
 import color from '../utils/colorHelpers.js';
@@ -184,6 +184,7 @@ class CreateYourOwn extends React.Component {
   }
 
   _handleSubmit(e) {
+    console.log('save');
     e.preventDefault();
     let newColor = {
       name: this.state.name,
@@ -233,13 +234,14 @@ class CreateYourOwn extends React.Component {
             <MenuItem onSelect={this._analagous.bind(this)} eventKey="5">Analogous</MenuItem>
             <MenuItem onSelect={this._shades.bind(this)} eventKey="6">Shades</MenuItem>
           </SplitButton>
-
           <FormGroup style={styles.nameForm} onSubmit={(e) => this._handleSubmit(e)}>
-              <FormControl type='text' placeholder={this.state.name} onChange={this._nameChange.bind(this)}/>
+              <FormControl placeholder={this.state.name} onChange={this._nameChange.bind(this)} />
           </FormGroup>
-            <span>
-                <button className="btn btn-default" disabled={!this.state.isChanged} action='' type="submit">Save</button>
-            </span>
+              <span>
+                <button onClick={(e) => this._handleSubmit(e)} className="btn btn-default" disabled={!this.state.isChanged} action='' type="submit">
+                Save
+                </button>
+              </span>
         </div>
 
         <br/>
