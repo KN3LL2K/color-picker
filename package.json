@@ -5,8 +5,7 @@
   "main": "server/app.js",
   "scripts": {
     "start": "node server/app.js",
-    "start-watch": "nodemon server/app.js",
-    "start-webpack": "webpack --config webpack.config.js --progress --colors --watch",
+    "start-webpack": "node_modules/webpack/bin/webpack.js --config webpack.config.js --progress --colors --watch",
     "start-dev": "npm run start-watch & npm run start-webpack",
     "webpack": "node node_modules/webpack/bin/webpack.js",
     "postinstall": "npm run webpack"
